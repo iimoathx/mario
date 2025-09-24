@@ -3426,10 +3426,22 @@ window.addEventListener("load", function () {
         this.Pg.removeChildren();
         this.Qg.removeChildren();
         this.Sg.removeChildren();
-        this.Lg.$g(_0x2a43c7.xg === _0x2e4f75.Ac.vg ? _0x200914.xe._g : _0x200914.xe.ah);
+        // تطبيق الخلفية المحفوظة بدلاً من الافتراضية
+        const savedBgIndex = parseInt(localStorage.getItem('worm_bg_index')) || 0;
+        if (savedBgIndex > 0 && window.gameBackgrounds) {
+            const savedTexture = new pixiElements.m(function () {
+                var backgroundTexture = pixiElements.l.from(window.gameBackgrounds[savedBgIndex]);
+                backgroundTexture.wrapMode = pixiElements.C.D;
+                return backgroundTexture;
+            }());
+            this.Lg.$g(savedTexture);
+        } else {
+            this.Lg.$g(_0x2a43c7.xg === Game.Ac.vg ? _0x200914.xe._g : _0x200914.xe.ah);
+        }
+        
         var _0x2e55f2 = this.Ng;
         _0x2e55f2.clear();
-        _0x2e55f2.lineStyle(0.5, 54271, 1);
+        _0x2e55f2.lineStyle(0.2, 16711680, 0.3);
         _0x2e55f2.drawCircle(0, 0, _0x2a43c7.zg);
         _0x2e55f2.endFill();
         this.Vg.bh = _0x2f0e22;
