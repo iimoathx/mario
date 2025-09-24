@@ -4641,41 +4641,47 @@ window.addEventListener("load", function () {
         }
       };
       _0x437959.prototype.Fj = function (_0xdda0c6, _0x4eefaf) {
-        if (!_0x3b5dc5().Lc.Wb() || this.Cj(_0xdda0c6, _0x4eefaf)) {
-          switch (_0x4eefaf) {
+    if (!_0x3b5dc5().Lc.Wb() || this.Cj(_0xdda0c6, _0x4eefaf)) {
+        switch (_0x4eefaf) {
             case Game.tj.sj:
-              if (this.lj !== _0xdda0c6) {
-                this.lj = _0xdda0c6;
-                this.Aj();
-              }
-              return;
+                if (this.lj !== _0xdda0c6) {
+                    this.lj = _0xdda0c6;
+                    window.WormCustomSaver.save('skin', _0xdda0c6);
+                    this.Aj();
+                }
+                return;
             case Game.tj.uj:
-              if (this.mj !== _0xdda0c6) {
-                this.mj = _0xdda0c6;
-                this.Aj();
-              }
-              return;
+                if (this.mj !== _0xdda0c6) {
+                    this.mj = _0xdda0c6;
+                    window.WormCustomSaver.save('eyes', _0xdda0c6);
+                    this.Aj();
+                }
+                return;
             case Game.tj.vj:
-              if (this.nj !== _0xdda0c6) {
-                this.nj = _0xdda0c6;
-                this.Aj();
-              }
-              return;
+                if (this.nj !== _0xdda0c6) {
+                    this.nj = _0xdda0c6;
+                    window.WormCustomSaver.save('mouth', _0xdda0c6);
+                    this.Aj();
+                }
+                return;
             case Game.tj.wj:
-              if (this.oj !== _0xdda0c6) {
-                this.oj = _0xdda0c6;
-                this.Aj();
-              }
-              return;
+                if (this.oj !== _0xdda0c6) {
+                    this.oj = _0xdda0c6;
+                    window.WormCustomSaver.save('glasses', _0xdda0c6);
+                    this.Aj();
+                }
+                return;
             case Game.tj.xj:
-              if (this.pj !== _0xdda0c6) {
-                this.pj = _0xdda0c6;
-                this.Aj();
-              }
-              return;
-          }
+                if (this.pj !== _0xdda0c6) {
+                    this.pj = _0xdda0c6;
+                    window.WormCustomSaver.save('hat', _0xdda0c6);
+                    this.Aj();
+                }
+                return;
         }
-      };
+    }
+};
+
       _0x437959.prototype.Cj = function (_0xf59878, _0x5c3309) {
         var _0x4265a3 = this.Gj(_0xf59878, _0x5c3309);
         return _0x4265a3 != null && (_0x3b5dc5().Ij.Hj() ? _0x4265a3.Jj() === 0 && !_0x4265a3.Kj() || _0x3b5dc5().Ij.Lj(_0xf59878, _0x5c3309) : _0x4265a3.Mj());
