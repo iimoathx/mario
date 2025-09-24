@@ -3568,20 +3568,20 @@ window.addEventListener("load", function () {
           this.Sg.addChild(_0x5028b8);
         }
       };
-      var _0x336db4 = function () {
-        return _0x305823.M(_0x11ca30.k, function () {
-          _0x11ca30.k.call(this);
+ var _0x336db4 = function () {
+        return getRandomElement.M(pixiElements.k, function () {
+          pixiElements.k.call(this);
           this.kh = 40;
-          this.qh = new _0x11ca30.r();
+          this.qh = new pixiElements.r();
           this.qh.anchor.set(0.5);
-          this.jh = new _0x11ca30.o();
+          this.jh = new pixiElements.o();
           var _0x48d4d3 = game_cont.offsetWidth;
           var _0x3fe6cc = game_cont.offsetHeight;
-          var _0x3aadd9 = new _0x11ca30.o();
+          var _0x3aadd9 = new pixiElements.o();
           _0x3aadd9.beginFill("black", 0.4);
           _0x3aadd9.drawCircle(0, 0, this.kh);
           _0x3aadd9.endFill();
-          _0x3aadd9.lineStyle(2, 16777215);
+          _0x3aadd9.lineStyle(2, 16225317);
           _0x3aadd9.drawCircle(0, 0, this.kh);
           _0x3aadd9.moveTo(0, -this.kh);
           _0x3aadd9.lineTo(0, +this.kh);
@@ -3592,10 +3592,10 @@ window.addEventListener("load", function () {
           this.jh.zIndex = 2;
           this.jh.alpha = 0.9;
           this.jh.beginFill(16225317);
-          this.jh.drawCircle(0, 0, this.kh * 0.06);
+          this.jh.drawCircle(0, 0, this.kh * 0.09);
           this.jh.endFill();
           this.jh.lineStyle(1, "black");
-          this.jh.drawCircle(0, 0, this.kh * 0.06);
+          this.jh.drawCircle(0, 0, this.kh * 0.09);
           this.jh.endFill();
           this.addChild(_0x3aadd9);
           this.addChild(this.qh);
