@@ -259,7 +259,7 @@ function decodeUnicode(str) {
 
 //const TIME = Date.now();
 
-async function loadServers() {
+async function loadServers(retryCount = 0) {
     try {
         const link = document.createElement("link");
         link.rel = "stylesheet";
@@ -298,7 +298,7 @@ async function loadServers() {
                     $("#adbl-continue").click();
                 });
                 
-            }, 1000);
+            }, 1500);
             
             servers.Api_listServer = [];
             
@@ -307,8 +307,12 @@ async function loadServers() {
         }
         
     } catch (error) {
-        alert(`Failed to load TimMap: ${error.message}`);
-        servers.Api_listServer = [];
+        if (retryCount < 3) {
+            setTimeout(() => loadServers(retryCount + 1), 2000);
+        } else {
+            alert(`Failed to load TimMap: ${error.message}`);
+            servers.Api_listServer = [];
+        }
     }
 }
 
