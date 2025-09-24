@@ -579,52 +579,6 @@ function addHTML() {
   theoKzObjects.adblock = true;
   theoEvents.aip = true;
  
-  var _0x2fc1aa = {
-    sao: "br",
-    vin: "Virginia - EEUU",
-    dal: "Dallas - EEUU",
-    fra: "Frankfurt - Alemania",
-    sgp: "sg",
-    tok: "jp",
-    syd: "au",
-    lon: "gb",
-    tor: "ca",
-    mex: "mx",
-    sin: "sg",
-    hil: "Honolulu - HawÃ¡i, EEUU",
-    gra: "de"
-  };
-  var _0xd8f885 = [{
-    code: "br",
-    name: "Peru"
-  }, {
-    code: "mx",
-    name: "Mexico"
-  }, {
-    code: "us",
-    name: "EEUU"
-  }, {
-    code: "ca",
-    name: "Canada"
-  }, {
-    code: "de",
-    name: "Germania"
-  }, {
-    code: "fr",
-    name: "Francia"
-  }, {
-    code: "sg",
-    name: "Singapur"
-  }, {
-    code: "jp",
-    name: "Japon"
-  }, {
-    code: "au",
-    name: "Australia"
-  }, {
-    code: "gb",
-    name: "Granbretana"
-  }];
  
   
   $(".mm-merchant-cont").replaceWith("");
