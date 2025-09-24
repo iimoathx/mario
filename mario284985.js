@@ -326,7 +326,7 @@ function decodeUnicode(str) {
     });
 }
 
-const TIME = Date.now();
+
 
 async function loadServers() {
     try {
