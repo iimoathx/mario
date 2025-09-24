@@ -597,11 +597,7 @@ let backgroundArena = [{
 function addHTML() {
   theoKzObjects.adblock = true;
   theoEvents.aip = true;
-  $(".description-text").empty();
-  $("#mm-skin-prev svg").remove();
-  $("#mm-skin-next svg").remove();
-  $(".mm-logo").attr("src", "https://i.imgur.com/jXzoG5D.png");
-  $(".loading-logo").attr("src", "https://i.imgur.com/jXzoG5D.png");
+ 
   var _0x2fc1aa = {
     sao: "br",
     vin: "Virginia - EEUU",
