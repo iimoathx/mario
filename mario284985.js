@@ -4792,7 +4792,7 @@ window.addEventListener("load", function () {
     }();
     
  
-    }
+    
     
     this.ah = new pixiElements.m(function () {
         var _0x476baf = pixiElements.l.from("/images/bg-pattern-pow2-TEAM2.png");
