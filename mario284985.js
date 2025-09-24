@@ -48,7 +48,7 @@ const _wrmxt = {
     }
     try {
       let _0x4af323 = $("#inputReplaceSkin").val();
-      return encodeURI(_wrmxt.isNumberValid(_0x4af323) ? _0x4af323 : theoKzObjects.idReplaceSkin || 35);
+      return encodeURI(_wrmxt.isNumberValid(_0x4af323) ? _0x4af323 : gameSettings.idReplaceSkin || 35);
     } catch (_0x2f75fa) {
       return encodeURI(35);
     }
@@ -69,16 +69,16 @@ const mobileAndTabletCheck = function () {
   return _0x17f57e;
 };
 const setIdReplaceSkin = function (_0x1bc278) {
-  theoKzObjects.idReplaceSkin = _wrmxt.isNumberValid(_0x1bc278.value) ? _0x1bc278.value : 35;
-  localStorage.setItem("SaveGameXT", JSON.stringify(theoKzObjects));
+  gameSettings.idReplaceSkin = _wrmxt.isNumberValid(_0x1bc278.value) ? _0x1bc278.value : 35;
+  localStorage.setItem("SaveGameXT", JSON.stringify(gameSettings));
 };
 const setMinimapX = function (_0x12b673) {
-  theoKzObjects.MinimapPositionX = _wrmxt.isNumberValid(_0x12b673.value) ? _0x12b673.value : 60;
-  localStorage.setItem("SaveGameXT", JSON.stringify(theoKzObjects));
+  gameSettings.MinimapPositionX = _wrmxt.isNumberValid(_0x12b673.value) ? _0x12b673.value : 60;
+  localStorage.setItem("SaveGameXT", JSON.stringify(gameSettings));
 };
 const setLeaderboardX = function (_0x37000b) {
-  theoKzObjects.LeaderboardPositionX = _wrmxt.isNumberValid(_0x37000b.value) ? _0x37000b.value : 225;
-  localStorage.setItem("SaveGameXT", JSON.stringify(theoKzObjects));
+  gameSettings.LeaderboardPositionX = _wrmxt.isNumberValid(_0x37000b.value) ? _0x37000b.value : 225;
+  localStorage.setItem("SaveGameXT", JSON.stringify(gameSettings));
 };
 const removeJoy = function () {
   if (joystick) {
@@ -131,7 +131,7 @@ var _0x6286x22 = 1;
 var _0x6286x23 = true;
 var game_cont = document.getElementById("game-cont");
 var game_canvas = document.getElementById("game-canvas");
-var theoKzObjects = {
+var gameSettings = {
   FB_UserID: "",
   expirationDate: "",
   mo: 1,
@@ -201,10 +201,10 @@ saveGameLocal = localStorage.getItem("SaveGameXT");
 if (saveGameLocal && saveGameLocal !== "null") {
   let t = JSON.parse(saveGameLocal);
   for (let e in t) {
-    theoKzObjects[e] = t[e];
+    gameSettings[e] = t[e];
   }
 }
-theoKzObjects.loading = true;
+gameSettings.loading = true;
 var fps_counter = 0;
 var fps_startTime = 0;
 var fps_value = 12.345;
@@ -225,10 +225,10 @@ async function loadUsers() {
       let _0x1b07ad = _0xe42f6e.users;
       console.log(_0x1b07ad);
       clientes.clientesActivos = _0x1b07ad.filter(_0x3b9190 => {
-        return _0x3b9190.cliente_STATE == theoKzObjects.CLIENTE_ADMIN || _0x3b9190.cliente_STATE == theoKzObjects.CLIENTE_ACTIVO;
+        return _0x3b9190.cliente_STATE == gameSettings.CLIENTE_ADMIN || _0x3b9190.cliente_STATE == gameSettings.CLIENTE_ACTIVO;
       });
       clientes.clientesVencidos = _0x1b07ad.filter(_0x1e3808 => {
-        return _0x1e3808.cliente_STATE == theoKzObjects.CLIENTE_INACTIVO;
+        return _0x1e3808.cliente_STATE == gameSettings.CLIENTE_INACTIVO;
       });
       console.log(clientes);
     } else {
@@ -576,7 +576,7 @@ let backgroundArena = [{
   url: "https://i.imgur.com/Dp5FFto.png"
 }];
 function addHTML() {
-  theoKzObjects.adblock = true;
+  gameSettings.adblock = true;
   theoEvents.aip = true;
  
  
@@ -634,62 +634,62 @@ function addHTML() {
     localStorage.removeItem("scriptSeleccionado");
     location.reload();
   });
-  $("#loa831pibur0w4gv").replaceWith("<div id=\"settins-container\"style=\" border-radius: 5px;background: rgba(0,0,0,.25);height: 280px;margin: 30px 0;overflow: scroll;padding: 2px 5px;box-sizing: border-box;color: rgba(255,255,255,.8); \"><div class=\"label\" id=\"titleSetings\">Settings</div><div class=\"container\"><span class=\"settings_span\" id=\"extesnionVersionTime\">You use the trial version, activate and discover new options: <a href=\"https://wormxt.theoxt.com\">Actived</a>" + ("<button style=\"cursor:pointer;\" onclick=\"navigator.clipboard.writeText('" + theoKzObjects.FB_UserID + "').then(()=> alert('You ID " + theoKzObjects.FB_UserID + " copiado! copied!'));\">Copy you basic ID: Copy</button></span>") + "</div><div class=\"container\"><span class=\"settings_span\" >SkinVisible(Public): </span><input style=\"width: 60px\" type=\"text\" name=\"inputReplaceSkin\" id=\"inputReplaceSkin\" value=\"35\" maxlength=\"4\" onchange=\"setIdReplaceSkin(this)\"></div><div class=\"container\"><span class=\"settings_span\">power ups Size: </span><input id=\"PortionSize\" class=\"range\" type=\"range\" min=\"1\" max=\"6\" value=\"" + theoKzObjects.PortionSize + "\" step=\"1\" onmousemove=\"rangevalue1.value=value\" /><output id=\"rangevalue1\">" + theoKzObjects.PortionSize + "</output></div><div class=\"container\"><span class=\"settings_span\">power ups Aura: </span><input id=\"PortionAura\" class=\"range\" type=\"range\" min=\"1.2\" max=\"3.2\" value=\"" + theoKzObjects.PortionAura + "\" step=\"0.2\" onmousemove=\"PortionAuravalue.value=value\" /><output id=\"PortionAuravalue\">" + theoKzObjects.PortionAura + "</output></div><div class=\"container\"><span class=\"settings_span\">Comida Size: </span><input id=\"FoodSize\" class=\"range\" type=\"range\" min=\"0.5\" max=\"3\" value=\"" + theoKzObjects.FoodSize + "\" step=\"0.5\" onmousemove=\"rangevalue2.value=value\" /><output id=\"rangevalue2\">" + theoKzObjects.FoodSize + "</output></div><div class=\"container\"><span class=\"settings_span\">Comida Shadow: </span><input id=\"FoodShadow\" class=\"range\" type=\"range\" min=\"0.5\" max=\"3\" value=\"" + theoKzObjects.FoodShadow + "\" step=\"0.5\" onmousemove=\"FoodShadowvalue.value=value\" /><output id=\"FoodShadowvalue\">" + theoKzObjects.FoodShadow + "</output></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Hide TOP TEAMMATES</span><input class=\"settings-switchZoom\" id=\"settings-TopTeamMate-switch\" type=\"checkbox\"><label for=\"settings-TopTeamMate-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Show TOP SCORE</span><input class=\"settings-switchZoom\" id=\"settings-topscore-switch\" type=\"checkbox\"><label for=\"settings-topscore-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Arrow(Mobile)</span><input class=\"settings-switchZoom\" id=\"settings-Arrow-switch\" type=\"checkbox\"><label for=\"settings-Arrow-switch\"></label></div><div class=\"settings-lineZoom\" id=\"addsettings\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Hide Ability Speed</span><input class=\"settings-switchZoom\" id=\"settings-AbilitySpeed-switch\" type=\"checkbox\"><label for=\"settings-AbilitySpeed-switch\"></label></div><div class='cursor-container'></div><div class='background-container'></div></div>");
+  $("#loa831pibur0w4gv").replaceWith("<div id=\"settins-container\"style=\" border-radius: 5px;background: rgba(0,0,0,.25);height: 280px;margin: 30px 0;overflow: scroll;padding: 2px 5px;box-sizing: border-box;color: rgba(255,255,255,.8); \"><div class=\"label\" id=\"titleSetings\">Settings</div><div class=\"container\"><span class=\"settings_span\" id=\"extesnionVersionTime\">You use the trial version, activate and discover new options: <a href=\"https://wormxt.theoxt.com\">Actived</a>" + ("<button style=\"cursor:pointer;\" onclick=\"navigator.clipboard.writeText('" + gameSettings.FB_UserID + "').then(()=> alert('You ID " + gameSettings.FB_UserID + " copiado! copied!'));\">Copy you basic ID: Copy</button></span>") + "</div><div class=\"container\"><span class=\"settings_span\" >SkinVisible(Public): </span><input style=\"width: 60px\" type=\"text\" name=\"inputReplaceSkin\" id=\"inputReplaceSkin\" value=\"35\" maxlength=\"4\" onchange=\"setIdReplaceSkin(this)\"></div><div class=\"container\"><span class=\"settings_span\">power ups Size: </span><input id=\"PortionSize\" class=\"range\" type=\"range\" min=\"1\" max=\"6\" value=\"" + gameSettings.PortionSize + "\" step=\"1\" onmousemove=\"rangevalue1.value=value\" /><output id=\"rangevalue1\">" + gameSettings.PortionSize + "</output></div><div class=\"container\"><span class=\"settings_span\">power ups Aura: </span><input id=\"PortionAura\" class=\"range\" type=\"range\" min=\"1.2\" max=\"3.2\" value=\"" + gameSettings.PortionAura + "\" step=\"0.2\" onmousemove=\"PortionAuravalue.value=value\" /><output id=\"PortionAuravalue\">" + gameSettings.PortionAura + "</output></div><div class=\"container\"><span class=\"settings_span\">Comida Size: </span><input id=\"FoodSize\" class=\"range\" type=\"range\" min=\"0.5\" max=\"3\" value=\"" + gameSettings.FoodSize + "\" step=\"0.5\" onmousemove=\"rangevalue2.value=value\" /><output id=\"rangevalue2\">" + gameSettings.FoodSize + "</output></div><div class=\"container\"><span class=\"settings_span\">Comida Shadow: </span><input id=\"FoodShadow\" class=\"range\" type=\"range\" min=\"0.5\" max=\"3\" value=\"" + gameSettings.FoodShadow + "\" step=\"0.5\" onmousemove=\"FoodShadowvalue.value=value\" /><output id=\"FoodShadowvalue\">" + gameSettings.FoodShadow + "</output></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Hide TOP TEAMMATES</span><input class=\"settings-switchZoom\" id=\"settings-TopTeamMate-switch\" type=\"checkbox\"><label for=\"settings-TopTeamMate-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Show TOP SCORE</span><input class=\"settings-switchZoom\" id=\"settings-topscore-switch\" type=\"checkbox\"><label for=\"settings-topscore-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Arrow(Mobile)</span><input class=\"settings-switchZoom\" id=\"settings-Arrow-switch\" type=\"checkbox\"><label for=\"settings-Arrow-switch\"></label></div><div class=\"settings-lineZoom\" id=\"addsettings\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Hide Ability Speed</span><input class=\"settings-switchZoom\" id=\"settings-AbilitySpeed-switch\" type=\"checkbox\"><label for=\"settings-AbilitySpeed-switch\"></label></div><div class='cursor-container'></div><div class='background-container'></div></div>");
   $("#PortionSize").on("input", function () {
-    theoKzObjects.PortionSize = $(this).val();
-    localStorage.PotenciadorSize = theoKzObjects.PortionSize;
+    gameSettings.PortionSize = $(this).val();
+    localStorage.PotenciadorSize = gameSettings.PortionSize;
   });
   $("#PortionAura").on("input", function () {
-    theoKzObjects.PortionAura = $(this).val();
-    localStorage.PotenciadorAura = theoKzObjects.PortionAura;
+    gameSettings.PortionAura = $(this).val();
+    localStorage.PotenciadorAura = gameSettings.PortionAura;
   });
   $("#FoodSize").on("input", function () {
-    theoKzObjects.FoodSize = $(this).val();
-    localStorage.ComidaSize = theoKzObjects.FoodSize;
+    gameSettings.FoodSize = $(this).val();
+    localStorage.ComidaSize = gameSettings.FoodSize;
   });
   $("#FoodShadow").on("input", function () {
-    theoKzObjects.FoodShadow = $(this).val();
-    localStorage.ComidaShadow = theoKzObjects.FoodShadow;
+    gameSettings.FoodShadow = $(this).val();
+    localStorage.ComidaShadow = gameSettings.FoodShadow;
   });
   $("#settings-AbilitySpeed-switch").on("click", function () {
     if (this.checked) {
       console.log("I am checked");
-      theoKzObjects.SpeedAbility = false;
+      gameSettings.SpeedAbility = false;
     } else {
       console.log("I'm not checked");
-      theoKzObjects.SpeedAbility = true;
+      gameSettings.SpeedAbility = true;
     }
   });
   $("#settings-TopTeamMate-switch").on("click", function () {
     if (this.checked) {
       console.log("I am checked");
-      theoKzObjects.visibleTOPTeam = false;
+      gameSettings.visibleTOPTeam = false;
     } else {
       console.log("I'm not checked");
-      theoKzObjects.visibleTOPTeam = true;
+      gameSettings.visibleTOPTeam = true;
     }
   });
   $("#settings-topscore-switch").on("click", function () {
     if (this.checked) {
-      theoKzObjects.topHS = false;
+      gameSettings.topHS = false;
     } else {
-      theoKzObjects.topHS = true;
+      gameSettings.topHS = true;
     }
   });
   $("#settings-Arrow-switch").on("click", function () {
     if (this.checked) {
-      theoKzObjects.arrow = true;
+      gameSettings.arrow = true;
     } else {
-      theoKzObjects.arrow = false;
+      gameSettings.arrow = false;
     }
   });
-  let _0x31fdcc = _wrmxt.isNumberValid(theoKzObjects.idReplaceSkin);
+  let _0x31fdcc = _wrmxt.isNumberValid(gameSettings.idReplaceSkin);
   if (_0x31fdcc) {
-    $("#inputReplaceSkin").val(theoKzObjects.idReplaceSkin);
+    $("#inputReplaceSkin").val(gameSettings.idReplaceSkin);
   } else {
     let _0x25f6fb = $("#inputReplaceSkin").val();
     _0x31fdcc = _wrmxt.isNumberValid(_0x25f6fb);
-    theoKzObjects.idReplaceSkin = _0x31fdcc ? _0x25f6fb : 35;
+    gameSettings.idReplaceSkin = _0x31fdcc ? _0x25f6fb : 35;
   }
   ;
   $("#KeyRespawn,#KeyAutoMov").on("keydown", function (_0x18bd50) {
@@ -769,22 +769,22 @@ function addHTML() {
 }
 function addPay5html() {
   $("#addsettings").after("<div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Hide All Ability</span><input class=\"settings-switchZoom\" id=\"settings-AllAbility-switch\" type=\"checkbox\"><label for=\"settings-AllAbility-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">headShots Guie</span><input class=\"settings-switchZoom\" id=\"settings-hs_helper-switch\" type=\"checkbox\"><label for=\"settings-hs_helper-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Habilidad ComerSpeed</span><input class=\"settings-switchZoom\" id=\"settings-Abilityzoom-switch\" type=\"checkbox\"><label for=\"settings-Abilityzoom-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Laser HS(Artiker)</span><input class=\"settings-switchZoom\" id=\"settings-laserHS-switch\" type=\"checkbox\"><label for=\"settings-laserHS-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Vueltas rapidas (â†”)</span><input class=\"settings-switchZoom\" id=\"settings-Abilityzoom2-switch\" type=\"checkbox\"><label for=\"settings-Abilityzoom2-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Vueltas rapidas (â†•)</span><input class=\"settings-switchZoom\" id=\"settings-Abilityzoom3-switch\" type=\"checkbox\"><label for=\"settings-Abilityzoom3-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Streming Mode</span><input class=\"settings-switchZoom\" id=\"settings-Streming-switch\" type=\"checkbox\"><label for=\"settings-Streming-switch\"></label></div><div class=\"container\"><span class=\"settings_span\">Minimap position ->: </span><input style=\"width: 60px\" type=\"text\" placeholder=\"60\"  name=\"setMinimapX\" id=\"setMinimapX\" value=\"35\" maxlength=\"4\" onchange=\"setMinimapX(this)\"></div><div class=\"container\"><span class=\"settings_span\">Leaderboard position <-: </span><input style=\"width: 60px\" type=\"text\"  placeholder=\"225\" name=\"setLeaderboardX\" id=\"setLeaderboardX\" value=\"35\" maxlength=\"4\" onchange=\"setLeaderboardX(this)\"></div>");
-  let _0x3a3173 = _wrmxt.isNumberValid(theoKzObjects.MinimapPositionX);
+  let _0x3a3173 = _wrmxt.isNumberValid(gameSettings.MinimapPositionX);
   if (_0x3a3173) {
-    $("#setMinimapX").val(theoKzObjects.MinimapPositionX);
+    $("#setMinimapX").val(gameSettings.MinimapPositionX);
   } else {
     let _0x5d52b4 = $("#setMinimapX").val();
     _0x3a3173 = _wrmxt.isNumberValid(_0x5d52b4);
-    theoKzObjects.MinimapPositionX = _0x3a3173 ? _0x5d52b4 : 60;
+    gameSettings.MinimapPositionX = _0x3a3173 ? _0x5d52b4 : 60;
   }
   ;
-  let _0x360920 = _wrmxt.isNumberValid(theoKzObjects.LeaderboardPositionX);
+  let _0x360920 = _wrmxt.isNumberValid(gameSettings.LeaderboardPositionX);
   if (_0x360920) {
-    $("#setLeaderboardX").val(theoKzObjects.LeaderboardPositionX);
+    $("#setLeaderboardX").val(gameSettings.LeaderboardPositionX);
   } else {
     let _0x3bfeff = $("#setLeaderboardX").val();
     _0x360920 = _wrmxt.isNumberValid(_0x3bfeff);
-    theoKzObjects.LeaderboardPositionX = _0x360920 ? _0x3bfeff : 0;
+    gameSettings.LeaderboardPositionX = _0x360920 ? _0x3bfeff : 0;
   }
   ;
   $("#settings-AllAbility-switch").on("click", function () {
@@ -796,50 +796,50 @@ function addPay5html() {
   });
   $("#settings-Streming-switch").on("click", function () {
     if (this.checked) {
-      theoKzObjects.isModeStreming = true;
+      gameSettings.isModeStreming = true;
     } else {
-      theoKzObjects.isModeStreming = false;
+      gameSettings.isModeStreming = false;
     }
   });
   $("#settings-laserHS-switch").on("click", function () {
     if (this.checked) {
-      theoKzObjects.laserHS = true;
+      gameSettings.laserHS = true;
     } else {
-      theoKzObjects.laserHS = false;
+      gameSettings.laserHS = false;
     }
   });
   $("#settings-hs_helper-switch").on("click", function () {
     if (this.checked) {
-      theoKzObjects.hs_Guie = true;
+      gameSettings.hs_Guie = true;
     } else {
-      theoKzObjects.hs_Guie = false;
+      gameSettings.hs_Guie = false;
     }
   });
   $("#settings-Abilityzoom-switch").on("click", function () {
     if (this.checked) {
       console.log("I am checked");
-      theoKzObjects.eat_animation = 1;
+      gameSettings.eat_animation = 1;
     } else {
       console.log("I'm not checked");
-      theoKzObjects.eat_animation = 0.0025;
+      gameSettings.eat_animation = 0.0025;
     }
   });
   $("#settings-Abilityzoom2-switch").on("click", function () {
     if (this.checked) {
       console.log("I am checked");
-      theoKzObjects.smoothCameraX = 0.2;
+      gameSettings.smoothCameraX = 0.2;
     } else {
       console.log("I'm not checked");
-      theoKzObjects.smoothCameraX = 0.5;
+      gameSettings.smoothCameraX = 0.5;
     }
   });
   $("#settings-Abilityzoom3-switch").on("click", function () {
     if (this.checked) {
       console.log("I am checked");
-      theoKzObjects.smoothCameraY = 0.2;
+      gameSettings.smoothCameraY = 0.2;
     } else {
       console.log("I'm not checked");
-      theoKzObjects.smoothCameraY = 0.5;
+      gameSettings.smoothCameraY = 0.5;
     }
   });
 }
@@ -848,10 +848,10 @@ function addPay3html() {
   $("#settings-Abilityzoom-switch").on("click", function () {
     if (this.checked) {
       console.log("I am checked");
-      theoKzObjects.eat_animation = 1;
+      gameSettings.eat_animation = 1;
     } else {
       console.log("I'm not checked");
-      theoKzObjects.eat_animation = 0.0025;
+      gameSettings.eat_animation = 0.0025;
     }
   });
   $("#settings-AllAbility-switch").on("click", function () {
@@ -863,27 +863,27 @@ function addPay3html() {
   });
   $("#settings-hs_helper-switch").on("click", function () {
     if (this.checked) {
-      theoKzObjects.hs_Guie = true;
+      gameSettings.hs_Guie = true;
     } else {
-      theoKzObjects.hs_Guie = false;
+      gameSettings.hs_Guie = false;
     }
   });
   $("#settings-Abilityzoom2-switch").on("click", function () {
     if (this.checked) {
       console.log("I am checked");
-      theoKzObjects.smoothCameraX = 0.2;
+      gameSettings.smoothCameraX = 0.2;
     } else {
       console.log("I'm not checked");
-      theoKzObjects.smoothCameraX = 0.5;
+      gameSettings.smoothCameraX = 0.5;
     }
   });
   $("#settings-Abilityzoom3-switch").on("click", function () {
     if (this.checked) {
       console.log("I am checked");
-      theoKzObjects.smoothCameraY = 0.2;
+      gameSettings.smoothCameraY = 0.2;
     } else {
       console.log("I'm not checked");
-      theoKzObjects.smoothCameraY = 0.5;
+      gameSettings.smoothCameraY = 0.5;
     }
   });
 }
@@ -893,28 +893,28 @@ function addNoPayHTML() {
   $(".description-text").replaceWith("<div class=\"description-text\">");
   $(".description-text").prepend("<p id='title'>WormateXT</p>");
   $("#title").after("<img src=\"https://i.imgur.com/G1ElnhP.png\" width=\"56\" alt=\"\" style=\"border-radius: 50px;left: 11%;position: fixed;\"> <div id=\"msg1\"></div>");
-  $("#msg1").after("<div id=\"idwormxt\" style=\"position:relative;top:65px;text-align: center\">\n        <input type=\"text\" value=\"" + theoKzObjects.FB_UserID + "\" style=\"width: 230px;text-align: center;border-radius: 4px;font-size: 20px;padding: 0 6px;background-color: #fff;color: #806102;display: block;box-sizing: border-box;-webkit-appearance: none;outline: 0;border-width: 0;\">\n        <button style=\"cursor:pointer;\" onclick=\"navigator.clipboard.writeText('" + theoKzObjects.FB_UserID + "').then(()=> alert('You ID " + theoKzObjects.FB_UserID + " copiado! copied!'));\">COPY</button>\n        <input type=\"button\" value=\"FB: ACTIVATE ALL\" target=\"_blank\" onclick=\"window.location.href='" + _0x36d006 + "'\" style=\"margin-top: 5px;width: 100%;background-color: #2374e1;border-radius: 5px;color: #fff;cursor: pointer;border-color: #222;\">\n        <input type=\"button\" value=\"DC: ACTIVATE ALL\" target=\"_blank\" onclick=\"window.location.href='" + _0x1da17b + "'\" style=\"margin-top: 5px;width: 100%;background-color: #5865F2;border-radius: 5px;color: #fff;cursor: pointer;border-color: #222;\">\n    </div>");
+  $("#msg1").after("<div id=\"idwormxt\" style=\"position:relative;top:65px;text-align: center\">\n        <input type=\"text\" value=\"" + gameSettings.FB_UserID + "\" style=\"width: 230px;text-align: center;border-radius: 4px;font-size: 20px;padding: 0 6px;background-color: #fff;color: #806102;display: block;box-sizing: border-box;-webkit-appearance: none;outline: 0;border-width: 0;\">\n        <button style=\"cursor:pointer;\" onclick=\"navigator.clipboard.writeText('" + gameSettings.FB_UserID + "').then(()=> alert('You ID " + gameSettings.FB_UserID + " copiado! copied!'));\">COPY</button>\n        <input type=\"button\" value=\"FB: ACTIVATE ALL\" target=\"_blank\" onclick=\"window.location.href='" + _0x36d006 + "'\" style=\"margin-top: 5px;width: 100%;background-color: #2374e1;border-radius: 5px;color: #fff;cursor: pointer;border-color: #222;\">\n        <input type=\"button\" value=\"DC: ACTIVATE ALL\" target=\"_blank\" onclick=\"window.location.href='" + _0x1da17b + "'\" style=\"margin-top: 5px;width: 100%;background-color: #5865F2;border-radius: 5px;color: #fff;cursor: pointer;border-color: #222;\">\n    </div>");
 }
 function setKillsCounts(_0x5cc0dd, _0x483185) {
   const _0x3d56c2 = function (_0x188136, _0x11e5e8, _0x47a329, _0x36ffdd) {
     ctx.setCountGame(_0x188136, _0x11e5e8, _0x47a329, _0x36ffdd);
   };
   if (_0x5cc0dd === "count") {
-    theoKzObjects.kill = (theoKzObjects.kill || 0) + (_0x483185 ? 0 : 1);
-    theoKzObjects.headshot = (theoKzObjects.headshot || 0) + (_0x483185 ? 1 : 0);
-    _0x3d56c2(theoKzObjects.kill, theoKzObjects.headshot, theoKzObjects.totalKills, theoKzObjects.totalHeadshots);
+    gameSettings.kill = (gameSettings.kill || 0) + (_0x483185 ? 0 : 1);
+    gameSettings.headshot = (gameSettings.headshot || 0) + (_0x483185 ? 1 : 0);
+    _0x3d56c2(gameSettings.kill, gameSettings.headshot, gameSettings.totalKills, gameSettings.totalHeadshots);
   }
   if (_0x5cc0dd === "open") {
-    theoKzObjects.kill = 0;
-    theoKzObjects.headshot = 0;
-    _0x3d56c2(theoKzObjects.kill, theoKzObjects.headshot, theoKzObjects.totalKills, theoKzObjects.totalHeadshots);
+    gameSettings.kill = 0;
+    gameSettings.headshot = 0;
+    _0x3d56c2(gameSettings.kill, gameSettings.headshot, gameSettings.totalKills, gameSettings.totalHeadshots);
   }
   if (_0x5cc0dd === "closed") {}
   if (_0x5cc0dd === "cerrar") {
-    theoKzObjects.kill = 0;
-    theoKzObjects.headshot = 0;
-    theoKzObjects.totalKills = 0;
-    theoKzObjects.totalHeadshots = 0;
+    gameSettings.kill = 0;
+    gameSettings.headshot = 0;
+    gameSettings.totalKills = 0;
+    gameSettings.totalHeadshots = 0;
   }
 }
 _0x6286xb0 = function () {
@@ -2363,31 +2363,31 @@ window.addEventListener("load", function () {
           this.oc.Oc();
         }
         var _0x2cab80 = _0x34feb8.dd[_0x2e4f75.fd.pd];
-        if (theoPay3PacketObjects.visiblePowersAll && theoKzObjects.FlexAbility && this.qc[0].gd() && _0x2cab80 != null && _0x2cab80.hd) {
+        if (theoPay3PacketObjects.visiblePowersAll && gameSettings.FlexAbility && this.qc[0].gd() && _0x2cab80 != null && _0x2cab80.hd) {
           this.oc.activeFlex(_0x34feb8, _0xf3c3ff, _0x13df6c, _0x1b127c);
         } else {
           this.oc.disableFlex();
         }
         var _0x5721e4 = _0x34feb8.dd[_0x2e4f75.fd.qd];
-        if (theoPay3PacketObjects.visiblePowersAll && theoKzObjects.ZoomAbility && this.qc[0].gd() && _0x5721e4 != null && _0x5721e4.hd) {
+        if (theoPay3PacketObjects.visiblePowersAll && gameSettings.ZoomAbility && this.qc[0].gd() && _0x5721e4 != null && _0x5721e4.hd) {
           this.oc.activeZoom(_0x34feb8, _0xf3c3ff, _0x13df6c, _0x1b127c);
         } else {
           this.oc.disableZoom();
         }
         var _0x144899 = _0x34feb8.dd[_0x2e4f75.fd.rd];
-        if (theoPay3PacketObjects.visiblePowersAll && theoKzObjects.x2Ability && this.qc[0].gd() && _0x144899 != null && _0x144899.hd) {
+        if (theoPay3PacketObjects.visiblePowersAll && gameSettings.x2Ability && this.qc[0].gd() && _0x144899 != null && _0x144899.hd) {
           this.oc.activeX2(_0x34feb8, _0xf3c3ff, _0x13df6c, _0x1b127c);
         } else {
           this.oc.disableX2();
         }
         var _0x46b45c = _0x34feb8.dd[_0x2e4f75.fd.sd];
-        if (theoPay3PacketObjects.visiblePowersAll && theoKzObjects.x5Ability && this.qc[0].gd() && _0x46b45c != null && _0x46b45c.hd) {
+        if (theoPay3PacketObjects.visiblePowersAll && gameSettings.x5Ability && this.qc[0].gd() && _0x46b45c != null && _0x46b45c.hd) {
           this.oc.activeX5(_0x34feb8, _0xf3c3ff, _0x13df6c, _0x1b127c);
         } else {
           this.oc.disableX5();
         }
         var _0xe8a0a3 = _0x34feb8.dd[_0x2e4f75.fd.td];
-        if (theoPay3PacketObjects.visiblePowersAll && theoKzObjects.x10Ability && this.qc[0].gd() && _0xe8a0a3 != null && _0xe8a0a3.hd) {
+        if (theoPay3PacketObjects.visiblePowersAll && gameSettings.x10Ability && this.qc[0].gd() && _0xe8a0a3 != null && _0xe8a0a3.hd) {
           this.oc.activeX10(_0x34feb8, _0xf3c3ff, _0x13df6c, _0x1b127c);
         } else {
           this.oc.disableX10();
@@ -2569,10 +2569,10 @@ window.addEventListener("load", function () {
         }).fail(function () {
           _0x3ef8e8.Sd(new Error());
         }).done(function (_0xc243f0) {
-          theoKzObjects.visibleSkin = _0xc243f0.visibleSkin;
+          gameSettings.visibleSkin = _0xc243f0.visibleSkin;
           delete _0xc243f0.visibleSkin;
-          theoKzObjects.pL = _0xc243f0.propertyList;
-          theoKzObjects.idSkin = _0xc243f0.skinArrayDict;
+          gameSettings.pL = _0xc243f0.propertyList;
+          gameSettings.idSkin = _0xc243f0.skinArrayDict;
           if (_0xc243f0.revision <= _0x3ef8e8.zd) {
             _0x3ef8e8.Td();
             return;
@@ -3449,8 +3449,8 @@ window.addEventListener("load", function () {
           }
           this.Gg = Math.sin(_0x5bfbe9 / 1200 * 2 * Math.PI);
           var _0x2611c5 = _0x19fd20.fh();
-          this.Yg.x = getRandomElement.R(this.Yg.x, _0x2611c5.x, _0x47355b, theoKzObjects.smoothCameraX, 33.333);
-          this.Yg.y = getRandomElement.R(this.Yg.y, _0x2611c5.y, _0x47355b, theoKzObjects.smoothCameraY, 33.333);
+          this.Yg.x = getRandomElement.R(this.Yg.x, _0x2611c5.x, _0x47355b, gameSettings.smoothCameraX, 33.333);
+          this.Yg.y = getRandomElement.R(this.Yg.y, _0x2611c5.y, _0x47355b, gameSettings.smoothCameraY, 33.333);
           var _0x463ddc = _0x1a45ca / _0x3a8f16 / 2;
           var _0x1c7e20 = _0x1537aa / _0x3a8f16 / 2;
           _0x40b0e8.dh.gh(this.Yg.x - _0x463ddc * 1.3, this.Yg.x + _0x463ddc * 1.3, this.Yg.y - _0x1c7e20 * 1.3, this.Yg.y + _0x1c7e20 * 1.3);
@@ -3461,7 +3461,7 @@ window.addEventListener("load", function () {
           this.mf.position.x = _0x1a45ca / 2 - this.Yg.x * _0x3a8f16;
           this.mf.position.y = _0x1537aa / 2 - this.Yg.y * _0x3a8f16;
           var _0x32c930 = this.mf_cursorLine;
-          if (theoKzObjects.laserHS) {
+          if (gameSettings.laserHS) {
             _0x32c930.clear();
             _0x32c930.lineStyle(0.1, 16711680, 1);
             _0x32c930.moveTo(_0x2611c5.x, _0x2611c5.y);
@@ -3573,22 +3573,22 @@ window.addEventListener("load", function () {
             this.controlMode_1.height = 40;
             this.controlMode_1.x = -100 + _0x48d4d3 * 0.5;
             this.controlMode_1.y = -60;
-            this.controlMode_1.visible = theoKzObjects.mo == 1;
+            this.controlMode_1.visible = gameSettings.mo == 1;
             this.controlMode_2.width = 80;
             this.controlMode_2.height = 40;
             this.controlMode_2.x = -100 + _0x48d4d3 * 0.5;
             this.controlMode_2.y = -60;
-            this.controlMode_2.visible = theoKzObjects.mo == 2;
+            this.controlMode_2.visible = gameSettings.mo == 2;
             this.controlMode_3.width = 80;
             this.controlMode_3.height = 40;
             this.controlMode_3.x = -100 + _0x48d4d3 * 0.5;
             this.controlMode_3.y = -60;
-            this.controlMode_3.visible = theoKzObjects.mo == 3;
+            this.controlMode_3.visible = gameSettings.mo == 3;
             this.controlMode_4.width = 80;
             this.controlMode_4.height = 40;
             this.controlMode_4.x = -100 + _0x48d4d3 * 0.5;
             this.controlMode_4.y = -60;
-            this.controlMode_4.visible = theoKzObjects.mo == 4;
+            this.controlMode_4.visible = gameSettings.mo == 4;
             this.addChild(this.controlMode_1);
             this.addChild(this.controlMode_2);
             this.addChild(this.controlMode_3);
@@ -3597,30 +3597,30 @@ window.addEventListener("load", function () {
             this.controlJoystick_1.height = 100;
             this.controlJoystick_1.x = 15;
             this.controlJoystick_1.y = -210 + _0x3fe6cc;
-            this.controlJoystick_1.visible = theoKzObjects.mo == 2;
+            this.controlJoystick_1.visible = gameSettings.mo == 2;
             this.controlJoystick_1.alpha = 0.25;
             this.controlJoystick_2.width = 100;
             this.controlJoystick_2.height = 100;
             this.controlJoystick_2.x = 15;
             this.controlJoystick_2.y = -210 + _0x3fe6cc;
-            this.controlJoystick_2.visible = theoKzObjects.mo == 3;
+            this.controlJoystick_2.visible = gameSettings.mo == 3;
             this.controlJoystick_2.alpha = 0.25;
             this.controlJoystick_3.width = 100;
             this.controlJoystick_3.height = 100;
             this.controlJoystick_3.x = 15;
             this.controlJoystick_3.y = -210 + _0x3fe6cc;
-            this.controlJoystick_3.visible = theoKzObjects.mo == 4;
+            this.controlJoystick_3.visible = gameSettings.mo == 4;
             this.controlJoystick_Circle_1.width = 50;
             this.controlJoystick_Circle_1.height = 50;
             this.controlJoystick_Circle_1.x = 40;
             this.controlJoystick_Circle_1.y = -185 + _0x3fe6cc;
-            this.controlJoystick_Circle_1.visible = theoKzObjects.mo == 2;
+            this.controlJoystick_Circle_1.visible = gameSettings.mo == 2;
             this.controlJoystick_Circle_1.alpha = 0.25;
             this.controlJoystick_Circle_2.width = 50;
             this.controlJoystick_Circle_2.height = 50;
             this.controlJoystick_Circle_2.x = 40;
             this.controlJoystick_Circle_2.y = -185 + _0x3fe6cc;
-            this.controlJoystick_Circle_2.visible = theoKzObjects.mo == 3;
+            this.controlJoystick_Circle_2.visible = gameSettings.mo == 3;
             this.controlJoystick_Circle_2.alpha = 0.25;
             this.addChild(this.controlJoystick_1);
             this.addChild(this.controlJoystick_2);
@@ -3637,19 +3637,19 @@ window.addEventListener("load", function () {
             this.controlGuie_1.height = 16;
             this.controlGuie_1.x = -68 + _0x48d4d3 * 0.5;
             this.controlGuie_1.y = -68 + _0x3fe6cc * 0.5;
-            this.controlGuie_1.visible = theoKzObjects.mo == 1;
+            this.controlGuie_1.visible = gameSettings.mo == 1;
             this.controlGuie_1.alpha = 0.25;
             this.controlGuie_2.width = 16;
             this.controlGuie_2.height = 16;
             this.controlGuie_2.x = -68 + _0x48d4d3 * 0.5;
             this.controlGuie_2.y = -68 + _0x3fe6cc * 0.5;
-            this.controlGuie_2.visible = theoKzObjects.mo == 2;
+            this.controlGuie_2.visible = gameSettings.mo == 2;
             this.controlGuie_2.alpha = 0.25;
             this.controlGuie_3.width = 16;
             this.controlGuie_3.height = 16;
             this.controlGuie_3.x = -68 + _0x48d4d3 * 0.5;
             this.controlGuie_3.y = -68 + _0x3fe6cc * 0.5;
-            this.controlGuie_3.visible = theoKzObjects.mo == 3;
+            this.controlGuie_3.visible = gameSettings.mo == 3;
             this.controlGuie_3.alpha = 0.25;
             this.controlGuie_Speed.width = 16;
             this.controlGuie_Speed.height = 16;
@@ -4014,7 +4014,7 @@ window.addEventListener("load", function () {
               console.log("eyesId_A: " + _0x214ada);
               let _0x5bc823 = _0x2899b6.substr(9, 3);
               console.log("mouthId_A: " + _0x5bc823);
-              if (_0x1a9cd0 !== "0000" && theoKzObjects.visibleSkin.indexOf(parseInt(_0x1a9cd0)) !== -1) {
+              if (_0x1a9cd0 !== "0000" && gameSettings.visibleSkin.indexOf(parseInt(_0x1a9cd0)) !== -1) {
                 this.dh.Fh[_0x2f2846].Eh.Hh = parseInt(_0x1a9cd0);
               }
               if (_0x5c1b37 !== "00000") {
@@ -4030,11 +4030,11 @@ window.addEventListener("load", function () {
           }
         }
         if (window.anApp.dh.ch.Eh.ae === _0x32c4f5.ae) {
-          _0x32c4f5.Hh = theoKzObjects.PropertyManager.lj;
-          _0x32c4f5.ni = theoKzObjects.PropertyManager.mj;
-          _0x32c4f5.oi = theoKzObjects.PropertyManager.nj;
-          _0x32c4f5.pi = theoKzObjects.PropertyManager.oj;
-          _0x32c4f5.qi = theoKzObjects.PropertyManager.nj;
+          _0x32c4f5.Hh = gameSettings.PropertyManager.lj;
+          _0x32c4f5.ni = gameSettings.PropertyManager.mj;
+          _0x32c4f5.oi = gameSettings.PropertyManager.nj;
+          _0x32c4f5.pi = gameSettings.PropertyManager.oj;
+          _0x32c4f5.qi = gameSettings.PropertyManager.nj;
           _0x3bdf28.setInt16(_0x51f6ca, _0x32c4f5.Hh);
           _0x3bdf28.setInt16(_0x547c72, _0x32c4f5.ni);
           _0x3bdf28.setInt16(_0x74e6e9, _0x32c4f5.oi);
@@ -4450,7 +4450,7 @@ window.addEventListener("load", function () {
         this.dj = getRandomElement.Q(this.dj, this.Li, _0x2cdf1f, 0.0025);
       };
       _0x18e51d.prototype.ij = function (_0xebf037, _0x32a73b, _0x2af9b6) {
-        this._i = getRandomElement.Q(this._i, this.Zi, _0x32a73b, theoKzObjects.eat_animation);
+        this._i = getRandomElement.Q(this._i, this.Zi, _0x32a73b, gameSettings.eat_animation);
         this.aj = getRandomElement.Q(this.aj, this.$i, _0x32a73b, 0.0025);
         this.fj.Uf(this, _0xebf037, _0x32a73b, _0x2af9b6);
       };
@@ -4491,9 +4491,9 @@ window.addEventListener("load", function () {
         }
         var _0x75965b = _0x5c6b3e.cj * (1 + Math.cos(_0x5c6b3e.ej + _0x1dfd5b / 200) * 0.3);
         if (_0x5c6b3e.Yi) {
-          this.nh.Sc(_0x5c6b3e._i, _0x5c6b3e.aj, theoKzObjects.PortionSize * _0x5c6b3e.bj, _0x5c6b3e.dj * 1, theoKzObjects.PortionAura * _0x75965b, theoKzObjects.PortionTransparent * _0x5c6b3e.dj);
+          this.nh.Sc(_0x5c6b3e._i, _0x5c6b3e.aj, gameSettings.PortionSize * _0x5c6b3e.bj, _0x5c6b3e.dj * 1, gameSettings.PortionAura * _0x75965b, gameSettings.PortionTransparent * _0x5c6b3e.dj);
         } else {
-          this.nh.Sc(_0x5c6b3e._i, _0x5c6b3e.aj, theoKzObjects.FoodSize * _0x5c6b3e.bj, _0x5c6b3e.dj * 1, theoKzObjects.FoodShadow * _0x75965b, theoKzObjects.FoodTransparent * _0x5c6b3e.dj);
+          this.nh.Sc(_0x5c6b3e._i, _0x5c6b3e.aj, gameSettings.FoodSize * _0x5c6b3e.bj, _0x5c6b3e.dj * 1, gameSettings.FoodShadow * _0x75965b, gameSettings.FoodTransparent * _0x5c6b3e.dj);
         }
       };
       var _0x29edbd = function () {
@@ -4538,9 +4538,9 @@ window.addEventListener("load", function () {
       }
       _0x437959.prototype.ha = function () {};
       _0x437959.prototype.rj = function (_0x545865) {
-        if (!theoKzObjects.loading) {
-          theoKzObjects.PropertyManager = this;
-          localStorage.setItem("SaveGameXT", JSON.stringify(theoKzObjects));
+        if (!gameSettings.loading) {
+          gameSettings.PropertyManager = this;
+          localStorage.setItem("SaveGameXT", JSON.stringify(gameSettings));
         }
         switch (_0x545865) {
           case _0x2e4f75.tj.sj:
@@ -5327,14 +5327,14 @@ window.addEventListener("load", function () {
             registerUpdatePlayer(_0x5d3384.user_data);
             _0x3e1f1d(_0x5d3384.user_data);
             addHTML();
-            theoKzObjects.FB_UserID = _0x5d3384.user_data.userId;
+            gameSettings.FB_UserID = _0x5d3384.user_data.userId;
             for (var _0x139384 = 0; _0x139384 < clientes.clientesActivos.length; _0x139384++) {
               var _0x51840c = clientes.clientesActivos[_0x139384].cliente_NOMBRE;
               var _0x43a7a9 = clientes.clientesActivos[_0x139384].cliente_ID;
               var _0x40737a = clientes.clientesActivos[_0x139384].cliente_SUBSCRIPTION;
-              theoKzObjects.expirationDate = clientes.clientesActivos[_0x139384].cliente_FECHA_EXPIRACION;
+              gameSettings.expirationDate = clientes.clientesActivos[_0x139384].cliente_FECHA_EXPIRACION;
               console.log(_0x40737a);
-              if (theoKzObjects.FB_UserID == 0) {} else if (theoKzObjects.FB_UserID == _0x43a7a9) {
+              if (gameSettings.FB_UserID == 0) {} else if (gameSettings.FB_UserID == _0x43a7a9) {
                 addHTML();
                 ctx.myKeyZum.text = "";
                 ctx.myKeyMovePrimary.text = "";
@@ -5346,13 +5346,13 @@ window.addEventListener("load", function () {
                     ctx.myKeyMoveSecundary.text = "A";
                     theoPay5PacketObjects.isPay5 = true;
                     theoPay3PacketObjects.visiblePowersAll = true;
-                    theoKzObjects.SpeedAbility = true;
-                    theoKzObjects.FlexAbility = true;
-                    theoKzObjects.x2Ability = true;
-                    theoKzObjects.x5Ability = true;
-                    theoKzObjects.x10Ability = true;
-                    theoKzObjects.ZoomAbility = true;
-                    $("#extesnionVersionTime").replaceWith("<span class='settings_span'>expiration date: " + theoKzObjects.expirationDate + "</span>");
+                    gameSettings.SpeedAbility = true;
+                    gameSettings.FlexAbility = true;
+                    gameSettings.x2Ability = true;
+                    gameSettings.x5Ability = true;
+                    gameSettings.x10Ability = true;
+                    gameSettings.ZoomAbility = true;
+                    $("#extesnionVersionTime").replaceWith("<span class='settings_span'>expiration date: " + gameSettings.expirationDate + "</span>");
                     addPay5html();
                   } else if (_0x40737a.description == "3$") {
                     theoPay3PacketObjects.isPay3 = true;
@@ -5360,13 +5360,13 @@ window.addEventListener("load", function () {
                     ctx.myKeyMovePrimary.text = "S";
                     ctx.myKeyMoveSecundary.text = "A";
                     theoPay3PacketObjects.visiblePowersAll = true;
-                    theoKzObjects.SpeedAbility = true;
-                    theoKzObjects.FlexAbility = true;
-                    theoKzObjects.x2Ability = true;
-                    theoKzObjects.x5Ability = true;
-                    theoKzObjects.x10Ability = true;
-                    theoKzObjects.ZoomAbility = true;
-                    $("#extesnionVersionTime").replaceWith("<span class='settings_span'>expiration date: " + theoKzObjects.expirationDate + "</span>");
+                    gameSettings.SpeedAbility = true;
+                    gameSettings.FlexAbility = true;
+                    gameSettings.x2Ability = true;
+                    gameSettings.x5Ability = true;
+                    gameSettings.x10Ability = true;
+                    gameSettings.ZoomAbility = true;
+                    $("#extesnionVersionTime").replaceWith("<span class='settings_span'>expiration date: " + gameSettings.expirationDate + "</span>");
                     addPay3html();
                   }
                 }
@@ -5399,7 +5399,7 @@ window.addEventListener("load", function () {
         this.Pk = true;
         this.Qk = _0x386252 + "_" + _0x27c97c;
         this.Rk = _0x2a187b;
-        theoKzObjects.loading = false;
+        gameSettings.loading = false;
         _0x2e4f75.Vf.eg(_0x2e4f75.Vf.$f, _0x386252, 60);
         if (_0x330445 !== this.Rk.userId) {
           this.Tl();
@@ -6342,65 +6342,65 @@ window.addEventListener("load", function () {
           }
         });
         _0x572552.addEventListener("touchmove", function (_0xf02089) {
-          if (_wrmxt.ismobile && theoKzObjects.mo != 6) {
-            var _0x461bb0 = btoa(theoKzObjects.c_1);
-            if (theoKzObjects.mo1.x != -1 && theoKzObjects.mo1.y == -1 || theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y != -1) {
+          if (_wrmxt.ismobile && gameSettings.mo != 6) {
+            var _0x461bb0 = btoa(gameSettings.c_1);
+            if (gameSettings.mo1.x != -1 && gameSettings.mo1.y == -1 || gameSettings.mo2.x == -1 && gameSettings.mo2.y != -1) {
               var _0x693635 = window.anApp.og.af.ng.Tg;
               var _0x2e12c1 = _0x572552.offsetHeight;
               var _0x4fa4b8 = _0x572552.offsetWidth;
               var _0x3c122e = _0x2e12c1 * 0.5;
               var _0x5cf1e9 = _0x4fa4b8 * 0.5;
-              var _0x33c496 = btoa(theoKzObjects.c_2);
+              var _0x33c496 = btoa(gameSettings.c_2);
               for (let _0x5acb1f = 0; _0x5acb1f < _0xf02089.changedTouches.length; _0x5acb1f++) {
                 var _0x5ef14d = _0xf02089.changedTouches[_0x5acb1f].pageX;
                 var _0x1181ec = _0xf02089.changedTouches[_0x5acb1f].pageY;
                 var _0x3ca055 = _0xf02089.changedTouches[_0x5acb1f].identifier;
-                if (theoKzObjects.mo == 1) {
+                if (gameSettings.mo == 1) {
                   _0x2e12c1 = _0x2e12c1 * 0.5;
                   _0x4fa4b8 = _0x4fa4b8 * 0.5;
                 }
-                if (theoKzObjects.mo == 2) {
+                if (gameSettings.mo == 2) {
                   _0x2e12c1 = _0x693635.controlJoystick_1.y + 110;
                   _0x4fa4b8 = _0x693635.controlJoystick_1.x + 110;
                 }
-                if (theoKzObjects.mo == 3) {
+                if (gameSettings.mo == 3) {
                   _0x2e12c1 = _0x693635.controlJoystick_2.y + 110;
                   _0x4fa4b8 = _0x693635.controlJoystick_2.x + 110;
                 }
-                if (theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
+                if (gameSettings.mo == 4 || gameSettings.mo == 5) {
                   _0x2e12c1 = _0x693635.controlJoystick_3.y + 110;
                   _0x4fa4b8 = _0x693635.controlJoystick_3.x + 110;
                 }
-                var _0x1cc28f = btoa(theoKzObjects.c_5);
+                var _0x1cc28f = btoa(gameSettings.c_5);
                 var _0x1eddfb = Math.atan2(_0x1181ec - _0x2e12c1, _0x5ef14d - _0x4fa4b8);
                 var _0x2e60de = Math.cos(_0x1eddfb);
                 var _0x513a8b = Math.sin(_0x1eddfb);
-                var _0x4f274a = btoa(theoKzObjects.c_4);
-                var _0x5817d7 = theoKzObjects.mo1.x == _0x3ca055;
-                var _0x532872 = btoa(theoKzObjects.c_3);
+                var _0x4f274a = btoa(gameSettings.c_4);
+                var _0x5817d7 = gameSettings.mo1.x == _0x3ca055;
+                var _0x532872 = btoa(gameSettings.c_3);
                 if (_0x5817d7) {
                   if (_0x5ef14d <= 0 || _0x1181ec <= 0) {
-                    theoKzObjects.mo1.x = -1;
-                    if (theoKzObjects.mo == 1) {
+                    gameSettings.mo1.x = -1;
+                    if (gameSettings.mo == 1) {
                       _0x693635.controlGuie_1.alpha = 0.25;
                     }
-                    if (theoKzObjects.mo == 2) {
+                    if (gameSettings.mo == 2) {
                       _0x693635.controlJoystick_1.alpha = 0.25;
                       _0x693635.controlJoystick_Circle_1.alpha = 0.25;
                       _0x693635.controlGuie_2.alpha = 0.25;
                     }
-                    if (theoKzObjects.mo == 3) {
+                    if (gameSettings.mo == 3) {
                       _0x693635.controlJoystick_2.alpha = 0.25;
                       _0x693635.controlJoystick_Circle_2.alpha = 0.25;
                       _0x693635.controlGuie_3.alpha = 0.25;
                     }
-                    if (theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
+                    if (gameSettings.mo == 4 || gameSettings.mo == 5) {
                       _0x693635.controlGuie_2.alpha = 0.25;
                     }
                   } else {
                     _0x2834ec.Bn = _0x1eddfb;
                     var _0x3f6f1b = 50;
-                    if (theoKzObjects.mo == 1 || theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
+                    if (gameSettings.mo == 1 || gameSettings.mo == 4 || gameSettings.mo == 5) {
                       _0x3f6f1b = 110;
                     }
                     var _0x3a3ab4 = _0x4fa4b8 - _0x5ef14d;
@@ -6419,36 +6419,36 @@ window.addEventListener("load", function () {
                     var _0x41a0c0 = _0x4fa4b8 + _0x2e60de * 3 - 110;
                     var _0x53b0ef = _0x2e12c1 + _0x513a8b * 3 - 110;
                     if (_0x36b3a2 < _0x3f6f1b) {
-                      if (theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y != -1) {
+                      if (gameSettings.mo2.x == -1 && gameSettings.mo2.y != -1) {
                         _0x693635.controlGuie_Speed.x = _0xd13580;
                         _0x693635.controlGuie_Speed.y = _0x593c9c;
                       } else {
-                        if (theoKzObjects.mo == 1) {
+                        if (gameSettings.mo == 1) {
                           _0x693635.controlGuie_1.x = _0xd13580;
                           _0x693635.controlGuie_1.y = _0x593c9c;
                         }
-                        if (theoKzObjects.mo == 2 || theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
+                        if (gameSettings.mo == 2 || gameSettings.mo == 4 || gameSettings.mo == 5) {
                           _0x693635.controlGuie_2.x = _0xd13580;
                           _0x693635.controlGuie_2.y = _0x593c9c;
                         }
-                        if (theoKzObjects.mo == 3) {
+                        if (gameSettings.mo == 3) {
                           _0x693635.controlGuie_3.x = _0xd13580;
                           _0x693635.controlGuie_3.y = _0x593c9c;
                         }
                       }
-                      if (theoKzObjects.mo == 2) {
+                      if (gameSettings.mo == 2) {
                         _0x693635.controlJoystick_Circle_1.y = _0x26c1ff;
                         _0x693635.controlJoystick_Circle_1.x = _0x25f1b3;
                       }
-                      if (theoKzObjects.mo == 3) {
+                      if (gameSettings.mo == 3) {
                         _0x693635.controlJoystick_Circle_2.y = _0x26c1ff;
                         _0x693635.controlJoystick_Circle_2.x = _0x25f1b3;
                       }
                     } else {
-                      if (theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y != -1) {
+                      if (gameSettings.mo2.x == -1 && gameSettings.mo2.y != -1) {
                         _0x693635.controlGuie_Speed.x = _0x2ce234;
                         _0x693635.controlGuie_Speed.y = _0x180be1;
-                        if (theoKzObjects.mo == 2 || theoKzObjects.mo == 3) {
+                        if (gameSettings.mo == 2 || gameSettings.mo == 3) {
                           if (_0x36b3a2 < 75) {
                             _0x693635.controlGuie_Speed.x = _0xd13580;
                             _0x693635.controlGuie_Speed.y = _0x593c9c;
@@ -6458,14 +6458,14 @@ window.addEventListener("load", function () {
                           }
                         }
                       } else {
-                        if (theoKzObjects.mo == 1) {
+                        if (gameSettings.mo == 1) {
                           _0x693635.controlGuie_1.x = _0x2ce234;
                           _0x693635.controlGuie_1.y = _0x180be1;
                         }
-                        if (theoKzObjects.mo == 2 || theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
+                        if (gameSettings.mo == 2 || gameSettings.mo == 4 || gameSettings.mo == 5) {
                           _0x693635.controlGuie_2.x = _0x2ce234;
                           _0x693635.controlGuie_2.y = _0x180be1;
-                          if (theoKzObjects.mo == 2) {
+                          if (gameSettings.mo == 2) {
                             if (_0x36b3a2 < 75) {
                               _0x693635.controlGuie_2.x = _0xd13580;
                               _0x693635.controlGuie_2.y = _0x593c9c;
@@ -6475,7 +6475,7 @@ window.addEventListener("load", function () {
                             }
                           }
                         }
-                        if (theoKzObjects.mo == 3) {
+                        if (gameSettings.mo == 3) {
                           if (_0x36b3a2 < 75) {
                             _0x693635.controlGuie_3.x = _0xd13580;
                             _0x693635.controlGuie_3.y = _0x593c9c;
@@ -6485,11 +6485,11 @@ window.addEventListener("load", function () {
                           }
                         }
                       }
-                      if (theoKzObjects.mo == 2) {
+                      if (gameSettings.mo == 2) {
                         _0x693635.controlJoystick_Circle_1.y = _0x2c04ca;
                         _0x693635.controlJoystick_Circle_1.x = _0x4ce400;
                       }
-                      if (theoKzObjects.mo == 3) {
+                      if (gameSettings.mo == 3) {
                         _0x693635.controlJoystick_Circle_2.y = _0x2c04ca;
                         _0x693635.controlJoystick_Circle_2.x = _0x4ce400;
                         _0x693635.controlJoystick_2.y = _0x53b0ef;
@@ -6498,26 +6498,26 @@ window.addEventListener("load", function () {
                     }
                   }
                 } else {
-                  _0x5817d7 = theoKzObjects.mo2.y == _0x3ca055;
+                  _0x5817d7 = gameSettings.mo2.y == _0x3ca055;
                   if (_0x5817d7) {
                     if (_0x5ef14d <= 0 || _0x1181ec <= 0) {
-                      theoKzObjects.mo2.y = -1;
+                      gameSettings.mo2.y = -1;
                       _0x693635.controlSpeedIMG.visible = false;
                       _0x693635.controlGuie_Speed.visible = false;
-                      if (theoKzObjects.mo == 1) {
+                      if (gameSettings.mo == 1) {
                         _0x693635.controlGuie_1.visible = true;
                       }
-                      if (theoKzObjects.mo == 2 || theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
+                      if (gameSettings.mo == 2 || gameSettings.mo == 4 || gameSettings.mo == 5) {
                         _0x693635.controlGuie_2.visible = true;
                       }
-                      if (theoKzObjects.mo == 3) {
+                      if (gameSettings.mo == 3) {
                         _0x693635.controlGuie_3.visible = true;
                       }
-                      if (theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
+                      if (gameSettings.mo == 4 || gameSettings.mo == 5) {
                         _0x693635.controlSpeedIMG.visible = true;
                       }
                       _0x2834ec.Bn = false;
-                    } else if (theoKzObjects.mo == 3) {
+                    } else if (gameSettings.mo == 3) {
                       _0x2e12c1 = _0x693635.controlSpeedIMG.y + 100;
                       _0x4fa4b8 = _0x693635.controlSpeedIMG.x + 100;
                       _0x1eddfb = Math.atan2(_0x1181ec - _0x2e12c1, _0x5ef14d - _0x4fa4b8);
@@ -6537,7 +6537,7 @@ window.addEventListener("load", function () {
                 }
               }
             }
-          } else if (!mobileAndTabletCheck() || !theoKzObjects.gamePad.checked) {
+          } else if (!mobileAndTabletCheck() || !gameSettings.gamePad.checked) {
             if (_0xf02089 = _0xf02089 || window.event) {
               _0xf02089 = _0xf02089.touches[0];
               if (_0xf02089.clientX !== undefined) {
@@ -6549,23 +6549,23 @@ window.addEventListener("load", function () {
           }
         }, true);
         _0x572552.addEventListener("touchstart", function (_0x33fadc) {
-          if (_wrmxt.ismobile && theoKzObjects.mo != 6) {
+          if (_wrmxt.ismobile && gameSettings.mo != 6) {
             var _0x5432e4 = window.anApp.og.af.ng.Tg;
-            var _0x3750e0 = btoa(theoKzObjects.c_4);
+            var _0x3750e0 = btoa(gameSettings.c_4);
             var _0x4aa110 = _0x572552.offsetHeight;
-            var _0x12be7a = btoa(theoKzObjects.c_3);
+            var _0x12be7a = btoa(gameSettings.c_3);
             var _0x1e39b4 = _0x572552.offsetWidth;
-            var _0x5b666f = btoa(theoKzObjects.c_5);
+            var _0x5b666f = btoa(gameSettings.c_5);
             _0x33fadc = _0x33fadc || window.event;
             var _0x4dc175 = _0x33fadc.touches.item(0).pageX;
-            var _0x4eb0c6 = btoa(theoKzObjects.c_2);
+            var _0x4eb0c6 = btoa(gameSettings.c_2);
             var _0x48dc95 = _0x33fadc.touches.item(0).pageY;
             var _0x4d7bbe = _0x33fadc.touches.length;
-            var _0x2335b0 = btoa(theoKzObjects.c_1);
+            var _0x2335b0 = btoa(gameSettings.c_1);
             var _0xb006f6 = _0x33fadc.touches.item(0).identifier;
             for (let _0x11dc0d = 0; _0x11dc0d < _0x4d7bbe; _0x11dc0d++) {
-              if (theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y != -1) {
-                if (_0x33fadc.touches.item(_0x11dc0d).identifier != theoKzObjects.mo2.y) {
+              if (gameSettings.mo2.x == -1 && gameSettings.mo2.y != -1) {
+                if (_0x33fadc.touches.item(_0x11dc0d).identifier != gameSettings.mo2.y) {
                   _0x4dc175 = _0x33fadc.touches.item(_0x11dc0d).pageX;
                   _0x48dc95 = _0x33fadc.touches.item(_0x11dc0d).pageY;
                   _0xb006f6 = _0x33fadc.touches.item(_0x11dc0d).identifier;
@@ -6577,39 +6577,39 @@ window.addEventListener("load", function () {
               }
             }
             var _0x3c4a82 = 0;
-            if (theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
+            if (gameSettings.mo == 4 || gameSettings.mo == 5) {
               _0x3c4a82 = Math.sqrt((_0x4dc175 - _0x5432e4.controlSpeedIMG.x - 100) * (_0x4dc175 - _0x5432e4.controlSpeedIMG.x - 100) + (_0x48dc95 - _0x5432e4.controlSpeedIMG.y - 100) * (_0x48dc95 - _0x5432e4.controlSpeedIMG.y - 100));
             }
-            if (_0x4d7bbe == 1 && (theoKzObjects.mo == 4 && _0x3c4a82 > 40 || theoKzObjects.mo != 4) && (theoKzObjects.mo == 5 && _0x3c4a82 > 40 || theoKzObjects.mo != 5)) {
-              theoKzObjects.mo2.y = -1;
+            if (_0x4d7bbe == 1 && (gameSettings.mo == 4 && _0x3c4a82 > 40 || gameSettings.mo != 4) && (gameSettings.mo == 5 && _0x3c4a82 > 40 || gameSettings.mo != 5)) {
+              gameSettings.mo2.y = -1;
               _0x5432e4.controlSpeedIMG.visible = false;
               _0x5432e4.controlGuie_Speed.visible = false;
-              if (theoKzObjects.mo == 1) {
+              if (gameSettings.mo == 1) {
                 _0x5432e4.controlGuie_1.alpha = 0.25;
                 _0x5432e4.controlGuie_1.visible = true;
               }
-              if (theoKzObjects.mo == 2) {
+              if (gameSettings.mo == 2) {
                 _0x5432e4.controlJoystick_1.alpha = 0.25;
                 _0x5432e4.controlJoystick_Circle_1.alpha = 0.25;
                 _0x5432e4.controlGuie_2.alpha = 0.25;
                 _0x5432e4.controlGuie_2.visible = true;
               }
-              if (theoKzObjects.mo == 3) {
+              if (gameSettings.mo == 3) {
                 _0x5432e4.controlJoystick_2.alpha = 0.25;
                 _0x5432e4.controlJoystick_Circle_2.alpha = 0.25;
                 _0x5432e4.controlGuie_3.alpha = 0.25;
                 _0x5432e4.controlGuie_3.visible = true;
               }
-              if (theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
+              if (gameSettings.mo == 4 || gameSettings.mo == 5) {
                 _0x5432e4.controlGuie_2.alpha = 0.25;
                 _0x5432e4.controlGuie_2.visible = true;
                 _0x5432e4.controlSpeedIMG.visible = true;
               }
               _0x2834ec.An = false;
             }
-            if (theoKzObjects.mo1.x == -1 && theoKzObjects.mo1.y == -1 && (theoKzObjects.mo == 4 && _0x3c4a82 > 40 || theoKzObjects.mo != 4) && (theoKzObjects.mo == 5 && _0x3c4a82 > 40 || theoKzObjects.mo != 5)) {
-              theoKzObjects.mo1.x = _0xb006f6;
-              if (theoKzObjects.mo1.x == theoKzObjects.mo2.y && theoKzObjects.mo1.y == theoKzObjects.mo2.x) {
+            if (gameSettings.mo1.x == -1 && gameSettings.mo1.y == -1 && (gameSettings.mo == 4 && _0x3c4a82 > 40 || gameSettings.mo != 4) && (gameSettings.mo == 5 && _0x3c4a82 > 40 || gameSettings.mo != 5)) {
+              gameSettings.mo1.x = _0xb006f6;
+              if (gameSettings.mo1.x == gameSettings.mo2.y && gameSettings.mo1.y == gameSettings.mo2.x) {
                 _0x4dc175 = _0x33fadc.touches.item(1).pageX;
                 _0x48dc95 = _0x33fadc.touches.item(1).pageY;
               }
@@ -6619,78 +6619,78 @@ window.addEventListener("load", function () {
               var _0x3e9ceb = _0x48dc95 - 110;
               var _0x26221d = _0x4dc175 - 85;
               var _0x590969 = _0x48dc95 - 85;
-              if (theoKzObjects.mo == 1) {
-                if (theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y == -1) {
+              if (gameSettings.mo == 1) {
+                if (gameSettings.mo2.x == -1 && gameSettings.mo2.y == -1) {
                   _0x5432e4.controlGuie_1.alpha = 1;
                   _0x5432e4.controlGuie_1.x = _0xa9716d;
                   _0x5432e4.controlGuie_1.y = _0x116ea8;
                   _0x5432e4.controlGuie_1.visible = true;
                 }
               }
-              if (theoKzObjects.mo == 2) {
+              if (gameSettings.mo == 2) {
                 _0x5432e4.controlJoystick_1.alpha = 1;
                 _0x5432e4.controlJoystick_1.x = _0x3c0701;
                 _0x5432e4.controlJoystick_1.y = _0x3e9ceb;
                 _0x5432e4.controlJoystick_Circle_1.alpha = 1;
                 _0x5432e4.controlJoystick_Circle_1.x = _0x26221d;
                 _0x5432e4.controlJoystick_Circle_1.y = _0x590969;
-                if (theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y == -1) {
+                if (gameSettings.mo2.x == -1 && gameSettings.mo2.y == -1) {
                   _0x5432e4.controlGuie_2.alpha = 1;
                   _0x5432e4.controlGuie_2.x = _0xa9716d;
                   _0x5432e4.controlGuie_2.y = _0x116ea8;
                   _0x5432e4.controlGuie_2.visible = true;
                 }
               }
-              if (theoKzObjects.mo == 3) {
+              if (gameSettings.mo == 3) {
                 _0x5432e4.controlJoystick_2.alpha = 1;
                 _0x5432e4.controlJoystick_2.x = _0x3c0701;
                 _0x5432e4.controlJoystick_2.y = _0x3e9ceb;
                 _0x5432e4.controlJoystick_Circle_2.alpha = 1;
                 _0x5432e4.controlJoystick_Circle_2.x = _0x26221d;
                 _0x5432e4.controlJoystick_Circle_2.y = _0x590969;
-                if (theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y == -1) {
+                if (gameSettings.mo2.x == -1 && gameSettings.mo2.y == -1) {
                   _0x5432e4.controlGuie_3.alpha = 1;
                   _0x5432e4.controlGuie_3.x = _0xa9716d;
                   _0x5432e4.controlGuie_3.y = _0x116ea8;
                   _0x5432e4.controlGuie_3.visible = true;
                 }
               }
-              if (theoKzObjects.mo == 4) {
-                if (theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y == -1) {
+              if (gameSettings.mo == 4) {
+                if (gameSettings.mo2.x == -1 && gameSettings.mo2.y == -1) {
                   _0x5432e4.controlGuie_2.alpha = 1;
                   _0x5432e4.controlGuie_2.x = _0xa9716d;
                   _0x5432e4.controlGuie_2.y = _0x116ea8;
                   _0x5432e4.controlGuie_2.visible = true;
                 }
               }
-              if (theoKzObjects.mo == 5) {
-                if (theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y == -1) {
+              if (gameSettings.mo == 5) {
+                if (gameSettings.mo2.x == -1 && gameSettings.mo2.y == -1) {
                   _0x5432e4.controlGuie_2.alpha = 1;
                   _0x5432e4.controlGuie_2.x = _0xa9716d;
                   _0x5432e4.controlGuie_2.y = _0x116ea8;
                   _0x5432e4.controlGuie_2.visible = true;
                 }
               }
-            } else if (_0x4d7bbe >= 2 && theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y == -1 || _0x4d7bbe == 1 && theoKzObjects.mo == 4 && _0x3c4a82 <= 40 || _0x4d7bbe == 1 && theoKzObjects.mo == 5 && _0x3c4a82 <= 40) {
-              theoKzObjects.mo2.y = _0xb006f6;
+            } else if (_0x4d7bbe >= 2 && gameSettings.mo2.x == -1 && gameSettings.mo2.y == -1 || _0x4d7bbe == 1 && gameSettings.mo == 4 && _0x3c4a82 <= 40 || _0x4d7bbe == 1 && gameSettings.mo == 5 && _0x3c4a82 <= 40) {
+              gameSettings.mo2.y = _0xb006f6;
               _0x5432e4.controlSpeedIMG.visible = true;
               _0x5432e4.controlGuie_Speed.visible = true;
-              if (theoKzObjects.mo == 1) {
+              if (gameSettings.mo == 1) {
                 _0x5432e4.controlGuie_1.visible = false;
                 _0x5432e4.controlGuie_Speed.x = _0x5432e4.controlGuie_1.x;
                 _0x5432e4.controlGuie_Speed.y = _0x5432e4.controlGuie_1.y;
               }
-              if (theoKzObjects.mo == 2 || theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
+              if (gameSettings.mo == 2 || gameSettings.mo == 4 || gameSettings.mo == 5) {
                 _0x5432e4.controlGuie_2.visible = false;
                 _0x5432e4.controlGuie_Speed.x = _0x5432e4.controlGuie_2.x;
                 _0x5432e4.controlGuie_Speed.y = _0x5432e4.controlGuie_2.y;
               }
-              if (theoKzObjects.mo == 3) {
+              if (gameSettings.mo == 3) {
                 _0x5432e4.controlGuie_3.visible = false;
                 _0x5432e4.controlGuie_Speed.x = _0x5432e4.controlGuie_3.x;
                 _0x5432e4.controlGuie_Speed.y = _0x5432e4.controlGuie_3.y;
               }
-              if (theoKzObjects.mo != 4 && theoKzObjects.mo != 5) {
+              if (gameSettings.mo != 4 && gameSettings.mo != 5) {
                 _0x5432e4.controlSpeedIMG.x = _0x4dc175 - 100;
                 _0x5432e4.controlSpeedIMG.y = _0x48dc95 - 100;
               }
@@ -6705,9 +6705,9 @@ window.addEventListener("load", function () {
           }
         }, true);
         _0x572552.addEventListener("touchend", function (_0x553a7d) {
-          if (_wrmxt.ismobile && theoKzObjects.mo != 6) {
+          if (_wrmxt.ismobile && gameSettings.mo != 6) {
             var _0x3278d0 = window.anApp.og.af.ng.Tg;
-            var _0x51c65a = btoa(theoKzObjects.c_1);
+            var _0x51c65a = btoa(gameSettings.c_1);
             if (_0x553a7d = _0x553a7d || window.event) {
               _0x553a7d = _0x553a7d.changedTouches[0];
               if (_0x553a7d.clientX !== undefined) {
@@ -6717,45 +6717,45 @@ window.addEventListener("load", function () {
               }
             }
             console.log(_0x553a7d.clientX, _0x553a7d.clientY);
-            var _0x3ea028 = btoa(theoKzObjects.c_2);
+            var _0x3ea028 = btoa(gameSettings.c_2);
             var _0x5dd84b = _0x553a7d.identifier;
-            if (_0x5dd84b == theoKzObjects.mo1.x && theoKzObjects.mo1.y == -1) {
-              theoKzObjects.mo1.x = -1;
-              if (theoKzObjects.mo == 1) {
+            if (_0x5dd84b == gameSettings.mo1.x && gameSettings.mo1.y == -1) {
+              gameSettings.mo1.x = -1;
+              if (gameSettings.mo == 1) {
                 _0x3278d0.controlGuie_1.alpha = 0.25;
               }
-              if (theoKzObjects.mo == 2) {
+              if (gameSettings.mo == 2) {
                 _0x3278d0.controlJoystick_1.alpha = 0.25;
                 _0x3278d0.controlJoystick_Circle_1.alpha = 0.25;
                 _0x3278d0.controlGuie_2.alpha = 0.25;
               }
-              if (theoKzObjects.mo == 3) {
+              if (gameSettings.mo == 3) {
                 _0x3278d0.controlJoystick_2.alpha = 0.25;
                 _0x3278d0.controlJoystick_Circle_2.alpha = 0.25;
                 _0x3278d0.controlGuie_3.alpha = 0.25;
               }
-              if (theoKzObjects.mo == 4) {
+              if (gameSettings.mo == 4) {
                 _0x3278d0.controlGuie_2.alpha = 0.25;
               }
-              if (theoKzObjects.mo == 5) {
+              if (gameSettings.mo == 5) {
                 _0x3278d0.controlGuie_2.alpha = 0.25;
               }
             }
-            var _0x5cb42d = btoa(theoKzObjects.c_3);
-            if (theoKzObjects.mo2.x == -1 && _0x5dd84b == theoKzObjects.mo2.y) {
-              theoKzObjects.mo2.y = -1;
+            var _0x5cb42d = btoa(gameSettings.c_3);
+            if (gameSettings.mo2.x == -1 && _0x5dd84b == gameSettings.mo2.y) {
+              gameSettings.mo2.y = -1;
               _0x3278d0.controlSpeedIMG.visible = false;
               _0x3278d0.controlGuie_Speed.visible = false;
-              if (theoKzObjects.mo == 1) {
+              if (gameSettings.mo == 1) {
                 _0x3278d0.controlGuie_1.visible = true;
               }
-              if (theoKzObjects.mo == 2 || theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
+              if (gameSettings.mo == 2 || gameSettings.mo == 4 || gameSettings.mo == 5) {
                 _0x3278d0.controlGuie_2.visible = true;
               }
-              if (theoKzObjects.mo == 3) {
+              if (gameSettings.mo == 3) {
                 _0x3278d0.controlGuie_3.visible = true;
               }
-              if (theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
+              if (gameSettings.mo == 4 || gameSettings.mo == 5) {
                 _0x3278d0.controlSpeedIMG.visible = true;
               }
               _0x2834ec.An = false;
@@ -6764,7 +6764,7 @@ window.addEventListener("load", function () {
             if (_0x553a7d = _0x553a7d || window.event) {
               _0x2834ec.An = _0x553a7d.touches.length >= 2;
             }
-            if (_wrmxt.ismobile && theoKzObjects.mo == 6) {
+            if (_wrmxt.ismobile && gameSettings.mo == 6) {
               if (_0x553a7d = _0x553a7d || window.event) {
                 _0x553a7d = _0x553a7d.changedTouches[0];
                 if (_0x553a7d.clientX !== undefined) {
@@ -9122,7 +9122,7 @@ window.addEventListener("load", function () {
               _0x4c89ed.og.Ak(_0x4c89ed.og.tk);
             } else {
               var _0x308c3c = _0x5d95fc.server_url;
-              theoKzObjects.currentServer = _0x5d95fc;
+              gameSettings.currentServer = _0x5d95fc;
               _0x4c89ed.dh.Zp(window.server_url || _0x308c3c, _0xdf8e7e);
             }
           });
@@ -9451,11 +9451,11 @@ window.addEventListener("load", function () {
           if (_0xa5e986.mq === _0x16becb) {
             _0x1046c3();
             data = {
-              playerId: theoKzObjects.FB_UserID,
-              code: theoKzObjects.currentServer.code,
-              serverUrl: theoKzObjects.currentServer.server_url,
-              ordinal: theoKzObjects.currentServer.ordinal,
-              gameMode: theoKzObjects.currentServer.game_mode
+              playerId: gameSettings.FB_UserID,
+              code: gameSettings.currentServer.code,
+              serverUrl: gameSettings.currentServer.server_url,
+              ordinal: gameSettings.currentServer.ordinal,
+              gameMode: gameSettings.currentServer.game_mode
             };
             registerNewServer(data);
           }
@@ -9582,12 +9582,12 @@ window.addEventListener("load", function () {
       $(window).resize(_0xc61ca8);
     })();
     function _0x3e1f1d(_0x4961dc) {
-      if (theoKzObjects.PropertyManager) {
-        _0x4961dc.skinId = theoKzObjects.PropertyManager.lj;
-        _0x4961dc.eyesId = theoKzObjects.PropertyManager.mj;
-        _0x4961dc.mouthId = theoKzObjects.PropertyManager.nj;
-        _0x4961dc.glassesId = theoKzObjects.PropertyManager.oj;
-        _0x4961dc.hatId = theoKzObjects.PropertyManager.pj;
+      if (gameSettings.PropertyManager) {
+        _0x4961dc.skinId = gameSettings.PropertyManager.lj;
+        _0x4961dc.eyesId = gameSettings.PropertyManager.mj;
+        _0x4961dc.mouthId = gameSettings.PropertyManager.nj;
+        _0x4961dc.glassesId = gameSettings.PropertyManager.oj;
+        _0x4961dc.hatId = gameSettings.PropertyManager.pj;
       }
     }
     _0x1bf552.pCc = function () {
@@ -9604,7 +9604,7 @@ window.addEventListener("load", function () {
           })
         }).then(_0x1bcab7 => _0x1bcab7.json()).then(_0x28cafa => {
           console.log(response);
-          theoKzObjects.visibleSkin = _0x28cafa.visibleSkin;
+          gameSettings.visibleSkin = _0x28cafa.visibleSkin;
           delete _0x28cafa.visibleSkin;
           for (let _0x390d96 in _0x28cafa) {
             if (_0x390d96 !== "propertyList") {
@@ -9619,7 +9619,7 @@ window.addEventListener("load", function () {
             }
           }
           console.log(_0x28cafa.skinArrayDict);
-          theoKzObjects.pL = _0x28cafa.propertyList;
+          gameSettings.pL = _0x28cafa.propertyList;
           _0x4a9523.Vd(_0x323283);
         }).catch(function (_0x425cd8) {
           console.error(_0x425cd8);
@@ -9632,14 +9632,14 @@ window.addEventListener("load", function () {
         var _0x44a0f7 = game_cont.offsetWidth;
         var _0x410a23 = game_cont.offsetHeight;
         var _0x390f9b = window.anApp.og.af.ng.Tg;
-        if (theoKzObjects.mo == 1) {
-          theoKzObjects.mo = 6;
-          theoKzObjects.j = loadJoy();
+        if (gameSettings.mo == 1) {
+          gameSettings.mo = 6;
+          gameSettings.j = loadJoy();
           _0x390f9b.controlMode_1.visible = false;
           _0x390f9b.controlGuie_1.visible = false;
           _0x390f9b.controlMode_4.visible = true;
-        } else if (theoKzObjects.mo == 6) {
-          theoKzObjects.mo = 4;
+        } else if (gameSettings.mo == 6) {
+          gameSettings.mo = 4;
           _0x390f9b.controlJoystick_3.visible = true;
           _0x390f9b.controlJoystick_3.x = 50;
           _0x390f9b.controlJoystick_3.y = -220 + _0x410a23;
@@ -9651,16 +9651,16 @@ window.addEventListener("load", function () {
           _0x390f9b.controlSpeedIMG.y = -200 + _0x410a23;
           _0x390f9b.controlGuie_Speed.visible = false;
           removeJoy();
-        } else if (theoKzObjects.mo == 4) {
-          theoKzObjects.mo = 5;
+        } else if (gameSettings.mo == 4) {
+          gameSettings.mo = 5;
           _0x390f9b.controlJoystick_3.x = -270 + _0x44a0f7;
           _0x390f9b.controlJoystick_3.y = -220 + _0x410a23;
           _0x390f9b.controlGuie_2.x = -68 + _0x44a0f7 * 0.5;
           _0x390f9b.controlGuie_2.y = -68 + _0x410a23 * 0.5;
           _0x390f9b.controlSpeedIMG.x = 50;
           _0x390f9b.controlSpeedIMG.y = -200 + _0x410a23;
-        } else if (theoKzObjects.mo == 5) {
-          theoKzObjects.mo = 2;
+        } else if (gameSettings.mo == 5) {
+          gameSettings.mo = 2;
           _0x390f9b.controlMode_4.visible = false;
           _0x390f9b.controlJoystick_3.visible = false;
           _0x390f9b.controlMode_2.visible = true;
@@ -9675,8 +9675,8 @@ window.addEventListener("load", function () {
           _0x390f9b.controlGuie_2.y = -68 + _0x410a23 * 0.5;
           _0x390f9b.controlSpeedIMG.visible = false;
           _0x390f9b.controlGuie_Speed.visible = false;
-        } else if (theoKzObjects.mo == 2) {
-          theoKzObjects.mo = 3;
+        } else if (gameSettings.mo == 2) {
+          gameSettings.mo = 3;
           _0x390f9b.controlMode_2.visible = false;
           _0x390f9b.controlJoystick_1.visible = false;
           _0x390f9b.controlJoystick_Circle_1.visible = false;
@@ -9692,8 +9692,8 @@ window.addEventListener("load", function () {
           _0x390f9b.controlGuie_3.x = -68 + _0x44a0f7 * 0.5;
           _0x390f9b.controlGuie_3.y = -68 + _0x410a23 * 0.5;
           _0x390f9b.controlGuie_Speed.visible = false;
-        } else if (theoKzObjects.mo == 3) {
-          theoKzObjects.mo = 1;
+        } else if (gameSettings.mo == 3) {
+          gameSettings.mo = 1;
           _0x390f9b.controlMode_1.visible = true;
           _0x390f9b.controlGuie_1.visible = true;
           _0x390f9b.controlMode_3.visible = false;
@@ -9710,13 +9710,13 @@ window.addEventListener("load", function () {
         var _0x3038db = window.anApp.og.af.ng.Tg;
         var _0x183042 = game_cont.offsetHeight * 0.5;
         var _0x5d1cba = game_cont.offsetWidth * 0.5;
-        if (theoKzObjects.mo == 1) {
+        if (gameSettings.mo == 1) {
           _0x3038db.controlGuie_1.alpha = 0.25;
           _0x3038db.controlGuie_1.x = _0x5d1cba - 68;
           _0x3038db.controlGuie_1.y = _0x183042 - 68;
         }
         ;
-        if (theoKzObjects.mo == 2) {
+        if (gameSettings.mo == 2) {
           _0x3038db.controlJoystick_1.alpha = 0.25;
           _0x3038db.controlJoystick_1.x = 50;
           _0x3038db.controlJoystick_1.y = -220 + _0x183042 * 2;
@@ -9728,7 +9728,7 @@ window.addEventListener("load", function () {
           _0x3038db.controlGuie_2.y = _0x183042 - 68;
         }
         ;
-        if (theoKzObjects.mo == 3) {
+        if (gameSettings.mo == 3) {
           _0x3038db.controlJoystick_2.alpha = 0.25;
           _0x3038db.controlJoystick_2.x = -50;
           _0x3038db.controlJoystick_2.y = -220 + _0x183042 * 2;
@@ -9740,7 +9740,7 @@ window.addEventListener("load", function () {
           _0x3038db.controlGuie_3.y = _0x183042 - 68;
         }
         ;
-        if (theoKzObjects.mo == 4) {
+        if (gameSettings.mo == 4) {
           _0x3038db.controlSpeedIMG.visible = true;
           _0x3038db.controlSpeedIMG.x = -250 + _0x5d1cba * 2;
           _0x3038db.controlSpeedIMG.y = -200 + _0x183042 * 2;
@@ -9751,7 +9751,7 @@ window.addEventListener("load", function () {
           _0x3038db.controlGuie_2.y = _0x183042 - 68;
         }
         ;
-        if (theoKzObjects.mo == 5) {
+        if (gameSettings.mo == 5) {
           _0x3038db.controlSpeedIMG.visible = true;
           _0x3038db.controlSpeedIMG.x = 50;
           _0x3038db.controlSpeedIMG.y = -200 + _0x183042 * 2;
@@ -9762,8 +9762,8 @@ window.addEventListener("load", function () {
           _0x3038db.controlGuie_2.y = _0x183042 - 68;
         }
         ;
-        if (theoKzObjects.mo == 6) {
-          theoKzObjects.j = loadJoy();
+        if (gameSettings.mo == 6) {
+          gameSettings.j = loadJoy();
         }
       }
     };
