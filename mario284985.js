@@ -4715,44 +4715,61 @@ window.addEventListener("load", function () {
     }();
     _0x2e4f75.Qj = function () {
       function _0x227068() {
-        this.Bf = new pixiElements.m(pixiElements.l.from("/images/bg-obstacle.png"));
-        var _0x5ead47 = pixiElements.l.from(getRandomElement.a.f);
-        var _0x522ba7 = new pixiElements.m(_0x5ead47, new pixiElements.q(0, 0, 256, 256));
-        this.Cf = new Array(36);
-        for (var _0x28148f = 0; _0x28148f < this.Cf.length; _0x28148f++) {
-          this.Cf[_0x28148f] = _0x522ba7;
-        }
-        this._g = new pixiElements.m(function () {
-          var _0x11da02 = pixiElements.l.from("/images/bg-pattern-ukraine2-pow2-ARENA.png");
-          _0x11da02.wrapMode = pixiElements.C.D;
-          return _0x11da02;
+    this.Bf = new pixiElements.m(pixiElements.l.from("/images/bg-obstacle.png"));
+    var _0x5ead47 = pixiElements.l.from(getRandomElement.a.f);
+    var _0x522ba7 = new pixiElements.m(_0x5ead47, new pixiElements.q(0, 0, 256, 256));
+    this.Cf = new Array(36);
+    for (var _0x28148f = 0; _0x28148f < this.Cf.length; _0x28148f++) {
+        this.Cf[_0x28148f] = _0x522ba7;
+    }
+    
+    var originalBgPath = "/images/bg-pattern-pow2-ARENA.png";
+    var currentBgPath = localStorage.getItem("selectedBackgroundUrl") || originalBgPath;
+    
+    this._g = new pixiElements.m(function () { 
+        var _0x11da02 = pixiElements.l.from(currentBgPath); 
+        _0x11da02.wrapMode = pixiElements.C.D; 
+        return _0x11da02; 
+    }());
+    
+    function changeBackground(newPath) {
+        currentBgPath = newPath;
+        localStorage.setItem("selectedBackgroundUrl", newPath);
+        
+        this._g = new pixiElements.m(function () { 
+            var _0x11da02 = pixiElements.l.from(currentBgPath); 
+            _0x11da02.wrapMode = pixiElements.C.D; 
+            return _0x11da02; 
         }());
-        this.ah = new pixiElements.m(function () {
-          var _0x476baf = pixiElements.l.from("/images/bg-pattern-ukraine2-pow2-TEAM2.png");
-          _0x476baf.wrapMode = pixiElements.C.D;
-          return _0x476baf;
-        }());
-        this.Zg = new pixiElements.m(pixiElements.l.from("/images/lens.png"));
-        this.rf = new pixiElements.m(function () {
-          var _0x4d947f = pixiElements.l.from(getRandomElement.a.g);
-          _0x4d947f.wrapMode = pixiElements.C.D;
-          return _0x4d947f;
-        }());
-        this.Db = function () {
-          var _0xf7778a = window.document.createElement("canvas");
-          _0xf7778a.width = 80;
-          _0xf7778a.height = 80;
-          return {
+    }
+    
+    this.ah = new pixiElements.m(function () {
+        var _0x476baf = pixiElements.l.from("/images/bg-pattern-pow2-TEAM2.png");
+        _0x476baf.wrapMode = pixiElements.C.D;
+        return _0x476baf;
+    }());
+    
+    this.Zg = new pixiElements.m(pixiElements.l.from("/images/lens.png"));
+    this.rf = new pixiElements.m(function () {
+        var _0x4d947f = pixiElements.l.from(getRandomElement.a.g);
+        _0x4d947f.wrapMode = pixiElements.C.D;
+        return _0x4d947f;
+    }());
+    this.Db = function () {
+        var _0xf7778a = window.document.createElement("canvas");
+        _0xf7778a.width = 80;
+        _0xf7778a.height = 80;
+        return {
             Eb: _0xf7778a,
             Fb: _0xf7778a.getContext("2d"),
             oa: new pixiElements.m(pixiElements.l.from(_0xf7778a))
-          };
-        }();
-        this.Ae = {};
-        this.we = {};
-        this.Rj = [];
-        this.Sj = null;
-      }
+        };
+    }();
+    this.Ae = {};
+    this.we = {};
+    this.Rj = [];
+    this.Sj = null;
+}
       _0x227068.prototype.ha = function (_0x2ccdab) {
         function _0x19f9cf() {
           if (--_0xb443e8 == 0) {
