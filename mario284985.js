@@ -1,3 +1,100 @@
+// نظام حفظ متقدم للأزياء والخلفيات
+window.WormCustomSaver = {
+    data: {
+        skin: 0,
+        eyes: 0,
+        mouth: 0,
+        glasses: 0,
+        hat: 0,
+        background: 0,
+        initialized: false
+    },
+    
+    init: function() {
+        if (!this.data.initialized) {
+            this.data.skin = parseInt(localStorage.getItem('worm_skin')) || 0;
+            this.data.eyes = parseInt(localStorage.getItem('worm_eyes')) || 0;
+            this.data.mouth = parseInt(localStorage.getItem('worm_mouth')) || 0;
+            this.data.glasses = parseInt(localStorage.getItem('worm_glasses')) || 0;
+            this.data.hat = parseInt(localStorage.getItem('worm_hat')) || 0;
+            this.data.background = parseInt(localStorage.getItem('worm_background')) || 0;
+            this.data.initialized = true;
+
+        }
+    },
+    
+    save: function(type, value) {
+        this.init();
+        const intValue = parseInt(value);
+        this.data[type] = intValue;
+        
+        // حفظ في localStorage مع تأكيد مضاعف
+        const key = 'worm_' + type;
+        localStorage.setItem(key, intValue);
+        
+        // التحقق من الحفظ
+        const saved = localStorage.getItem(key);
+
+        
+        // تطبيق فوري على PropertyManager للأزياء
+        if (gameSettings.PropertyManager && type !== 'background') {
+            switch(type) {
+                case 'skin': gameSettings.PropertyManager.lj = intValue; break;
+                case 'eyes': gameSettings.PropertyManager.mj = intValue; break;
+                case 'mouth': gameSettings.PropertyManager.nj = intValue; break;
+                case 'glasses': gameSettings.PropertyManager.oj = intValue; break;
+                case 'hat': gameSettings.PropertyManager.pj = intValue; break;
+            }
+        }
+        
+        return intValue;
+    },
+    
+    get: function(type) {
+        this.init();
+        // قراءة مباشرة من localStorage للتأكد
+        const fromStorage = parseInt(localStorage.getItem('worm_' + type)) || 0;
+        const fromData = this.data[type];
+        
+        if (fromStorage !== fromData) {
+            console.log(`تضارب في ${type}: البيانات=${fromData}, التخزين=${fromStorage}`);
+            this.data[type] = fromStorage;
+        }
+        
+        return fromStorage;
+    },
+    
+    applyAll: function() {
+        this.init();
+        if (gameSettings.PropertyManager) {
+            gameSettings.PropertyManager.lj = this.get('skin');
+            gameSettings.PropertyManager.mj = this.get('eyes');
+            gameSettings.PropertyManager.nj = this.get('mouth');
+            gameSettings.PropertyManager.oj = this.get('glasses');
+            gameSettings.PropertyManager.pj = this.get('hat');
+
+        }
+    }
+};
+
+
+
+
+// قائمة الخلفيات العامة
+window.gameBackgrounds = [
+    "/images/bg-pattern-pow2-ARENA.png",
+    "https://wormup.in/assets/images/bg_sky__1.png",
+    "https://wormup.in/assets/images/bg_sky__2.png",
+    "https://wormup.in/assets/images/bg_sky__5.png",
+    "https://wormup.in/assets/images/bg_sky__6.png",
+    "https://wormup.in/assets/images/bg_sky_7.png",
+    "https://wormup.in/assets/images/bg_sky_8.png",
+    "https://wormup.in/assets/images/bg_sky_9.png",
+    "https://wormup.in/assets/images/bg_sky_10.png",
+    "https://wormup.in/assets/images/bg_sky_11.png",
+    "https://wormup.in/assets/images/bg_sky_12.png"
+];
+
 const theoPay5PacketObjects = {
   isPay5: false,
   Zxt: 1
@@ -4019,17 +4116,11 @@ window.addEventListener("load", function () {
         if (_0x16b47d > 210) {
           for (let _0x2f2846 in this.dh.Fh) {
             if (/^(.{16})(ZW_\d{9})$/.test(this.dh.Fh[_0x2f2846].Eh.ma)) {
-              console.log("nombre: " + this.dh.Fh[_0x2f2846].Eh.ma);
-              var _0x2899b6 = this.dh.Fh[_0x2f2846].Eh.ma.substr(-6);
-              console.log("digitos: " + _0x2899b6);
+              var _0x2899b6 = this.dh.Fh[_0x2f2846].Eh.ma.substr(-10);
               let _0x1a9cd0 = _0x2899b6.substr(0, 3);
-              console.log("skinId_A: " + _0x1a9cd0);
               let _0x5c1b37 = _0x2899b6.substr(3, 3);
-              console.log("hatId_A: " + _0x5c1b37);
               let _0x214ada = _0x2899b6.substr(6, 3);
-              console.log("eyesId_A: " + _0x214ada);
               let _0x5bc823 = _0x2899b6.substr(9, 3);
-              console.log("mouthId_A: " + _0x5bc823);
               if (_0x1a9cd0 !== "0000" && gameSettings.visibleSkin.indexOf(parseInt(_0x1a9cd0)) !== -1) {
                 this.dh.Fh[_0x2f2846].Eh.Hh = parseInt(_0x1a9cd0);
               }
@@ -4045,21 +4136,21 @@ window.addEventListener("load", function () {
             }
           }
         }
+        // استبدل الكود المشكل بهذا:
         if (window.anApp.dh.ch.Eh.ae === _0x32c4f5.ae) {
-          _0x32c4f5.Hh = gameSettings.PropertyManager.lj;
-          _0x32c4f5.ni = gameSettings.PropertyManager.mj;
-          _0x32c4f5.oi = gameSettings.PropertyManager.nj;
-          _0x32c4f5.pi = gameSettings.PropertyManager.oj;
-          _0x32c4f5.qi = gameSettings.PropertyManager.nj;
-          _0x3bdf28.setInt16(_0x51f6ca, _0x32c4f5.Hh);
-          _0x3bdf28.setInt16(_0x547c72, _0x32c4f5.ni);
-          _0x3bdf28.setInt16(_0x74e6e9, _0x32c4f5.oi);
-          _0x3bdf28.setInt16(_0x45e308, _0x32c4f5.pi);
-          _0x3bdf28.setInt16(_0x110ab0, _0x32c4f5.qi);
-          _wrmxt.aload = true;
-          _wrmxt.aId = _0x51f6ca;
+            // منع إعادة كتابة الأزياء المخصصة
+            if (gameSettings.PropertyManager) {
+                // تطبيق الأزياء المحفوظة بدلاً من قيم الخادم
+                setTimeout(function() {
+                    window.WormCustomSaver.applyAll();
+                }, 50);
+            }
+            _wrmxt.aload = true;
+            _wrmxt.aId = _0x51f6ca;
         }
-        _0x32c4f5.ma = _0x191f20;
+
+
+    _0x32c4f5.ma = _0x191f20;
         if (this.dh.hh.yg === _0x32c4f5.ae) {
           this.dh.ch.ri(_0x32c4f5);
         } else {
@@ -9653,6 +9744,11 @@ window.addEventListener("load", function () {
       _0xc61ca8();
       $(window).resize(_0xc61ca8);
     })();
+function _0x3e1f1d(_0x4961dc) {
+    setTimeout(function() {
+        window.WormCustomSaver.applyAll();
+    }, 100);
+}
     function _0x3e1f1d(_0x4961dc) {
       if (gameSettings.PropertyManager) {
         _0x4961dc.skinId = gameSettings.PropertyManager.lj;
