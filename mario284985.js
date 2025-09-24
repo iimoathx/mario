@@ -214,79 +214,10 @@ let clientes = {
 };
 let serverData = [];
 var top1Servers = {};
-async function extractTopScores() {
-  const _0x1e6913 = "https://zworm.xyz:3305/data?v=" + TIME;
-  try {
-    let _0x4c2fca = await fetch(_0x1e6913);
-    if (!_0x4c2fca.ok) {
-      throw new Error("HTTP error! Status: " + _0x4c2fca.status);
-    }
-    let _0x928c04 = await _0x4c2fca.json();
-    for (let _0x3e848b in _0x928c04) {
-      if (_0x928c04[_0x3e848b].length > 0) {
-        let _0x120502 = _0x928c04[_0x3e848b].reduce((_0x53f378, _0x55c616) => _0x55c616.Score > _0x53f378.Score ? _0x55c616 : _0x53f378, _0x928c04[_0x3e848b][0]);
-        let _0x19906e = formatScore(_0x120502.Score);
-        let _0x480421 = getStatusColor(_0x120502.Score);
-        top1Servers[_0x3e848b] = {
-          ServerName: _0x120502.ServerName,
-          Initials: _0x3e848b,
-          Score: _0x19906e,
-          StatusColor: _0x480421
-        };
-      }
-    }
-    console.log(top1Servers);
-  } catch (_0x4b6ce3) {
-    console.error("Error fetching server data:", _0x4b6ce3);
-  }
-}
-async function loadServersWormWorld() {
-  const _0x184c93 = "https://zwormextenstion.com/wormExtension/api/servers.php?v=" + TIME;
-  await fetch(_0x184c93).then(_0x41aa8b => _0x41aa8b.text()).then(_0x4dbb01 => {
-    const _0x4cfb70 = new DOMParser();
-    const _0x41637c = _0x4cfb70.parseFromString(_0x4dbb01, "text/html");
-    const _0x15d122 = _0x41637c.querySelectorAll("div[id*=\"wwc_room_item_\"]");
-    console.log(_0x15d122);
-    _0x15d122.forEach(_0x52d587 => {
-      const _0x245832 = _0x52d587.querySelector(".dropdown-item.selecionar-sala-v2");
-      const _0x518c16 = _0x245832.getAttribute("data-con");
-      const _0x1a0dc5 = _0x245832.getAttribute("data-room");
-      const _0x13eee4 = _0x52d587.textContent.trim();
-      const _0x2a7b69 = _0x245832.getAttribute("data-type");
-      const _0x1b199c = _0x52d587.querySelector("img");
-      const _0x55139b = _0x1b199c ? _0x1b199c.getAttribute("src") : null;
-      serverData.push({
-        dataCon: _0x518c16,
-        dataRoom: _0x1a0dc5,
-        serverName: _0x13eee4,
-        dataType: _0x2a7b69,
-        imgSrc: _0x55139b
-      });
-    });
-    console.log(serverData);
-  }).catch(_0x497ba8 => {
-    console.log(_0x497ba8);
-  });
-}
-loadServersWormWorld();
-extractTopScores();
-function formatScore(_0xd24ae4) {
-  if (_0xd24ae4 >= 1000000) {
-    return (_0xd24ae4 / 1000000).toFixed(1) + "M";
-  } else if (_0xd24ae4 >= 1000) {
-    return (_0xd24ae4 / 1000).toFixed(1) + "K";
-  }
-  return _0xd24ae4.toString();
-}
-function getStatusColor(_0x7253dc) {
-  if (_0x7253dc > 10000000) {
-    return "green";
-  } else if (_0x7253dc > 2000000) {
-    return "orange";
-  } else {
-    return "red";
-  }
-}
+
+
+
+
 async function loadUsers() {
   await fetch("https://swykz.theoxt.com/api/users.php").then(_0x135910 => _0x135910.json()).then(_0xe42f6e => {
     console.log(_0xe42f6e);
@@ -694,56 +625,8 @@ function addHTML() {
     code: "gb",
     name: "Granbretana"
   }];
-  var _0x51279d = $("<ul class=\"ui-tabs-nav\"></ul>");
-  var _0x5f0acc = $("<div class=\"servers-container\"></div>");
-  _0xd8f885.forEach(function (_0x46df11, _0x3fe37e) {
-    var _0xa4e968 = $("\n                        <li class=\"ui-tabs-tab ui-tab " + (_0x3fe37e === 0 ? "ui-tab-active" : "") + "\" data-country=\"" + _0x46df11.code + "\">\n                            <a><span class=\"flag " + _0x46df11.code + "\"></span></a>\n                        </li>\n                    ");
-    _0x51279d.append(_0xa4e968);
-    var _0x58c436 = $("\n                        <div class=\"servers-" + _0x46df11.code + "\" style=\"display: " + (_0x3fe37e === 0 ? "block" : "none") + ";\">\n                            <table class=\"server-table\">\n                                <thead>\n                                    <tr>\n                                        <th>On/Off</th>\n                                        <th>Name</th>\n                                        <th>RegiÃ³n</th>\n                                        <th>Top 1</th>\n                                        <th>Streamer</th>\n                                    </tr>\n                                </thead>\n                                <tbody></tbody>\n                            </table>\n                        </div>\n                    ");
-    _0x5f0acc.append(_0x58c436);
-  });
-  $(".description-text").append(_0x51279d, _0x5f0acc);
-  $(".ui-tabs-tab").click(function () {
-    var _0x5847ba = $(this).data("country");
-    $(".ui-tabs-tab").removeClass("ui-tab-active");
-    $(this).addClass("ui-tab-active");
-    $(".servers-container > div").hide();
-    $(".servers-" + _0x5847ba).fadeIn(200);
-  });
-  serverData.forEach(function (_0x4abd77) {
-    var _0x6e624a = _0x4abd77.dataRoom.match(/[a-zA-Z]+/g).join("");
-    if (_0x6e624a === "ae") {
-      _0x6e624a = "gb";
-    }
-    var _0x198d73 = _0x4abd77.dataCon.match(/wss:\/\/([a-z]+)-/i);
-    var _0x1fa038 = _0x198d73 ? _0x198d73[1] : null;
-    var _0x4f4b26 = _0x2fc1aa[_0x1fa038] ? _0x2fc1aa[_0x1fa038].toUpperCase() : "Desconocido";
-    if (!_0xd8f885.some(_0x4f8cde => _0x4f8cde.code === _0x6e624a)) {
-      return;
-    }
-    var _0x953074 = _0x4abd77.dataRoom.trim().toLowerCase();
-    var _0x3d8080 = top1Servers[_0x953074] || {
-      Score: "???",
-      StatusColor: "gray"
-    };
-    console.log("server.dataRoom:", _0x4abd77.dataRoom);
-    console.log("Claves en top1Servers:", Object.keys(top1Servers));
-    var _0x4c169a = $("\n                    <tr class=\"server-row\" data-wss=\"" + _0x4abd77.dataCon + "\" value=\"" + _0x4abd77.dataRoom + "\">\n                            <td class=\"server-status\">\n                                <span class=\"status-dot\" style=\"background-color: " + _0x3d8080.StatusColor + ";\"></span>\n                            </td>\n                            <td class=\"server-name\" >" + _0x4abd77.serverName + "</td>\n                            <td class=\"server-region\">" + _0x4f4b26 + "</td>\n                            <td class=\"server-top1\">" + _0x3d8080.Score + "</td>\n                            <td><img src=\"" + _0x4abd77.imgSrc + "\" class=\"streamer-image\"></td>\n                        </tr>\n                    ");
-    $(".servers-" + _0x6e624a + " tbody").append(_0x4c169a);
-  });
-  $(document).on("click", ".server-row", function () {
-    let _0x4c2947 = $(this).attr("value");
-    let _0x4de361 = $(this).find(".server-name").text();
-    let _0x351cf7 = $(this).attr("data-wss");
-    if (_0x4de361 && _0x351cf7) {
-      console.log("Conectando a:", _0x351cf7);
-      ctx.setServer($(this).attr("value"));
-      window.server_url = _0x351cf7;
-      console.log(window.server_url);
-      $("#mm-action-play").click();
-      $("#adbl-continue").click();
-    }
-  });
+ 
+  
   $(".mm-merchant-cont").replaceWith("");
   $("#mm-advice-cont").html("<input type=\"button\" style=\"width: 100%;height: 100%;border-radius: 5px;\" class=\"fullscreen_button\" value=\"VIEW FULLSCREEN\">");
   $(document).ready(function () {
