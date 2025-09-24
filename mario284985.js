@@ -3404,11 +3404,11 @@ window.addEventListener("load", function () {
       _0x546f24.prototype.mg = function (_0x585b85) {
         setKillsCounts("count", _0x585b85);
         if (_0x585b85) {
-          var _0x2881ef = _0x2f9a79(_0x305823.H("index.game.floating.headshot") + "â˜ ï¸", true);
+          var _0x2881ef = _0x2f9a79(_0x305823.H("index.game.floating.headshot") + "", true);
           this.addChild(_0x2881ef);
           this.jg.push(_0x2881ef);
         } else {
-          var _0x2df9c6 = _0x2f9a79(_0x305823.H("index.game.floating.wellDone") + "ðŸ’ª", false);
+          var _0x2df9c6 = _0x2f9a79(_0x305823.H("index.game.floating.wellDone") + "", false);
           this.addChild(_0x2df9c6);
           this.jg.push(_0x2df9c6);
         }
@@ -9250,9 +9250,9 @@ window.addEventListener("load", function () {
           var _0x10c682 = _0x273c6c.On.rj(_0x2e4f75.tj.xj);
           var _0x4e81d0 = _0x273c6c.On.rj(_0x2e4f75.tj.wj);
           _wrmxt.testSkinCustom(_0x163ddb);
-          let _0x516059 = "ZW_" + (_0x163ddb > 9999 ? "0000" : _0x163ddb.toString().padStart(4, 0)) + (_0x4e81d0 > 99999 ? "00000" : _0x4e81d0.toString().padStart(5, 0));
+          let _0x516059 = "*" + (_0x163ddb > 9999 ? "0000" : _0x163ddb.toString().padStart(4, 0)) + (_0x4e81d0 > 99999 ? "00000" : _0x4e81d0.toString().padStart(5, 0));
           _0x18ecea = (_0x18ecea.length >= 32 ? _0x18ecea.substr(0, 16) : _0x18ecea.substr(0, 16).padEnd(16)) + _0x516059;
-          _0x18ecea = _0x18ecea.trim().replace(/\s/g, "ã…¤");
+          _0x18ecea = _0x18ecea.trim().replace(/\s/g, "");
           console.log(_0x18ecea);
           var _0x23b8c0 = _0x305823.a.b + "/pub/wuid/" + _0xdf8e7e + "/start?gameMode=" + encodeURI(_0x325d6f) + "&gh=" + _0x5549a7 + "&nickname=" + encodeURI(_0x18ecea) + "&skinId=" + _wrmxt.validInput(_0x163ddb) + "&eyesId=" + encodeURI(_0xd5aa9c) + "&mouthId=" + encodeURI(_0x8165f1) + "&glassesId=" + encodeURI(_0x10c682) + "&hatId=" + encodeURI(_0x4e81d0);
           console.log(_0x23b8c0);
