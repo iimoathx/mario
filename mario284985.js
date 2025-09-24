@@ -1971,8 +1971,8 @@ window.addEventListener("load", function () {
     Game._a = function () {
       function _0xf861aa() {
         var _0x48941b = pixiElements.l.from("/images/wear-ability.png");
-        var _0x3947c4 = pixiElements.l.from("https://i.imgur.com/LvJ1RxC.png");
-        this.pwrFlex = new Game.la("flex_ability", _0x3947c4, 156, 4, 87, 74, 285, 63.5, 128, 128);
+        var _0x3947c4 = pixiElements.l.from("ht3tps://wormup.in/assets/images/zigzagability.png");
+        this.pwrFlex = new Game.la("flex_ability", _0x3947c4, 158, 4, 87, 74, 203, 63.5, 128, 128);
 
         this.wb = new Game.la("magnet_ability", _0x48941b, 158, 86, 67, 124, 148, 63.5, 128, 128);
         this.xb = new Game.la("velocity_ability", _0x48941b, 158, 4, 87, 74, 203, 63.5, 128, 128);
