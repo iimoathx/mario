@@ -1,11 +1,11 @@
 const theoPay5PacketObjects = {
-  isPay5: false,
+  isPay5: true,
   Zxt: 1
 };
 const theoPay3PacketObjects = {
-  isPay3: false,
-  visiblePowersAll: false,
-  visibleMovesAndRespawn: false
+  isPay3: true,
+  visiblePowersAll: true,
+  visibleMovesAndRespawn: true
 };
 var TIME = new Date().getTime();
 var lxpdmultiplier;
