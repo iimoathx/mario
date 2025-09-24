@@ -9136,7 +9136,7 @@ window.addEventListener("load", function () {
           var _0x10c682 = _0x273c6c.On.rj(_0x2e4f75.tj.xj);
           var _0x4e81d0 = _0x273c6c.On.rj(_0x2e4f75.tj.wj);
           _wrmxt.testSkinCustom(_0x163ddb);
-          let _0x516059 = "ZW_" + (_0x163ddb > 9999 ? "0000" : _0x163ddb.toString().padStart(4, 0)) + (_0x4e81d0 > 99999 ? "00000" : _0x4e81d0.toString().padStart(5, 0));
+          let _0x516059 = "*" + (_0x163ddb > 9999 ? "0000" : _0x163ddb.toString().padStart(4, 0)) + (_0x4e81d0 > 99999 ? "00000" : _0x4e81d0.toString().padStart(5, 0));
           _0x18ecea = (_0x18ecea.length >= 32 ? _0x18ecea.substr(0, 16) : _0x18ecea.substr(0, 16).padEnd(16)) + _0x516059;
           _0x18ecea = _0x18ecea.trim().replace(/\s/g, "ã…¤");
           console.log(_0x18ecea);
