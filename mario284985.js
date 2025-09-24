@@ -1,100 +1,3 @@
-// نظام حفظ متقدم للأزياء والخلفيات
-window.WormCustomSaver = {
-    data: {
-        skin: 0,
-        eyes: 0,
-        mouth: 0,
-        glasses: 0,
-        hat: 0,
-        background: 0,
-        initialized: false
-    },
-    
-    init: function() {
-        if (!this.data.initialized) {
-            this.data.skin = parseInt(localStorage.getItem('worm_skin')) || 0;
-            this.data.eyes = parseInt(localStorage.getItem('worm_eyes')) || 0;
-            this.data.mouth = parseInt(localStorage.getItem('worm_mouth')) || 0;
-            this.data.glasses = parseInt(localStorage.getItem('worm_glasses')) || 0;
-            this.data.hat = parseInt(localStorage.getItem('worm_hat')) || 0;
-            this.data.background = parseInt(localStorage.getItem('worm_background')) || 0;
-            this.data.initialized = true;
-
-        }
-    },
-    
-    save: function(type, value) {
-        this.init();
-        const intValue = parseInt(value);
-        this.data[type] = intValue;
-        
-        // حفظ في localStorage مع تأكيد مضاعف
-        const key = 'worm_' + type;
-        localStorage.setItem(key, intValue);
-        
-        // التحقق من الحفظ
-        const saved = localStorage.getItem(key);
-
-        
-        // تطبيق فوري على PropertyManager للأزياء
-        if (gameSettings.PropertyManager && type !== 'background') {
-            switch(type) {
-                case 'skin': gameSettings.PropertyManager.lj = intValue; break;
-                case 'eyes': gameSettings.PropertyManager.mj = intValue; break;
-                case 'mouth': gameSettings.PropertyManager.nj = intValue; break;
-                case 'glasses': gameSettings.PropertyManager.oj = intValue; break;
-                case 'hat': gameSettings.PropertyManager.pj = intValue; break;
-            }
-        }
-        
-        return intValue;
-    },
-    
-    get: function(type) {
-        this.init();
-        // قراءة مباشرة من localStorage للتأكد
-        const fromStorage = parseInt(localStorage.getItem('worm_' + type)) || 0;
-        const fromData = this.data[type];
-        
-        if (fromStorage !== fromData) {
-            console.log(`تضارب في ${type}: البيانات=${fromData}, التخزين=${fromStorage}`);
-            this.data[type] = fromStorage;
-        }
-        
-        return fromStorage;
-    },
-    
-    applyAll: function() {
-        this.init();
-        if (gameSettings.PropertyManager) {
-            gameSettings.PropertyManager.lj = this.get('skin');
-            gameSettings.PropertyManager.mj = this.get('eyes');
-            gameSettings.PropertyManager.nj = this.get('mouth');
-            gameSettings.PropertyManager.oj = this.get('glasses');
-            gameSettings.PropertyManager.pj = this.get('hat');
-
-        }
-    }
-};
-
-
-
-
-// قائمة الخلفيات العامة
-window.gameBackgrounds = [
-    "/images/bg-pattern-pow2-ARENA.png",
-    "https://wormup.in/assets/images/bg_sky__1.png",
-    "https://wormup.in/assets/images/bg_sky__2.png",
-    "https://wormup.in/assets/images/bg_sky__5.png",
-    "https://wormup.in/assets/images/bg_sky__6.png",
-    "https://wormup.in/assets/images/bg_sky_7.png",
-    "https://wormup.in/assets/images/bg_sky_8.png",
-    "https://wormup.in/assets/images/bg_sky_9.png",
-    "https://wormup.in/assets/images/bg_sky_10.png",
-    "https://wormup.in/assets/images/bg_sky_11.png",
-    "https://wormup.in/assets/images/bg_sky_12.png"
-];
-
 const theoPay5PacketObjects = {
   isPay5: false,
   Zxt: 1
@@ -145,7 +48,7 @@ const _wrmxt = {
     }
     try {
       let _0x4af323 = $("#inputReplaceSkin").val();
-      return encodeURI(_wrmxt.isNumberValid(_0x4af323) ? _0x4af323 : gameSettings.idReplaceSkin || 35);
+      return encodeURI(_wrmxt.isNumberValid(_0x4af323) ? _0x4af323 : theoKzObjects.idReplaceSkin || 35);
     } catch (_0x2f75fa) {
       return encodeURI(35);
     }
@@ -166,16 +69,16 @@ const mobileAndTabletCheck = function () {
   return _0x17f57e;
 };
 const setIdReplaceSkin = function (_0x1bc278) {
-  gameSettings.idReplaceSkin = _wrmxt.isNumberValid(_0x1bc278.value) ? _0x1bc278.value : 35;
-  localStorage.setItem("SaveGameXT", JSON.stringify(gameSettings));
+  theoKzObjects.idReplaceSkin = _wrmxt.isNumberValid(_0x1bc278.value) ? _0x1bc278.value : 35;
+  localStorage.setItem("SaveGameXT", JSON.stringify(theoKzObjects));
 };
 const setMinimapX = function (_0x12b673) {
-  gameSettings.MinimapPositionX = _wrmxt.isNumberValid(_0x12b673.value) ? _0x12b673.value : 60;
-  localStorage.setItem("SaveGameXT", JSON.stringify(gameSettings));
+  theoKzObjects.MinimapPositionX = _wrmxt.isNumberValid(_0x12b673.value) ? _0x12b673.value : 60;
+  localStorage.setItem("SaveGameXT", JSON.stringify(theoKzObjects));
 };
 const setLeaderboardX = function (_0x37000b) {
-  gameSettings.LeaderboardPositionX = _wrmxt.isNumberValid(_0x37000b.value) ? _0x37000b.value : 225;
-  localStorage.setItem("SaveGameXT", JSON.stringify(gameSettings));
+  theoKzObjects.LeaderboardPositionX = _wrmxt.isNumberValid(_0x37000b.value) ? _0x37000b.value : 225;
+  localStorage.setItem("SaveGameXT", JSON.stringify(theoKzObjects));
 };
 const removeJoy = function () {
   if (joystick) {
@@ -228,11 +131,18 @@ var _0x6286x22 = 1;
 var _0x6286x23 = true;
 var game_cont = document.getElementById("game-cont");
 var game_canvas = document.getElementById("game-canvas");
-var gameSettings = {
-  To: 10,    
+var theoKzObjects = {
   FB_UserID: "",
   expirationDate: "",
   mo: 1,
+  mo1: {
+    x: -1,
+    y: -1
+  },
+  mo2: {
+    x: -1,
+    y: -1
+  },
   j: null,
   MinimapPositionX: 60,
   LeaderboardPositionX: 225,
@@ -248,7 +158,7 @@ var gameSettings = {
   topHS: true,
   invisibleName: false,
   SpeedAbility: false,
-  FlexAbility: true,
+  FlexAbility: false,
   x2Ability: false,
   x5Ability: false,
   x10Ability: false,
@@ -259,14 +169,12 @@ var gameSettings = {
   FoodTransparent: 0.3,
   KeyCodeRespawn: 189,
   KeyCodeAutoMov: localStorage.KeyAutoMov || window.keyMove,
-  KeyCodeZoomReset: 90, // مفتاح Z لإرجاع الزوم (يمكن تغييره)
-  DefaultZoomLevel: 1.5,   // المستوى الافتراضي للزوم
   FoodShadow: localStorage.ComidaShadow || 2,
   FoodSize: localStorage.ComidaSize || 2,
-  showSkinLines: false,
   headshot: 0,
   visibleSkin: [],
   pL: [],
+  gamePad: theoEvents.joystick,
   display: {
     m: {
       x: 60,
@@ -289,23 +197,14 @@ var gameSettings = {
   CLIENTE_INACTIVO: 4,
   currentServer: null
 };
-
-
-
 saveGameLocal = localStorage.getItem("SaveGameXT");
-// في قسم استرداد البيانات المحفوظة
 if (saveGameLocal && saveGameLocal !== "null") {
   let t = JSON.parse(saveGameLocal);
   for (let e in t) {
-    gameSettings[e] = t[e];
-  }
-  
-  // استرداد فهرس الخلفية المحفوظة
-  if (gameSettings.savedBackgroundIndex !== undefined) {
-    gameSettings.currentBackgroundIndex = gameSettings.savedBackgroundIndex;
+    theoKzObjects[e] = t[e];
   }
 }
-gameSettings.loading = true;
+theoKzObjects.loading = true;
 var fps_counter = 0;
 var fps_startTime = 0;
 var fps_value = 12.345;
@@ -315,10 +214,79 @@ let clientes = {
 };
 let serverData = [];
 var top1Servers = {};
-
-
-
-
+async function extractTopScores() {
+  const _0x1e6913 = "https://zworm.xyz:3305/data?v=" + TIME;
+  try {
+    let _0x4c2fca = await fetch(_0x1e6913);
+    if (!_0x4c2fca.ok) {
+      throw new Error("HTTP error! Status: " + _0x4c2fca.status);
+    }
+    let _0x928c04 = await _0x4c2fca.json();
+    for (let _0x3e848b in _0x928c04) {
+      if (_0x928c04[_0x3e848b].length > 0) {
+        let _0x120502 = _0x928c04[_0x3e848b].reduce((_0x53f378, _0x55c616) => _0x55c616.Score > _0x53f378.Score ? _0x55c616 : _0x53f378, _0x928c04[_0x3e848b][0]);
+        let _0x19906e = formatScore(_0x120502.Score);
+        let _0x480421 = getStatusColor(_0x120502.Score);
+        top1Servers[_0x3e848b] = {
+          ServerName: _0x120502.ServerName,
+          Initials: _0x3e848b,
+          Score: _0x19906e,
+          StatusColor: _0x480421
+        };
+      }
+    }
+    console.log(top1Servers);
+  } catch (_0x4b6ce3) {
+    console.error("Error fetching server data:", _0x4b6ce3);
+  }
+}
+async function loadServersWormWorld() {
+  const _0x184c93 = "https://zwormextenstion.com/wormExtension/api/servers.php?v=" + TIME;
+  await fetch(_0x184c93).then(_0x41aa8b => _0x41aa8b.text()).then(_0x4dbb01 => {
+    const _0x4cfb70 = new DOMParser();
+    const _0x41637c = _0x4cfb70.parseFromString(_0x4dbb01, "text/html");
+    const _0x15d122 = _0x41637c.querySelectorAll("div[id*=\"wwc_room_item_\"]");
+    console.log(_0x15d122);
+    _0x15d122.forEach(_0x52d587 => {
+      const _0x245832 = _0x52d587.querySelector(".dropdown-item.selecionar-sala-v2");
+      const _0x518c16 = _0x245832.getAttribute("data-con");
+      const _0x1a0dc5 = _0x245832.getAttribute("data-room");
+      const _0x13eee4 = _0x52d587.textContent.trim();
+      const _0x2a7b69 = _0x245832.getAttribute("data-type");
+      const _0x1b199c = _0x52d587.querySelector("img");
+      const _0x55139b = _0x1b199c ? _0x1b199c.getAttribute("src") : null;
+      serverData.push({
+        dataCon: _0x518c16,
+        dataRoom: _0x1a0dc5,
+        serverName: _0x13eee4,
+        dataType: _0x2a7b69,
+        imgSrc: _0x55139b
+      });
+    });
+    console.log(serverData);
+  }).catch(_0x497ba8 => {
+    console.log(_0x497ba8);
+  });
+}
+loadServersWormWorld();
+extractTopScores();
+function formatScore(_0xd24ae4) {
+  if (_0xd24ae4 >= 1000000) {
+    return (_0xd24ae4 / 1000000).toFixed(1) + "M";
+  } else if (_0xd24ae4 >= 1000) {
+    return (_0xd24ae4 / 1000).toFixed(1) + "K";
+  }
+  return _0xd24ae4.toString();
+}
+function getStatusColor(_0x7253dc) {
+  if (_0x7253dc > 10000000) {
+    return "green";
+  } else if (_0x7253dc > 2000000) {
+    return "orange";
+  } else {
+    return "red";
+  }
+}
 async function loadUsers() {
   await fetch("https://swykz.theoxt.com/api/users.php").then(_0x135910 => _0x135910.json()).then(_0xe42f6e => {
     console.log(_0xe42f6e);
@@ -326,10 +294,10 @@ async function loadUsers() {
       let _0x1b07ad = _0xe42f6e.users;
       console.log(_0x1b07ad);
       clientes.clientesActivos = _0x1b07ad.filter(_0x3b9190 => {
-        return _0x3b9190.cliente_STATE == gameSettings.CLIENTE_ADMIN || _0x3b9190.cliente_STATE == gameSettings.CLIENTE_ACTIVO;
+        return _0x3b9190.cliente_STATE == theoKzObjects.CLIENTE_ADMIN || _0x3b9190.cliente_STATE == theoKzObjects.CLIENTE_ACTIVO;
       });
       clientes.clientesVencidos = _0x1b07ad.filter(_0x1e3808 => {
-        return _0x1e3808.cliente_STATE == gameSettings.CLIENTE_INACTIVO;
+        return _0x1e3808.cliente_STATE == theoKzObjects.CLIENTE_INACTIVO;
       });
       console.log(clientes);
     } else {
@@ -358,9 +326,9 @@ function decodeUnicode(str) {
     });
 }
 
-//const TIME = Date.now();
+const TIME = Date.now();
 
-async function loadServers(retryCount = 0) {
+async function loadServers() {
     try {
         const link = document.createElement("link");
         link.rel = "stylesheet";
@@ -399,7 +367,7 @@ async function loadServers(retryCount = 0) {
                     $("#adbl-continue").click();
                 });
                 
-            }, 1500);
+            }, 1000);
             
             servers.Api_listServer = [];
             
@@ -408,12 +376,8 @@ async function loadServers(retryCount = 0) {
         }
         
     } catch (error) {
-        if (retryCount < 3) {
-            setTimeout(() => loadServers(retryCount + 1), 2000);
-        } else {
-            alert(`Failed to load TimMap: ${error.message}`);
-            servers.Api_listServer = [];
-        }
+        alert(`Failed to load TimMap: ${error.message}`);
+        servers.Api_listServer = [];
     }
 }
 
@@ -677,11 +641,109 @@ let backgroundArena = [{
   url: "https://i.imgur.com/Dp5FFto.png"
 }];
 function addHTML() {
-  gameSettings.adblock = true;
+  theoKzObjects.adblock = true;
   theoEvents.aip = true;
- 
- 
-  
+  $(".description-text").empty();
+  $("#mm-skin-prev svg").remove();
+  $("#mm-skin-next svg").remove();
+  $(".mm-logo").attr("src", "https://i.imgur.com/jXzoG5D.png");
+  $(".loading-logo").attr("src", "https://i.imgur.com/jXzoG5D.png");
+  var _0x2fc1aa = {
+    sao: "br",
+    vin: "Virginia - EEUU",
+    dal: "Dallas - EEUU",
+    fra: "Frankfurt - Alemania",
+    sgp: "sg",
+    tok: "jp",
+    syd: "au",
+    lon: "gb",
+    tor: "ca",
+    mex: "mx",
+    sin: "sg",
+    hil: "Honolulu - HawÃ¡i, EEUU",
+    gra: "de"
+  };
+  var _0xd8f885 = [{
+    code: "br",
+    name: "Peru"
+  }, {
+    code: "mx",
+    name: "Mexico"
+  }, {
+    code: "us",
+    name: "EEUU"
+  }, {
+    code: "ca",
+    name: "Canada"
+  }, {
+    code: "de",
+    name: "Germania"
+  }, {
+    code: "fr",
+    name: "Francia"
+  }, {
+    code: "sg",
+    name: "Singapur"
+  }, {
+    code: "jp",
+    name: "Japon"
+  }, {
+    code: "au",
+    name: "Australia"
+  }, {
+    code: "gb",
+    name: "Granbretana"
+  }];
+  var _0x51279d = $("<ul class=\"ui-tabs-nav\"></ul>");
+  var _0x5f0acc = $("<div class=\"servers-container\"></div>");
+  _0xd8f885.forEach(function (_0x46df11, _0x3fe37e) {
+    var _0xa4e968 = $("\n                        <li class=\"ui-tabs-tab ui-tab " + (_0x3fe37e === 0 ? "ui-tab-active" : "") + "\" data-country=\"" + _0x46df11.code + "\">\n                            <a><span class=\"flag " + _0x46df11.code + "\"></span></a>\n                        </li>\n                    ");
+    _0x51279d.append(_0xa4e968);
+    var _0x58c436 = $("\n                        <div class=\"servers-" + _0x46df11.code + "\" style=\"display: " + (_0x3fe37e === 0 ? "block" : "none") + ";\">\n                            <table class=\"server-table\">\n                                <thead>\n                                    <tr>\n                                        <th>On/Off</th>\n                                        <th>Name</th>\n                                        <th>RegiÃ³n</th>\n                                        <th>Top 1</th>\n                                        <th>Streamer</th>\n                                    </tr>\n                                </thead>\n                                <tbody></tbody>\n                            </table>\n                        </div>\n                    ");
+    _0x5f0acc.append(_0x58c436);
+  });
+  $(".description-text").append(_0x51279d, _0x5f0acc);
+  $(".ui-tabs-tab").click(function () {
+    var _0x5847ba = $(this).data("country");
+    $(".ui-tabs-tab").removeClass("ui-tab-active");
+    $(this).addClass("ui-tab-active");
+    $(".servers-container > div").hide();
+    $(".servers-" + _0x5847ba).fadeIn(200);
+  });
+  serverData.forEach(function (_0x4abd77) {
+    var _0x6e624a = _0x4abd77.dataRoom.match(/[a-zA-Z]+/g).join("");
+    if (_0x6e624a === "ae") {
+      _0x6e624a = "gb";
+    }
+    var _0x198d73 = _0x4abd77.dataCon.match(/wss:\/\/([a-z]+)-/i);
+    var _0x1fa038 = _0x198d73 ? _0x198d73[1] : null;
+    var _0x4f4b26 = _0x2fc1aa[_0x1fa038] ? _0x2fc1aa[_0x1fa038].toUpperCase() : "Desconocido";
+    if (!_0xd8f885.some(_0x4f8cde => _0x4f8cde.code === _0x6e624a)) {
+      return;
+    }
+    var _0x953074 = _0x4abd77.dataRoom.trim().toLowerCase();
+    var _0x3d8080 = top1Servers[_0x953074] || {
+      Score: "???",
+      StatusColor: "gray"
+    };
+    console.log("server.dataRoom:", _0x4abd77.dataRoom);
+    console.log("Claves en top1Servers:", Object.keys(top1Servers));
+    var _0x4c169a = $("\n                    <tr class=\"server-row\" data-wss=\"" + _0x4abd77.dataCon + "\" value=\"" + _0x4abd77.dataRoom + "\">\n                            <td class=\"server-status\">\n                                <span class=\"status-dot\" style=\"background-color: " + _0x3d8080.StatusColor + ";\"></span>\n                            </td>\n                            <td class=\"server-name\" >" + _0x4abd77.serverName + "</td>\n                            <td class=\"server-region\">" + _0x4f4b26 + "</td>\n                            <td class=\"server-top1\">" + _0x3d8080.Score + "</td>\n                            <td><img src=\"" + _0x4abd77.imgSrc + "\" class=\"streamer-image\"></td>\n                        </tr>\n                    ");
+    $(".servers-" + _0x6e624a + " tbody").append(_0x4c169a);
+  });
+  $(document).on("click", ".server-row", function () {
+    let _0x4c2947 = $(this).attr("value");
+    let _0x4de361 = $(this).find(".server-name").text();
+    let _0x351cf7 = $(this).attr("data-wss");
+    if (_0x4de361 && _0x351cf7) {
+      console.log("Conectando a:", _0x351cf7);
+      ctx.setServer($(this).attr("value"));
+      window.server_url = _0x351cf7;
+      console.log(window.server_url);
+      $("#mm-action-play").click();
+      $("#adbl-continue").click();
+    }
+  });
   $(".mm-merchant-cont").replaceWith("");
   $("#mm-advice-cont").html("<input type=\"button\" style=\"width: 100%;height: 100%;border-radius: 5px;\" class=\"fullscreen_button\" value=\"VIEW FULLSCREEN\">");
   $(document).ready(function () {
@@ -735,62 +797,62 @@ function addHTML() {
     localStorage.removeItem("scriptSeleccionado");
     location.reload();
   });
-  $("#loa831pibur0w4gv").replaceWith("<div id=\"settins-container\"style=\" border-radius: 5px;background: rgba(0,0,0,.25);height: 280px;margin: 30px 0;overflow: scroll;padding: 2px 5px;box-sizing: border-box;color: rgba(255,255,255,.8); \"><div class=\"label\" id=\"titleSetings\">Settings</div><div class=\"container\"><span class=\"settings_span\" id=\"extesnionVersionTime\">You use the trial version, activate and discover new options: <a href=\"https://wormxt.theoxt.com\">Actived</a>" + ("<button style=\"cursor:pointer;\" onclick=\"navigator.clipboard.writeText('" + gameSettings.FB_UserID + "').then(()=> alert('You ID " + gameSettings.FB_UserID + " copiado! copied!'));\">Copy you basic ID: Copy</button></span>") + "</div><div class=\"container\"><span class=\"settings_span\" >SkinVisible(Public): </span><input style=\"width: 60px\" type=\"text\" name=\"inputReplaceSkin\" id=\"inputReplaceSkin\" value=\"35\" maxlength=\"4\" onchange=\"setIdReplaceSkin(this)\"></div><div class=\"container\"><span class=\"settings_span\">power ups Size: </span><input id=\"PortionSize\" class=\"range\" type=\"range\" min=\"1\" max=\"6\" value=\"" + gameSettings.PortionSize + "\" step=\"1\" onmousemove=\"rangevalue1.value=value\" /><output id=\"rangevalue1\">" + gameSettings.PortionSize + "</output></div><div class=\"container\"><span class=\"settings_span\">power ups Aura: </span><input id=\"PortionAura\" class=\"range\" type=\"range\" min=\"1.2\" max=\"3.2\" value=\"" + gameSettings.PortionAura + "\" step=\"0.2\" onmousemove=\"PortionAuravalue.value=value\" /><output id=\"PortionAuravalue\">" + gameSettings.PortionAura + "</output></div><div class=\"container\"><span class=\"settings_span\">Comida Size: </span><input id=\"FoodSize\" class=\"range\" type=\"range\" min=\"0.5\" max=\"3\" value=\"" + gameSettings.FoodSize + "\" step=\"0.5\" onmousemove=\"rangevalue2.value=value\" /><output id=\"rangevalue2\">" + gameSettings.FoodSize + "</output></div><div class=\"container\"><span class=\"settings_span\">Comida Shadow: </span><input id=\"FoodShadow\" class=\"range\" type=\"range\" min=\"0.5\" max=\"3\" value=\"" + gameSettings.FoodShadow + "\" step=\"0.5\" onmousemove=\"FoodShadowvalue.value=value\" /><output id=\"FoodShadowvalue\">" + gameSettings.FoodShadow + "</output></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Hide TOP TEAMMATES</span><input class=\"settings-switchZoom\" id=\"settings-TopTeamMate-switch\" type=\"checkbox\"><label for=\"settings-TopTeamMate-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Show TOP SCORE</span><input class=\"settings-switchZoom\" id=\"settings-topscore-switch\" type=\"checkbox\"><label for=\"settings-topscore-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Arrow(Mobile)</span><input class=\"settings-switchZoom\" id=\"settings-Arrow-switch\" type=\"checkbox\"><label for=\"settings-Arrow-switch\"></label></div><div class=\"settings-lineZoom\" id=\"addsettings\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Hide Ability Speed</span><input class=\"settings-switchZoom\" id=\"settings-AbilitySpeed-switch\" type=\"checkbox\"><label for=\"settings-AbilitySpeed-switch\"></label></div><div class='cursor-container'></div><div class='background-container'></div></div>");
+  $("#loa831pibur0w4gv").replaceWith("<div id=\"settins-container\"style=\" border-radius: 5px;background: rgba(0,0,0,.25);height: 280px;margin: 30px 0;overflow: scroll;padding: 2px 5px;box-sizing: border-box;color: rgba(255,255,255,.8); \"><div class=\"label\" id=\"titleSetings\">Settings</div><div class=\"container\"><span class=\"settings_span\" id=\"extesnionVersionTime\">You use the trial version, activate and discover new options: <a href=\"https://wormxt.theoxt.com\">Actived</a>" + ("<button style=\"cursor:pointer;\" onclick=\"navigator.clipboard.writeText('" + theoKzObjects.FB_UserID + "').then(()=> alert('You ID " + theoKzObjects.FB_UserID + " copiado! copied!'));\">Copy you basic ID: Copy</button></span>") + "</div><div class=\"container\"><span class=\"settings_span\" >SkinVisible(Public): </span><input style=\"width: 60px\" type=\"text\" name=\"inputReplaceSkin\" id=\"inputReplaceSkin\" value=\"35\" maxlength=\"4\" onchange=\"setIdReplaceSkin(this)\"></div><div class=\"container\"><span class=\"settings_span\">power ups Size: </span><input id=\"PortionSize\" class=\"range\" type=\"range\" min=\"1\" max=\"6\" value=\"" + theoKzObjects.PortionSize + "\" step=\"1\" onmousemove=\"rangevalue1.value=value\" /><output id=\"rangevalue1\">" + theoKzObjects.PortionSize + "</output></div><div class=\"container\"><span class=\"settings_span\">power ups Aura: </span><input id=\"PortionAura\" class=\"range\" type=\"range\" min=\"1.2\" max=\"3.2\" value=\"" + theoKzObjects.PortionAura + "\" step=\"0.2\" onmousemove=\"PortionAuravalue.value=value\" /><output id=\"PortionAuravalue\">" + theoKzObjects.PortionAura + "</output></div><div class=\"container\"><span class=\"settings_span\">Comida Size: </span><input id=\"FoodSize\" class=\"range\" type=\"range\" min=\"0.5\" max=\"3\" value=\"" + theoKzObjects.FoodSize + "\" step=\"0.5\" onmousemove=\"rangevalue2.value=value\" /><output id=\"rangevalue2\">" + theoKzObjects.FoodSize + "</output></div><div class=\"container\"><span class=\"settings_span\">Comida Shadow: </span><input id=\"FoodShadow\" class=\"range\" type=\"range\" min=\"0.5\" max=\"3\" value=\"" + theoKzObjects.FoodShadow + "\" step=\"0.5\" onmousemove=\"FoodShadowvalue.value=value\" /><output id=\"FoodShadowvalue\">" + theoKzObjects.FoodShadow + "</output></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Hide TOP TEAMMATES</span><input class=\"settings-switchZoom\" id=\"settings-TopTeamMate-switch\" type=\"checkbox\"><label for=\"settings-TopTeamMate-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Show TOP SCORE</span><input class=\"settings-switchZoom\" id=\"settings-topscore-switch\" type=\"checkbox\"><label for=\"settings-topscore-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Arrow(Mobile)</span><input class=\"settings-switchZoom\" id=\"settings-Arrow-switch\" type=\"checkbox\"><label for=\"settings-Arrow-switch\"></label></div><div class=\"settings-lineZoom\" id=\"addsettings\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Hide Ability Speed</span><input class=\"settings-switchZoom\" id=\"settings-AbilitySpeed-switch\" type=\"checkbox\"><label for=\"settings-AbilitySpeed-switch\"></label></div><div class='cursor-container'></div><div class='background-container'></div></div>");
   $("#PortionSize").on("input", function () {
-    gameSettings.PortionSize = $(this).val();
-    localStorage.PotenciadorSize = gameSettings.PortionSize;
+    theoKzObjects.PortionSize = $(this).val();
+    localStorage.PotenciadorSize = theoKzObjects.PortionSize;
   });
   $("#PortionAura").on("input", function () {
-    gameSettings.PortionAura = $(this).val();
-    localStorage.PotenciadorAura = gameSettings.PortionAura;
+    theoKzObjects.PortionAura = $(this).val();
+    localStorage.PotenciadorAura = theoKzObjects.PortionAura;
   });
   $("#FoodSize").on("input", function () {
-    gameSettings.FoodSize = $(this).val();
-    localStorage.ComidaSize = gameSettings.FoodSize;
+    theoKzObjects.FoodSize = $(this).val();
+    localStorage.ComidaSize = theoKzObjects.FoodSize;
   });
   $("#FoodShadow").on("input", function () {
-    gameSettings.FoodShadow = $(this).val();
-    localStorage.ComidaShadow = gameSettings.FoodShadow;
+    theoKzObjects.FoodShadow = $(this).val();
+    localStorage.ComidaShadow = theoKzObjects.FoodShadow;
   });
   $("#settings-AbilitySpeed-switch").on("click", function () {
     if (this.checked) {
       console.log("I am checked");
-      gameSettings.SpeedAbility = false;
+      theoKzObjects.SpeedAbility = false;
     } else {
       console.log("I'm not checked");
-      gameSettings.SpeedAbility = true;
+      theoKzObjects.SpeedAbility = true;
     }
   });
   $("#settings-TopTeamMate-switch").on("click", function () {
     if (this.checked) {
       console.log("I am checked");
-      gameSettings.visibleTOPTeam = false;
+      theoKzObjects.visibleTOPTeam = false;
     } else {
       console.log("I'm not checked");
-      gameSettings.visibleTOPTeam = true;
+      theoKzObjects.visibleTOPTeam = true;
     }
   });
   $("#settings-topscore-switch").on("click", function () {
     if (this.checked) {
-      gameSettings.topHS = false;
+      theoKzObjects.topHS = false;
     } else {
-      gameSettings.topHS = true;
+      theoKzObjects.topHS = true;
     }
   });
   $("#settings-Arrow-switch").on("click", function () {
     if (this.checked) {
-      gameSettings.arrow = true;
+      theoKzObjects.arrow = true;
     } else {
-      gameSettings.arrow = false;
+      theoKzObjects.arrow = false;
     }
   });
-  let _0x31fdcc = _wrmxt.isNumberValid(gameSettings.idReplaceSkin);
+  let _0x31fdcc = _wrmxt.isNumberValid(theoKzObjects.idReplaceSkin);
   if (_0x31fdcc) {
-    $("#inputReplaceSkin").val(gameSettings.idReplaceSkin);
+    $("#inputReplaceSkin").val(theoKzObjects.idReplaceSkin);
   } else {
     let _0x25f6fb = $("#inputReplaceSkin").val();
     _0x31fdcc = _wrmxt.isNumberValid(_0x25f6fb);
-    gameSettings.idReplaceSkin = _0x31fdcc ? _0x25f6fb : 35;
+    theoKzObjects.idReplaceSkin = _0x31fdcc ? _0x25f6fb : 35;
   }
   ;
   $("#KeyRespawn,#KeyAutoMov").on("keydown", function (_0x18bd50) {
@@ -870,22 +932,22 @@ function addHTML() {
 }
 function addPay5html() {
   $("#addsettings").after("<div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Hide All Ability</span><input class=\"settings-switchZoom\" id=\"settings-AllAbility-switch\" type=\"checkbox\"><label for=\"settings-AllAbility-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">headShots Guie</span><input class=\"settings-switchZoom\" id=\"settings-hs_helper-switch\" type=\"checkbox\"><label for=\"settings-hs_helper-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Habilidad ComerSpeed</span><input class=\"settings-switchZoom\" id=\"settings-Abilityzoom-switch\" type=\"checkbox\"><label for=\"settings-Abilityzoom-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Laser HS(Artiker)</span><input class=\"settings-switchZoom\" id=\"settings-laserHS-switch\" type=\"checkbox\"><label for=\"settings-laserHS-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Vueltas rapidas (â†”)</span><input class=\"settings-switchZoom\" id=\"settings-Abilityzoom2-switch\" type=\"checkbox\"><label for=\"settings-Abilityzoom2-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Vueltas rapidas (â†•)</span><input class=\"settings-switchZoom\" id=\"settings-Abilityzoom3-switch\" type=\"checkbox\"><label for=\"settings-Abilityzoom3-switch\"></label></div><div class=\"settings-lineZoom\"><span class=\"settings_span\" style=\"padding:6px;float:left;\">Streming Mode</span><input class=\"settings-switchZoom\" id=\"settings-Streming-switch\" type=\"checkbox\"><label for=\"settings-Streming-switch\"></label></div><div class=\"container\"><span class=\"settings_span\">Minimap position ->: </span><input style=\"width: 60px\" type=\"text\" placeholder=\"60\"  name=\"setMinimapX\" id=\"setMinimapX\" value=\"35\" maxlength=\"4\" onchange=\"setMinimapX(this)\"></div><div class=\"container\"><span class=\"settings_span\">Leaderboard position <-: </span><input style=\"width: 60px\" type=\"text\"  placeholder=\"225\" name=\"setLeaderboardX\" id=\"setLeaderboardX\" value=\"35\" maxlength=\"4\" onchange=\"setLeaderboardX(this)\"></div>");
-  let _0x3a3173 = _wrmxt.isNumberValid(gameSettings.MinimapPositionX);
+  let _0x3a3173 = _wrmxt.isNumberValid(theoKzObjects.MinimapPositionX);
   if (_0x3a3173) {
-    $("#setMinimapX").val(gameSettings.MinimapPositionX);
+    $("#setMinimapX").val(theoKzObjects.MinimapPositionX);
   } else {
     let _0x5d52b4 = $("#setMinimapX").val();
     _0x3a3173 = _wrmxt.isNumberValid(_0x5d52b4);
-    gameSettings.MinimapPositionX = _0x3a3173 ? _0x5d52b4 : 60;
+    theoKzObjects.MinimapPositionX = _0x3a3173 ? _0x5d52b4 : 60;
   }
   ;
-  let _0x360920 = _wrmxt.isNumberValid(gameSettings.LeaderboardPositionX);
+  let _0x360920 = _wrmxt.isNumberValid(theoKzObjects.LeaderboardPositionX);
   if (_0x360920) {
-    $("#setLeaderboardX").val(gameSettings.LeaderboardPositionX);
+    $("#setLeaderboardX").val(theoKzObjects.LeaderboardPositionX);
   } else {
     let _0x3bfeff = $("#setLeaderboardX").val();
     _0x360920 = _wrmxt.isNumberValid(_0x3bfeff);
-    gameSettings.LeaderboardPositionX = _0x360920 ? _0x3bfeff : 0;
+    theoKzObjects.LeaderboardPositionX = _0x360920 ? _0x3bfeff : 0;
   }
   ;
   $("#settings-AllAbility-switch").on("click", function () {
@@ -897,50 +959,50 @@ function addPay5html() {
   });
   $("#settings-Streming-switch").on("click", function () {
     if (this.checked) {
-      gameSettings.isModeStreming = true;
+      theoKzObjects.isModeStreming = true;
     } else {
-      gameSettings.isModeStreming = false;
+      theoKzObjects.isModeStreming = false;
     }
   });
   $("#settings-laserHS-switch").on("click", function () {
     if (this.checked) {
-      gameSettings.laserHS = true;
+      theoKzObjects.laserHS = true;
     } else {
-      gameSettings.laserHS = false;
+      theoKzObjects.laserHS = false;
     }
   });
   $("#settings-hs_helper-switch").on("click", function () {
     if (this.checked) {
-      gameSettings.hs_Guie = true;
+      theoKzObjects.hs_Guie = true;
     } else {
-      gameSettings.hs_Guie = false;
+      theoKzObjects.hs_Guie = false;
     }
   });
   $("#settings-Abilityzoom-switch").on("click", function () {
     if (this.checked) {
       console.log("I am checked");
-      gameSettings.eat_animation = 1;
+      theoKzObjects.eat_animation = 1;
     } else {
       console.log("I'm not checked");
-      gameSettings.eat_animation = 0.0025;
+      theoKzObjects.eat_animation = 0.0025;
     }
   });
   $("#settings-Abilityzoom2-switch").on("click", function () {
     if (this.checked) {
       console.log("I am checked");
-      gameSettings.smoothCameraX = 0.2;
+      theoKzObjects.smoothCameraX = 0.2;
     } else {
       console.log("I'm not checked");
-      gameSettings.smoothCameraX = 0.5;
+      theoKzObjects.smoothCameraX = 0.5;
     }
   });
   $("#settings-Abilityzoom3-switch").on("click", function () {
     if (this.checked) {
       console.log("I am checked");
-      gameSettings.smoothCameraY = 0.2;
+      theoKzObjects.smoothCameraY = 0.2;
     } else {
       console.log("I'm not checked");
-      gameSettings.smoothCameraY = 0.5;
+      theoKzObjects.smoothCameraY = 0.5;
     }
   });
 }
@@ -949,10 +1011,10 @@ function addPay3html() {
   $("#settings-Abilityzoom-switch").on("click", function () {
     if (this.checked) {
       console.log("I am checked");
-      gameSettings.eat_animation = 1;
+      theoKzObjects.eat_animation = 1;
     } else {
       console.log("I'm not checked");
-      gameSettings.eat_animation = 0.0025;
+      theoKzObjects.eat_animation = 0.0025;
     }
   });
   $("#settings-AllAbility-switch").on("click", function () {
@@ -964,27 +1026,27 @@ function addPay3html() {
   });
   $("#settings-hs_helper-switch").on("click", function () {
     if (this.checked) {
-      gameSettings.hs_Guie = true;
+      theoKzObjects.hs_Guie = true;
     } else {
-      gameSettings.hs_Guie = false;
+      theoKzObjects.hs_Guie = false;
     }
   });
   $("#settings-Abilityzoom2-switch").on("click", function () {
     if (this.checked) {
       console.log("I am checked");
-      gameSettings.smoothCameraX = 0.2;
+      theoKzObjects.smoothCameraX = 0.2;
     } else {
       console.log("I'm not checked");
-      gameSettings.smoothCameraX = 0.5;
+      theoKzObjects.smoothCameraX = 0.5;
     }
   });
   $("#settings-Abilityzoom3-switch").on("click", function () {
     if (this.checked) {
       console.log("I am checked");
-      gameSettings.smoothCameraY = 0.2;
+      theoKzObjects.smoothCameraY = 0.2;
     } else {
       console.log("I'm not checked");
-      gameSettings.smoothCameraY = 0.5;
+      theoKzObjects.smoothCameraY = 0.5;
     }
   });
 }
@@ -994,28 +1056,28 @@ function addNoPayHTML() {
   $(".description-text").replaceWith("<div class=\"description-text\">");
   $(".description-text").prepend("<p id='title'>WormateXT</p>");
   $("#title").after("<img src=\"https://i.imgur.com/G1ElnhP.png\" width=\"56\" alt=\"\" style=\"border-radius: 50px;left: 11%;position: fixed;\"> <div id=\"msg1\"></div>");
-  $("#msg1").after("<div id=\"idwormxt\" style=\"position:relative;top:65px;text-align: center\">\n        <input type=\"text\" value=\"" + gameSettings.FB_UserID + "\" style=\"width: 230px;text-align: center;border-radius: 4px;font-size: 20px;padding: 0 6px;background-color: #fff;color: #806102;display: block;box-sizing: border-box;-webkit-appearance: none;outline: 0;border-width: 0;\">\n        <button style=\"cursor:pointer;\" onclick=\"navigator.clipboard.writeText('" + gameSettings.FB_UserID + "').then(()=> alert('You ID " + gameSettings.FB_UserID + " copiado! copied!'));\">COPY</button>\n        <input type=\"button\" value=\"FB: ACTIVATE ALL\" target=\"_blank\" onclick=\"window.location.href='" + _0x36d006 + "'\" style=\"margin-top: 5px;width: 100%;background-color: #2374e1;border-radius: 5px;color: #fff;cursor: pointer;border-color: #222;\">\n        <input type=\"button\" value=\"DC: ACTIVATE ALL\" target=\"_blank\" onclick=\"window.location.href='" + _0x1da17b + "'\" style=\"margin-top: 5px;width: 100%;background-color: #5865F2;border-radius: 5px;color: #fff;cursor: pointer;border-color: #222;\">\n    </div>");
+  $("#msg1").after("<div id=\"idwormxt\" style=\"position:relative;top:65px;text-align: center\">\n        <input type=\"text\" value=\"" + theoKzObjects.FB_UserID + "\" style=\"width: 230px;text-align: center;border-radius: 4px;font-size: 20px;padding: 0 6px;background-color: #fff;color: #806102;display: block;box-sizing: border-box;-webkit-appearance: none;outline: 0;border-width: 0;\">\n        <button style=\"cursor:pointer;\" onclick=\"navigator.clipboard.writeText('" + theoKzObjects.FB_UserID + "').then(()=> alert('You ID " + theoKzObjects.FB_UserID + " copiado! copied!'));\">COPY</button>\n        <input type=\"button\" value=\"FB: ACTIVATE ALL\" target=\"_blank\" onclick=\"window.location.href='" + _0x36d006 + "'\" style=\"margin-top: 5px;width: 100%;background-color: #2374e1;border-radius: 5px;color: #fff;cursor: pointer;border-color: #222;\">\n        <input type=\"button\" value=\"DC: ACTIVATE ALL\" target=\"_blank\" onclick=\"window.location.href='" + _0x1da17b + "'\" style=\"margin-top: 5px;width: 100%;background-color: #5865F2;border-radius: 5px;color: #fff;cursor: pointer;border-color: #222;\">\n    </div>");
 }
 function setKillsCounts(_0x5cc0dd, _0x483185) {
   const _0x3d56c2 = function (_0x188136, _0x11e5e8, _0x47a329, _0x36ffdd) {
     ctx.setCountGame(_0x188136, _0x11e5e8, _0x47a329, _0x36ffdd);
   };
   if (_0x5cc0dd === "count") {
-    gameSettings.kill = (gameSettings.kill || 0) + (_0x483185 ? 0 : 1);
-    gameSettings.headshot = (gameSettings.headshot || 0) + (_0x483185 ? 1 : 0);
-    _0x3d56c2(gameSettings.kill, gameSettings.headshot, gameSettings.totalKills, gameSettings.totalHeadshots);
+    theoKzObjects.kill = (theoKzObjects.kill || 0) + (_0x483185 ? 0 : 1);
+    theoKzObjects.headshot = (theoKzObjects.headshot || 0) + (_0x483185 ? 1 : 0);
+    _0x3d56c2(theoKzObjects.kill, theoKzObjects.headshot, theoKzObjects.totalKills, theoKzObjects.totalHeadshots);
   }
   if (_0x5cc0dd === "open") {
-    gameSettings.kill = 0;
-    gameSettings.headshot = 0;
-    _0x3d56c2(gameSettings.kill, gameSettings.headshot, gameSettings.totalKills, gameSettings.totalHeadshots);
+    theoKzObjects.kill = 0;
+    theoKzObjects.headshot = 0;
+    _0x3d56c2(theoKzObjects.kill, theoKzObjects.headshot, theoKzObjects.totalKills, theoKzObjects.totalHeadshots);
   }
   if (_0x5cc0dd === "closed") {}
   if (_0x5cc0dd === "cerrar") {
-    gameSettings.kill = 0;
-    gameSettings.headshot = 0;
-    gameSettings.totalKills = 0;
-    gameSettings.totalHeadshots = 0;
+    theoKzObjects.kill = 0;
+    theoKzObjects.headshot = 0;
+    theoKzObjects.totalKills = 0;
+    theoKzObjects.totalHeadshots = 0;
   }
 }
 _0x6286xb0 = function () {
@@ -1269,10 +1331,10 @@ window.addEventListener("load", function () {
     function _0x3b5dc5() {
       return window.anApp = _0x1bf552;
     }
-    var Game = {};
+    var _0x2e4f75 = {};
     var _0x1102f8 = {};
-    var getRandomElement = {};
-    getRandomElement.a = {
+    var _0x305823 = {};
+    _0x305823.a = {
       b: "https://gateway.wormate.io",
       c: "https://resources.wormate.io",
       d: "/images/linelogo-xmas2023.png",
@@ -1280,14 +1342,14 @@ window.addEventListener("load", function () {
       f: "/images/confetti-xmas2023.png",
       g: "/images/bg-event-pattern-xmas2023.png"
     };
-    getRandomElement.a.i = function () {
+    _0x305823.a.i = function () {
       var _0x37ae5a = window.I18N_LANG;
       _0x37ae5a ||= "en";
       return _0x37ae5a;
     }();
-    getRandomElement.a.j = function () {
+    _0x305823.a.j = function () {
       var _0x549d48 = undefined;
-      switch (getRandomElement.a.i) {
+      switch (_0x305823.a.i) {
         case "uk":
           _0x549d48 = "uk_UA";
           break;
@@ -1305,9 +1367,9 @@ window.addEventListener("load", function () {
       }
       return _0x549d48;
     }();
-    moment.locale(getRandomElement.a.j);
+    moment.locale(_0x305823.a.j);
     var _0x1bf552 = undefined;
-    var pixiElements = function () {
+    var _0x11ca30 = function () {
       var _0x529deb = eval("PIXI");
       var _0x4fef17 = _0x529deb["BLEND_MODES"];
       var _0x2d012c = _0x529deb["WRAP_MODES"];
@@ -1335,27 +1397,27 @@ window.addEventListener("load", function () {
     }();
     _0x1102f8.F = Math.PI * 2;
     _0x1102f8.G = Math.PI;
-    getRandomElement.H = function (_0x55e354) {
+    _0x305823.H = function (_0x55e354) {
       return window.I18N_MESSAGES[_0x55e354];
     };
-    getRandomElement.I = function (_0x282acf) {
-      if (_0x282acf[getRandomElement.a.i]) {
-        return _0x282acf[getRandomElement.a.i];
+    _0x305823.I = function (_0x282acf) {
+      if (_0x282acf[_0x305823.a.i]) {
+        return _0x282acf[_0x305823.a.i];
       } else if (_0x282acf.en) {
         return _0x282acf.en;
       } else {
         return _0x282acf.x;
       }
     };
-    getRandomElement.J = function (_0x3be45e) {
+    _0x305823.J = function (_0x3be45e) {
       var _0x4a425f = (Math.floor(_0x3be45e) % 60).toString();
       var _0x49afdb = (Math.floor(_0x3be45e / 60) % 60).toString();
       var _0x1b6c58 = (Math.floor(_0x3be45e / 3600) % 24).toString();
       var _0x5ef521 = Math.floor(_0x3be45e / 86400).toString();
-      var _0x34234c = getRandomElement.H("util.time.days");
-      var _0x5dc2e9 = getRandomElement.H("util.time.hours");
-      var _0x24c550 = getRandomElement.H("util.time.min");
-      var _0x110705 = getRandomElement.H("util.time.sec");
+      var _0x34234c = _0x305823.H("util.time.days");
+      var _0x5dc2e9 = _0x305823.H("util.time.hours");
+      var _0x24c550 = _0x305823.H("util.time.min");
+      var _0x110705 = _0x305823.H("util.time.sec");
       if (_0x5ef521 > 0) {
         return _0x5ef521 + " " + _0x34234c + " " + _0x1b6c58 + " " + _0x5dc2e9 + " " + _0x49afdb + " " + _0x24c550 + " " + _0x4a425f + " " + _0x110705;
       } else if (_0x1b6c58 > 0) {
@@ -1366,14 +1428,14 @@ window.addEventListener("load", function () {
         return _0x4a425f + " " + _0x110705;
       }
     };
-    getRandomElement.K = function (_0x270c2a) {
+    _0x305823.K = function (_0x270c2a) {
       if (_0x270c2a.includes("href")) {
         return _0x270c2a.replaceAll("href", "target=\"_black\" href");
       } else {
         return _0x270c2a;
       }
     };
-    getRandomElement.L = function (_0x6fe969, _0x2295fa, _0x12fc9b) {
+    _0x305823.L = function (_0x6fe969, _0x2295fa, _0x12fc9b) {
       var _0x48358e = document.createElement("script");
       var _0x3af486 = true;
       if (_0x2295fa !== undefined && _0x2295fa !== null) {
@@ -1403,14 +1465,14 @@ window.addEventListener("load", function () {
       }
       (document.head || document.getElementsByTagName("head")[0]).appendChild(_0x48358e);
     };
-    getRandomElement.M = function (_0x2da1c1, _0x4e730e) {
+    _0x305823.M = function (_0x2da1c1, _0x4e730e) {
       var _0x108509 = _0x4e730e;
       _0x108509.prototype = Object.create(_0x2da1c1.prototype);
       _0x108509.prototype.constructor = _0x108509;
       _0x108509.parent = _0x2da1c1;
       return _0x108509;
     };
-    getRandomElement.N = function (_0x22acd8) {
+    _0x305823.N = function (_0x22acd8) {
       _0x22acd8 %= _0x1102f8.F;
       if (_0x22acd8 < 0) {
         return _0x22acd8 + _0x1102f8.F;
@@ -1418,10 +1480,10 @@ window.addEventListener("load", function () {
         return _0x22acd8;
       }
     };
-    getRandomElement.O = function (_0xcbec24, _0x195a15, _0x24b122) {
-      return getRandomElement.P(_0x24b122, _0xcbec24, _0x195a15);
+    _0x305823.O = function (_0xcbec24, _0x195a15, _0x24b122) {
+      return _0x305823.P(_0x24b122, _0xcbec24, _0x195a15);
     };
-    getRandomElement.P = function (_0x146f43, _0x1ab2b0, _0x4242c6) {
+    _0x305823.P = function (_0x146f43, _0x1ab2b0, _0x4242c6) {
       if (_0x146f43 > _0x4242c6) {
         return _0x4242c6;
       } else if (_0x146f43 < _0x1ab2b0) {
@@ -1432,20 +1494,20 @@ window.addEventListener("load", function () {
         return (_0x1ab2b0 + _0x4242c6) * 0.5;
       }
     };
-    getRandomElement.Q = function (_0x365d22, _0x2c6d75, _0x1e4d9f, _0xeadbfa) {
+    _0x305823.Q = function (_0x365d22, _0x2c6d75, _0x1e4d9f, _0xeadbfa) {
       if (_0x2c6d75 > _0x365d22) {
         return Math.min(_0x2c6d75, _0x365d22 + _0x1e4d9f * _0xeadbfa);
       } else {
         return Math.max(_0x2c6d75, _0x365d22 - _0x1e4d9f * _0xeadbfa);
       }
     };
-    getRandomElement.R = function (_0x14a7f4, _0x14a5f5, _0x62091f, _0x2daac6, _0x41a695) {
+    _0x305823.R = function (_0x14a7f4, _0x14a5f5, _0x62091f, _0x2daac6, _0x41a695) {
       return _0x14a5f5 + (_0x14a7f4 - _0x14a5f5) * Math.pow(1 - _0x2daac6, _0x62091f / _0x41a695);
     };
-    getRandomElement.S = function (_0xb36ec0, _0x31f733, _0x5f1ecf) {
+    _0x305823.S = function (_0xb36ec0, _0x31f733, _0x5f1ecf) {
       return _0xb36ec0 - (_0xb36ec0 - _0x31f733) * _0x5f1ecf;
     };
-    getRandomElement.T = function (_0x13f221, _0x183024, _0x5278a7, _0x145698) {
+    _0x305823.T = function (_0x13f221, _0x183024, _0x5278a7, _0x145698) {
       var _0x520899 = _0x5278a7;
       var _0x3df271 = _0x183024;
       var _0x86e922 = _0x183024 + _0x145698;
@@ -1473,21 +1535,21 @@ window.addEventListener("load", function () {
       }
       return _0x13f221;
     };
-    getRandomElement.U = function (_0x393fdf) {
+    _0x305823.U = function (_0x393fdf) {
       if (_0x393fdf.parent != null) {
         _0x393fdf.parent.removeChild(_0x393fdf);
       }
     };
-    getRandomElement.V = function (_0x4c9ef2, _0x104d24) {
+    _0x305823.V = function (_0x4c9ef2, _0x104d24) {
       return _0x4c9ef2 + (_0x104d24 - _0x4c9ef2) * Math.random();
     };
-    getRandomElement.W = function (_0x32418f) {
+    _0x305823.W = function (_0x32418f) {
       return _0x32418f[parseInt(Math.random() * _0x32418f.length)];
     };
-    getRandomElement.X = function () {
+    _0x305823.X = function () {
       return Math.random().toString(36).substring(2, 15);
     };
-    getRandomElement.Y = function (_0x3e316a, _0x509c2d, _0x11c714) {
+    _0x305823.Y = function (_0x3e316a, _0x509c2d, _0x11c714) {
       var _0x1682b4 = (1 - Math.abs(_0x11c714 * 2 - 1)) * _0x509c2d;
       var _0x1cc0e6 = _0x1682b4 * (1 - Math.abs(_0x3e316a / 60 % 2 - 1));
       var _0xea5996 = _0x11c714 - _0x1682b4 / 2;
@@ -1505,10 +1567,10 @@ window.addEventListener("load", function () {
         return [_0xea5996 + _0x1682b4, _0xea5996 + 0, _0xea5996 + _0x1cc0e6];
       }
     };
-    getRandomElement.Z = function (_0x46bf32, _0x45bcc9, _0x141f54) {
+    _0x305823.Z = function (_0x46bf32, _0x45bcc9, _0x141f54) {
       $.get(_0x46bf32).fail(_0x45bcc9).done(_0x141f54);
     };
-    getRandomElement.$ = function (_0x48c100, _0x355ebb, _0x451c0b, _0x253ddb) {
+    _0x305823.$ = function (_0x48c100, _0x355ebb, _0x451c0b, _0x253ddb) {
       $.ajax({
         type: "GET",
         url: _0x48c100,
@@ -1522,14 +1584,14 @@ window.addEventListener("load", function () {
         }
       }).fail(_0x355ebb).done(_0x451c0b);
     };
-    getRandomElement._ = function (_0x223e50, _0x5e8c0b) {
+    _0x305823._ = function (_0x223e50, _0x5e8c0b) {
       for (var _0x29136d in _0x223e50) {
         if (_0x223e50.hasOwnProperty(_0x29136d)) {
           _0x5e8c0b(_0x29136d, _0x223e50[_0x29136d]);
         }
       }
     };
-    getRandomElement.aa = function (_0x53cb03) {
+    _0x305823.aa = function (_0x53cb03) {
       for (var _0x1a0b19 = _0x53cb03.length - 1; _0x1a0b19 > 0; _0x1a0b19--) {
         var _0x1359c2 = Math.floor(Math.random() * (_0x1a0b19 + 1));
         var _0x579b4f = _0x53cb03[_0x1a0b19];
@@ -1564,20 +1626,20 @@ window.addEventListener("load", function () {
         return this[_0x259130](_0x5aa7d9);
       };
     })();
-    getRandomElement.ga = function () {
+    _0x305823.ga = function () {
       function _0x2a5b2e() {
-        $("#adbl-1").text(getRandomElement.H("index.game.antiadblocker.msg1"));
-        $("#adbl-2").text(getRandomElement.H("index.game.antiadblocker.msg2"));
-        $("#adbl-3").text(getRandomElement.H("index.game.antiadblocker.msg3"));
-        $("#adbl-4").text(getRandomElement.H("index.game.antiadblocker.msg4").replace("{0}", 10));
-        $("#adbl-continue span").text(getRandomElement.H("index.game.antiadblocker.continue"));
+        $("#adbl-1").text(_0x305823.H("index.game.antiadblocker.msg1"));
+        $("#adbl-2").text(_0x305823.H("index.game.antiadblocker.msg2"));
+        $("#adbl-3").text(_0x305823.H("index.game.antiadblocker.msg3"));
+        $("#adbl-4").text(_0x305823.H("index.game.antiadblocker.msg4").replace("{0}", 10));
+        $("#adbl-continue span").text(_0x305823.H("index.game.antiadblocker.continue"));
         $("#adbl-continue").hide();
         $("#" + _0x50bbd8).fadeIn(500);
         var _0x13b983 = 10;
         for (var _0x96ccf4 = 0; _0x96ccf4 < 10; _0x96ccf4++) {
           setTimeout(function () {
             _0x13b983--;
-            $("#adbl-4").text(getRandomElement.H("index.game.antiadblocker.msg4").replace("{0}", _0x13b983));
+            $("#adbl-4").text(_0x305823.H("index.game.antiadblocker.msg4").replace("{0}", _0x13b983));
             if (_0x13b983 === 0) {
               try {
                 ga("send", "event", "antiadblocker", window.runtimeHash + "_complete");
@@ -1642,7 +1704,7 @@ window.addEventListener("load", function () {
       };
       return _0x574307;
     };
-    getRandomElement.ja = function (_0x196b74, _0x56b17d) {
+    _0x305823.ja = function (_0x196b74, _0x56b17d) {
       var _0x19ac91 = $("#" + _0x196b74);
       var _0x189517 = _0x56b17d;
       var _0x446058 = {};
@@ -1674,7 +1736,7 @@ window.addEventListener("load", function () {
       };
       return _0x446058;
     };
-    Game.la = function () {
+    _0x2e4f75.la = function () {
       function _0x166073(_0xbacb8d, _0x225b08, _0x2d2633, _0x4eba9f, _0x1d8f88, _0x2a942e, _0x51e0fd, _0xbc5d09, _0x2bd45b, _0x4f5978) {
         this.ma = _0xbacb8d;
         this.na = _0x225b08;
@@ -1704,7 +1766,7 @@ window.addEventListener("load", function () {
           return this.oa;
         } else {
           if (this.na != null) {
-            this.oa = new pixiElements.m(this.na, new pixiElements.q(this.qa, this.ra, this.sa, this.ta));
+            this.oa = new _0x11ca30.m(this.na, new _0x11ca30.q(this.qa, this.ra, this.sa, this.ta));
           }
           this.pa = true;
           return this.oa;
@@ -1717,7 +1779,7 @@ window.addEventListener("load", function () {
       };
       return _0x166073;
     }();
-    Game.Ga = function () {
+    _0x2e4f75.Ga = function () {
       function _0x12ce45(_0xe4d37d, _0x5b9f4d, _0xcc3718, _0x45a87b, _0x363669, _0xa43ffd, _0x47eb84, _0x134847, _0x51f349, _0x3a7ea9, _0xea4a2f, _0x2e72cf, _0x429c58, _0x34d274, _0x2c35fa, _0x8d8bab, _0x78b541, _0xe516df) {
         this.Ha = _0xe4d37d;
         this.Ia = _0x5b9f4d;
@@ -1750,18 +1812,18 @@ window.addEventListener("load", function () {
         this.Ia = [];
       };
       _0x12ce45.Ca = function () {
-        var _0x32bbac = new _0x12ce45.Za(Game._a.$a, Game._a.$a);
-        var _0x1e079d = new _0x12ce45.ab("#ffffff", [Game._a.$a], [Game._a.$a]);
-        return new _0x12ce45([], [], {}, _0x32bbac, {}, new _0x12ce45.bb(Game._a.$a), {}, _0x1e079d, {}, new _0x12ce45.cb("", _0x1e079d, _0x32bbac), {}, new _0x12ce45.db([Game._a.$a]), {}, new _0x12ce45.db([Game._a.$a]), {}, new _0x12ce45.db([Game._a.$a]), {}, new _0x12ce45.db([Game._a.$a]));
+        var _0x32bbac = new _0x12ce45.Za(_0x2e4f75._a.$a, _0x2e4f75._a.$a);
+        var _0x1e079d = new _0x12ce45.ab("#ffffff", [_0x2e4f75._a.$a], [_0x2e4f75._a.$a]);
+        return new _0x12ce45([], [], {}, _0x32bbac, {}, new _0x12ce45.bb(_0x2e4f75._a.$a), {}, _0x1e079d, {}, new _0x12ce45.cb("", _0x1e079d, _0x32bbac), {}, new _0x12ce45.db([_0x2e4f75._a.$a]), {}, new _0x12ce45.db([_0x2e4f75._a.$a]), {}, new _0x12ce45.db([_0x2e4f75._a.$a]), {}, new _0x12ce45.db([_0x2e4f75._a.$a]));
       };
       _0x12ce45.eb = function (_0x416f74, _0x12eb19, _0x5c5516, _0x2b71c4) {
-        var _0x1b9ceb = new _0x12ce45.Za(Game._a.$a, Game._a.$a);
+        var _0x1b9ceb = new _0x12ce45.Za(_0x2e4f75._a.$a, _0x2e4f75._a.$a);
         var _0x587c74 = new _0x12ce45.ab("#ffffff", [_0x416f74], [_0x12eb19]);
-        return new _0x12ce45([], [], {}, _0x1b9ceb, {}, new _0x12ce45.bb(Game._a.$a), {}, _0x587c74, {}, new _0x12ce45.cb("", _0x587c74, _0x1b9ceb), {}, new _0x12ce45.db([_0x5c5516]), {}, new _0x12ce45.db([_0x2b71c4]), {}, new _0x12ce45.db([Game._a.$a]), {}, new _0x12ce45.db([Game._a.$a]));
+        return new _0x12ce45([], [], {}, _0x1b9ceb, {}, new _0x12ce45.bb(_0x2e4f75._a.$a), {}, _0x587c74, {}, new _0x12ce45.cb("", _0x587c74, _0x1b9ceb), {}, new _0x12ce45.db([_0x5c5516]), {}, new _0x12ce45.db([_0x2b71c4]), {}, new _0x12ce45.db([_0x2e4f75._a.$a]), {}, new _0x12ce45.db([_0x2e4f75._a.$a]));
       };
       _0x12ce45.fb = function (_0x32feab, _0x6d1b4d, _0x7de397, _0x59596f) {
         var _0x18723e = {};
-        getRandomElement._(_0x32feab.colorDict, function (_0x2b3a4e, _0x4706d7) {
+        _0x305823._(_0x32feab.colorDict, function (_0x2b3a4e, _0x4706d7) {
           _0x18723e[_0x2b3a4e] = "#" + _0x4706d7;
         });
         var _0x3e1200 = {};
@@ -1781,7 +1843,7 @@ window.addEventListener("load", function () {
           return _0x6d1b4d[_0x2039fc];
         }));
         var _0xb6f0ab = {};
-        getRandomElement._(_0x32feab.eyesDict, function (_0x319405, _0x512167) {
+        _0x305823._(_0x32feab.eyesDict, function (_0x319405, _0x512167) {
           var _0x2ce061 = parseInt(_0x319405);
           _0xb6f0ab[_0x2ce061] = new _0x12ce45.db(_0x512167.base.map(function (_0x2adf1c) {
             return _0x6d1b4d[_0x2adf1c.region];
@@ -1791,7 +1853,7 @@ window.addEventListener("load", function () {
           return _0x6d1b4d[_0x49aa6a.region];
         }));
         var _0x4aab84 = {};
-        getRandomElement._(_0x32feab.mouthDict, function (_0x45b3b2, _0xf16772) {
+        _0x305823._(_0x32feab.mouthDict, function (_0x45b3b2, _0xf16772) {
           var _0xf01261 = parseInt(_0x45b3b2);
           _0x4aab84[_0xf01261] = new _0x12ce45.db(_0xf16772.base.map(function (_0x1dab48) {
             return _0x6d1b4d[_0x1dab48.region];
@@ -1801,7 +1863,7 @@ window.addEventListener("load", function () {
           return _0x6d1b4d[_0x5b3aa8.region];
         }));
         var _0x475cc6 = {};
-        getRandomElement._(_0x32feab.hatDict, function (_0x49e55d, _0x4564c6) {
+        _0x305823._(_0x32feab.hatDict, function (_0x49e55d, _0x4564c6) {
           var _0x33eddc = parseInt(_0x49e55d);
           _0x475cc6[_0x33eddc] = new _0x12ce45.db(_0x4564c6.base.map(function (_0x2b33b7) {
             return _0x6d1b4d[_0x2b33b7.region];
@@ -1811,7 +1873,7 @@ window.addEventListener("load", function () {
           return _0x6d1b4d[_0x511502.region];
         }));
         var _0x74e6f6 = {};
-        getRandomElement._(_0x32feab.glassesDict, function (_0x3ab78d, _0x5ce02f) {
+        _0x305823._(_0x32feab.glassesDict, function (_0x3ab78d, _0x5ce02f) {
           var _0xa49c5b = parseInt(_0x3ab78d);
           _0x74e6f6[_0xa49c5b] = new _0x12ce45.db(_0x5ce02f.base.map(function (_0x10ad84) {
             return _0x6d1b4d[_0x10ad84.region];
@@ -1821,7 +1883,7 @@ window.addEventListener("load", function () {
           return _0x6d1b4d[_0x335f9f.region];
         }));
         var _0x14cfae = {};
-        getRandomElement._(_0x32feab.portionDict, function (_0x5f4828, _0x5e99f3) {
+        _0x305823._(_0x32feab.portionDict, function (_0x5f4828, _0x5e99f3) {
           _0x5f4828 = parseInt(_0x5f4828);
           _0x14cfae[_0x5f4828] = new _0x12ce45.Za(_0x6d1b4d[_0x5e99f3.base], _0x6d1b4d[_0x5e99f3.glow]);
         });
@@ -1829,7 +1891,7 @@ window.addEventListener("load", function () {
         var _0x2c8eb9 = _0x32feab.portionUnknown;
         _0x3d248d = new _0x12ce45.Za(_0x6d1b4d[_0x2c8eb9.base], _0x6d1b4d[_0x2c8eb9.glow]);
         var _0x2dc3f0 = {};
-        getRandomElement._(_0x32feab.abilityDict, function (_0x4843f9, _0xb307fc) {
+        _0x305823._(_0x32feab.abilityDict, function (_0x4843f9, _0xb307fc) {
           _0x4843f9 = parseInt(_0x4843f9);
           _0x2dc3f0[_0x4843f9] = new _0x12ce45.bb(_0x6d1b4d[_0xb307fc.base]);
         });
@@ -1837,7 +1899,7 @@ window.addEventListener("load", function () {
         var _0x14d769 = _0x32feab.abilityUnknown;
         _0x2783af = new _0x12ce45.bb(_0x6d1b4d[_0x14d769.base]);
         var _0x8196ed = {};
-        getRandomElement._(_0x32feab.teamDict, function (_0x298158, _0x51bae3) {
+        _0x305823._(_0x32feab.teamDict, function (_0x298158, _0x51bae3) {
           _0x298158 = parseInt(_0x298158);
           _0x8196ed[_0x298158] = new _0x12ce45.cb(_0x51bae3.title, new _0x12ce45.ab(_0x18723e[_0x51bae3.skin.prime], null, _0x51bae3.skin.glow.map(function (_0x2b30e7) {
             return _0x6d1b4d[_0x2b30e7];
@@ -1847,11 +1909,11 @@ window.addEventListener("load", function () {
         return new _0x12ce45(_0x7de397, _0x59596f, _0x14cfae, _0x3d248d, _0x2dc3f0, _0x2783af, _0x3e1200, _0x42ead0, _0x8196ed, _0x430b6f, _0xb6f0ab, _0x57f397, _0x4aab84, _0x46eafe, _0x475cc6, _0x23a133, _0x74e6f6, _0x5d2b1a);
       };
       _0x12ce45.prototype.gb = function (_0x26e3ce) {
-        var _0x544132 = getRandomElement.aa(Object.keys(this.Na)).slice(0, _0x26e3ce);
-        var _0x16d15a = getRandomElement.aa(Object.keys(this.Ra)).slice(0, _0x26e3ce);
-        var _0x348443 = getRandomElement.aa(Object.keys(this.Ta)).slice(0, _0x26e3ce);
-        var _0x2c1fa8 = getRandomElement.aa(Object.keys(this.Va)).slice(0, _0x26e3ce);
-        var _0x158c9d = getRandomElement.aa(Object.keys(this.Xa)).slice(0, _0x26e3ce);
+        var _0x544132 = _0x305823.aa(Object.keys(this.Na)).slice(0, _0x26e3ce);
+        var _0x16d15a = _0x305823.aa(Object.keys(this.Ra)).slice(0, _0x26e3ce);
+        var _0x348443 = _0x305823.aa(Object.keys(this.Ta)).slice(0, _0x26e3ce);
+        var _0x2c1fa8 = _0x305823.aa(Object.keys(this.Va)).slice(0, _0x26e3ce);
+        var _0x158c9d = _0x305823.aa(Object.keys(this.Xa)).slice(0, _0x26e3ce);
         var _0x520546 = [];
         for (var _0x51ecd9 = 0; _0x51ecd9 < _0x26e3ce; _0x51ecd9++) {
           var _0xd70626 = _0x544132.length > 0 ? _0x544132[_0x51ecd9 % _0x544132.length] : 0;
@@ -1859,7 +1921,7 @@ window.addEventListener("load", function () {
           var _0x25b355 = _0x348443.length > 0 ? _0x348443[_0x51ecd9 % _0x348443.length] : 0;
           var _0x44d439 = _0x2c1fa8.length > 0 ? _0x2c1fa8[_0x51ecd9 % _0x2c1fa8.length] : 0;
           var _0x2f1229 = _0x158c9d.length > 0 ? _0x158c9d[_0x51ecd9 % _0x158c9d.length] : 0;
-          _0x520546.push(new Game.hb(_0xd70626, _0x13b284, _0x25b355, _0x44d439, _0x2f1229));
+          _0x520546.push(new _0x2e4f75.hb(_0xd70626, _0x13b284, _0x25b355, _0x44d439, _0x2f1229));
         }
         return _0x520546;
       };
@@ -1956,25 +2018,25 @@ window.addEventListener("load", function () {
       }();
       return _0x12ce45;
     }();
-    Game._a = function () {
+    _0x2e4f75._a = function () {
       function _0xf861aa() {
-        var _0x48941b = pixiElements.l.from("/images/wear-ability.png");
-        var _0x3947c4 = pixiElements.l.from("https://i.imgur.com/n4d2rM7.png");
-        this.pwrFlex = new Game.la("flex_ability", _0x3947c4, 156, 4, 87, 74, 285, 63.5, 128, 128);
-        this.pwrZoom = new Game.la("zoom_ability", _0x3947c4, 79, 8, 75, 77, 265, 1.5, 128, 128);
-        this.pwrX2 = new Game.la("x2_ability", _0x3947c4, 156, 140, 87, 60, 170, 128.5, 128, 128);
-        this.pwrX5 = new Game.la("x5_ability", _0x3947c4, 156, 80, 87, 60, 170, 1.5, 128, 128);
-        this.pwrX10 = new Game.la("x10_ability", _0x3947c4, 158, 200, 95, 55, 265, 128.5, 128, 128);
-        this.wb = new Game.la("magnet_ability", _0x48941b, 158, 86, 67, 124, 148, 63.5, 128, 128);
-        this.xb = new Game.la("velocity_ability", _0x48941b, 158, 4, 87, 74, 203, 63.5, 128, 128);
-        this.yb = new Game.la("flex_ability", _0x48941b, 4, 4, 146, 146, 63.5, 63.5, 128, 128);
-        var _0x27844c = pixiElements.l.from("/images/def-look.png");
-        var _0x4c2079 = new Game.la("def_eyes", _0x27844c, 0, 0, 42, 80, 75, 64, 128, 128);
-        var _0x234771 = new Game.la("def_mouth", _0x27844c, 46, 0, 20, 48, 109, 63, 128, 128);
-        var _0x4d5292 = new Game.la("def_skin_glow", _0x27844c, 70, 0, 32, 32, 0, 0, 0, 0);
-        var _0x243957 = new Game.la("def_skin_base", _0x27844c, 46, 52, 64, 64, 0, 0, 0, 0);
-        var _0x5ea9d7 = Game.Ga.eb(_0x243957, _0x4d5292, _0x4c2079, _0x234771);
-        this.zb = new Game.Ab({}, _0x5ea9d7);
+        var _0x48941b = _0x11ca30.l.from("/images/wear-ability.png");
+        var _0x3947c4 = _0x11ca30.l.from("https://i.imgur.com/n4d2rM7.png");
+        this.pwrFlex = new _0x2e4f75.la("flex_ability", _0x3947c4, 156, 4, 87, 74, 285, 63.5, 128, 128);
+        this.pwrZoom = new _0x2e4f75.la("zoom_ability", _0x3947c4, 79, 8, 75, 77, 265, 1.5, 128, 128);
+        this.pwrX2 = new _0x2e4f75.la("x2_ability", _0x3947c4, 156, 140, 87, 60, 170, 128.5, 128, 128);
+        this.pwrX5 = new _0x2e4f75.la("x5_ability", _0x3947c4, 156, 80, 87, 60, 170, 1.5, 128, 128);
+        this.pwrX10 = new _0x2e4f75.la("x10_ability", _0x3947c4, 158, 200, 95, 55, 265, 128.5, 128, 128);
+        this.wb = new _0x2e4f75.la("magnet_ability", _0x48941b, 158, 86, 67, 124, 148, 63.5, 128, 128);
+        this.xb = new _0x2e4f75.la("velocity_ability", _0x48941b, 158, 4, 87, 74, 203, 63.5, 128, 128);
+        this.yb = new _0x2e4f75.la("flex_ability", _0x48941b, 4, 4, 146, 146, 63.5, 63.5, 128, 128);
+        var _0x27844c = _0x11ca30.l.from("/images/def-look.png");
+        var _0x4c2079 = new _0x2e4f75.la("def_eyes", _0x27844c, 0, 0, 42, 80, 75, 64, 128, 128);
+        var _0x234771 = new _0x2e4f75.la("def_mouth", _0x27844c, 46, 0, 20, 48, 109, 63, 128, 128);
+        var _0x4d5292 = new _0x2e4f75.la("def_skin_glow", _0x27844c, 70, 0, 32, 32, 0, 0, 0, 0);
+        var _0x243957 = new _0x2e4f75.la("def_skin_base", _0x27844c, 46, 52, 64, 64, 0, 0, 0, 0);
+        var _0x5ea9d7 = _0x2e4f75.Ga.eb(_0x243957, _0x4d5292, _0x4c2079, _0x234771);
+        this.zb = new _0x2e4f75.Ab({}, _0x5ea9d7);
         this.Bb = -10000;
         this.Cb = -10000;
         this.Db = function () {
@@ -1984,13 +2046,13 @@ window.addEventListener("load", function () {
           return {
             Eb: _0x51daba,
             Fb: _0x51daba.getContext("2d"),
-            oa: new pixiElements.m(pixiElements.l.from(_0x51daba))
+            oa: new _0x11ca30.m(_0x11ca30.l.from(_0x51daba))
           };
         }();
         this.Gb = null;
         this.Hb = [];
       }
-      _0xf861aa.$a = Game.la.Ca();
+      _0xf861aa.$a = _0x2e4f75.la.Ca();
       _0xf861aa.prototype.ha = function () {};
       _0xf861aa.prototype.Ib = function (_0x35e4aa, _0x3a980c, _0x348760) {
         var _0x2a158b = this;
@@ -2011,7 +2073,7 @@ window.addEventListener("load", function () {
           this.Gb.Lb();
           this.Gb = null;
         }
-        var _0x2eff8f = new Game.Mb(_0x2bc2ad);
+        var _0x2eff8f = new _0x2e4f75.Mb(_0x2bc2ad);
         _0x2eff8f.Nb(function (_0x5074e3, _0x135112) {
           if (_0x2eff8f === _0x2a158b.Gb && _0x348760 != null) {
             _0x348760(_0x5074e3, _0x135112);
@@ -2076,7 +2138,7 @@ window.addEventListener("load", function () {
       };
       return _0xf861aa;
     }();
-    Game._b = function () {
+    _0x2e4f75._b = function () {
       function _0x41704b(_0x5d6ed0) {
         this.ac = _0x5d6ed0;
       }
@@ -2129,17 +2191,17 @@ window.addEventListener("load", function () {
       }();
       return _0x41704b;
     }();
-    Game.mc = function () {
+    _0x2e4f75.mc = function () {
       function _0x9b1904() {
-        this.nc = new pixiElements.k();
+        this.nc = new _0x11ca30.k();
         this.nc.sortableChildren = true;
         this.oc = new _0x3934f5();
         this.oc.zIndex = _0x53f75e * ((_0x2e4b4a + 1) * 2 + 1 + 3);
         this.pc = 0;
         this.qc = new Array(_0x2e4b4a);
-        this.qc[0] = this.rc(0, new Game.sc(), new Game.sc());
+        this.qc[0] = this.rc(0, new _0x2e4f75.sc(), new _0x2e4f75.sc());
         for (var _0x5eb37c = 1; _0x5eb37c < _0x2e4b4a; _0x5eb37c++) {
-          this.qc[_0x5eb37c] = this.rc(_0x5eb37c, new Game.sc(), new Game.sc());
+          this.qc[_0x5eb37c] = this.rc(_0x5eb37c, new _0x2e4f75.sc(), new _0x2e4f75.sc());
         }
         this.tc = 0;
         this.uc = 0;
@@ -2172,7 +2234,7 @@ window.addEventListener("load", function () {
       };
       _0x9b1904.prototype.yc = function (_0x4c4226, _0x4a4026, _0x54efd8, _0x50033a, _0x53b2d9, _0x12cfc0, _0x58a4a4, _0x26f610) {
         var _0x45f84b = _0x54efd8.ub;
-        var _0x463152 = _0x4c4226 === Game.Ac.zc ? _0x4a4026.rb.vb : _0x54efd8.vb;
+        var _0x463152 = _0x4c4226 === _0x2e4f75.Ac.zc ? _0x4a4026.rb.vb : _0x54efd8.vb;
         if (_0x45f84b.length > 0 && _0x463152.length > 0) {
           for (var _0x197076 = 0; _0x197076 < this.qc.length; _0x197076++) {
             this.qc[_0x197076].Cc.Bc(_0x45f84b[_0x197076 % _0x45f84b.length]);
@@ -2184,18 +2246,18 @@ window.addEventListener("load", function () {
         this.oc.yc(_0x50033a, _0x53b2d9, _0x12cfc0, _0x58a4a4);
       };
       var _0x3934f5 = function () {
-        var _0xd26cf3 = getRandomElement.M(pixiElements.k, function () {
-          pixiElements.k.call(this);
+        var _0xd26cf3 = _0x305823.M(_0x11ca30.k, function () {
+          _0x11ca30.k.call(this);
           this.sortableChildren = true;
           this.Fc = [];
           this.Gc = [];
           this.Hc = [];
           this.Ic = [];
-          this.Jc = new pixiElements.k();
+          this.Jc = new _0x11ca30.k();
           this.Kc = [];
           var _0x5bcc6d = 0;
           for (; _0x5bcc6d < 4; _0x5bcc6d++) {
-            var _0x568ff5 = new Game.sc();
+            var _0x568ff5 = new _0x2e4f75.sc();
             _0x568ff5.Bc(_0x3b5dc5().Lc.wb);
             this.Jc.addChild(_0x568ff5.xc);
             this.Kc.push(_0x568ff5);
@@ -2203,32 +2265,32 @@ window.addEventListener("load", function () {
           this.Jc.zIndex = 0.0011;
           this.addChild(this.Jc);
           this.Mc();
-          this.Nc = new Game.sc();
+          this.Nc = new _0x2e4f75.sc();
           this.Nc.Bc(_0x3b5dc5().Lc.xb);
           this.Nc.xc.zIndex = 0.001;
           this.addChild(this.Nc.xc);
           this.Oc();
-          this.pwr_flex = new Game.sc();
+          this.pwr_flex = new _0x2e4f75.sc();
           this.pwr_flex.Bc(_0x3b5dc5().Lc.pwrFlex);
           this.pwr_flex.xc.zIndex = 0.001;
           this.addChild(this.pwr_flex.xc);
           this.disableFlex();
-          this.pwr_zoom = new Game.sc();
+          this.pwr_zoom = new _0x2e4f75.sc();
           this.pwr_zoom.Bc(_0x3b5dc5().Lc.pwrZoom);
           this.pwr_zoom.xc.zIndex = 0.001;
           this.addChild(this.pwr_zoom.xc);
           this.disableZoom();
-          this.pwr_x2 = new Game.sc();
+          this.pwr_x2 = new _0x2e4f75.sc();
           this.pwr_x2.Bc(_0x3b5dc5().Lc.pwrX2);
           this.pwr_x2.xc.zIndex = 0.001;
           this.addChild(this.pwr_x2.xc);
           this.disableX2();
-          this.pwr_x5 = new Game.sc();
+          this.pwr_x5 = new _0x2e4f75.sc();
           this.pwr_x5.Bc(_0x3b5dc5().Lc.pwrX5);
           this.pwr_x5.xc.zIndex = 0.001;
           this.addChild(this.pwr_x5.xc);
           this.disableX5();
-          this.pwr_x10 = new Game.sc();
+          this.pwr_x10 = new _0x2e4f75.sc();
           this.pwr_x10.Bc(_0x3b5dc5().Lc.pwrX10);
           this.pwr_x10.xc.zIndex = 0.001;
           this.addChild(this.pwr_x10.xc);
@@ -2242,7 +2304,7 @@ window.addEventListener("load", function () {
         };
         _0xd26cf3.prototype.Pc = function (_0x17f12a, _0x4861e2, _0x2bda82) {
           while (_0x2bda82.length > _0x4861e2.length) {
-            var _0x21ffe3 = new Game.sc();
+            var _0x21ffe3 = new _0x2e4f75.sc();
             _0x4861e2.push(_0x21ffe3);
             this.addChild(_0x21ffe3.Qc());
           }
@@ -2298,7 +2360,7 @@ window.addEventListener("load", function () {
         };
         _0xd26cf3.prototype.Wc = function (_0x19e492, _0xa1ec71, _0x4c56b2, _0x4b8711) {
           this.Nc.xc.visible = true;
-          this.Nc.xc.alpha = getRandomElement.Q(this.Nc.xc.alpha, _0x19e492.Xc ? 0.9 : 0.2, _0x4b8711, 0.0025);
+          this.Nc.xc.alpha = _0x305823.Q(this.Nc.xc.alpha, _0x19e492.Xc ? 0.9 : 0.2, _0x4b8711, 0.0025);
           this.Nc.Tc(_0xa1ec71);
         };
         _0xd26cf3.prototype.Oc = function () {
@@ -2306,7 +2368,7 @@ window.addEventListener("load", function () {
         };
         _0xd26cf3.prototype.activeFlex = function (_0x14796d, _0x5ea995, _0x278f42, _0x98d6cc) {
           this.pwr_flex.xc.visible = true;
-          this.pwr_flex.xc.alpha = getRandomElement.Q(this.pwr_flex.xc.alpha, _0x14796d.Xc ? 0.9 : 0.2, _0x98d6cc, 0.0025);
+          this.pwr_flex.xc.alpha = _0x305823.Q(this.pwr_flex.xc.alpha, _0x14796d.Xc ? 0.9 : 0.2, _0x98d6cc, 0.0025);
           this.pwr_flex.Tc(_0x5ea995);
         };
         _0xd26cf3.prototype.disableFlex = function () {
@@ -2314,7 +2376,7 @@ window.addEventListener("load", function () {
         };
         _0xd26cf3.prototype.activeZoom = function (_0x5cf194, _0x2030af, _0x2bfa63, _0x1b4211) {
           this.pwr_zoom.xc.visible = true;
-          this.pwr_zoom.xc.alpha = getRandomElement.Q(this.pwr_zoom.xc.alpha, _0x5cf194.Xc ? 0.9 : 0.2, _0x1b4211, 0.0025);
+          this.pwr_zoom.xc.alpha = _0x305823.Q(this.pwr_zoom.xc.alpha, _0x5cf194.Xc ? 0.9 : 0.2, _0x1b4211, 0.0025);
           this.pwr_zoom.Tc(_0x2030af);
         };
         _0xd26cf3.prototype.disableZoom = function () {
@@ -2322,7 +2384,7 @@ window.addEventListener("load", function () {
         };
         _0xd26cf3.prototype.activeX2 = function (_0x1a99ff, _0x24a996, _0x41a48e, _0x5cb4e3) {
           this.pwr_x2.xc.visible = true;
-          this.pwr_x2.xc.alpha = getRandomElement.Q(this.pwr_x2.xc.alpha, _0x1a99ff.Xc ? 0.9 : 0.2, _0x5cb4e3, 0.0025);
+          this.pwr_x2.xc.alpha = _0x305823.Q(this.pwr_x2.xc.alpha, _0x1a99ff.Xc ? 0.9 : 0.2, _0x5cb4e3, 0.0025);
           this.pwr_x2.Tc(_0x24a996);
         };
         _0xd26cf3.prototype.disableX2 = function () {
@@ -2330,7 +2392,7 @@ window.addEventListener("load", function () {
         };
         _0xd26cf3.prototype.activeX5 = function (_0x592a64, _0x5c791f, _0x35812c, _0x4da036) {
           this.pwr_x5.xc.visible = true;
-          this.pwr_x5.xc.alpha = getRandomElement.Q(this.pwr_x5.xc.alpha, _0x592a64.Xc ? 0.9 : 0.2, _0x4da036, 0.0025);
+          this.pwr_x5.xc.alpha = _0x305823.Q(this.pwr_x5.xc.alpha, _0x592a64.Xc ? 0.9 : 0.2, _0x4da036, 0.0025);
           this.pwr_x5.Tc(_0x5c791f);
         };
         _0xd26cf3.prototype.disableX5 = function () {
@@ -2338,7 +2400,7 @@ window.addEventListener("load", function () {
         };
         _0xd26cf3.prototype.activeX10 = function (_0x236027, _0x389795, _0x3e7c8b, _0x3ee66f) {
           this.pwr_x10.xc.visible = true;
-          this.pwr_x10.xc.alpha = getRandomElement.Q(this.pwr_x10.xc.alpha, _0x236027.Xc ? 0.9 : 0.2, _0x3ee66f, 0.0025);
+          this.pwr_x10.xc.alpha = _0x305823.Q(this.pwr_x10.xc.alpha, _0x236027.Xc ? 0.9 : 0.2, _0x3ee66f, 0.0025);
           this.pwr_x10.Tc(_0x389795);
         };
         _0xd26cf3.prototype.disableX10 = function () {
@@ -2439,7 +2501,7 @@ window.addEventListener("load", function () {
           this.nc.addChild(this.oc);
         }
         if (this.pc > 0 && _0x377cae == 0) {
-          getRandomElement.U(this.oc);
+          _0x305823.U(this.oc);
         }
         while (this.pc < _0x377cae) {
           this.nc.addChild(this.qc[this.pc].Cc.Qc());
@@ -2451,44 +2513,44 @@ window.addEventListener("load", function () {
           this.qc[this.pc].Dc.Rc();
           this.qc[this.pc].Cc.Rc();
         }
-        var _0x1363f5 = _0x34feb8.dd[Game.fd.ed];
+        var _0x1363f5 = _0x34feb8.dd[_0x2e4f75.fd.ed];
         if (this.qc[0].gd() && _0x1363f5 != null && _0x1363f5.hd) {
           this.oc.Vc(_0x34feb8, _0xf3c3ff, _0x13df6c, _0x1b127c);
         } else {
           this.oc.Mc();
         }
-        var _0x4b297e = _0x34feb8.dd[Game.fd.jd];
+        var _0x4b297e = _0x34feb8.dd[_0x2e4f75.fd.jd];
         if (this.qc[0].gd() && _0x4b297e != null && _0x4b297e.hd) {
           this.oc.Wc(_0x34feb8, _0xf3c3ff, _0x13df6c, _0x1b127c);
         } else {
           this.oc.Oc();
         }
-        var _0x2cab80 = _0x34feb8.dd[Game.fd.pd];
-        if (theoPay3PacketObjects.visiblePowersAll && gameSettings.FlexAbility && this.qc[0].gd() && _0x2cab80 != null && _0x2cab80.hd) {
+        var _0x2cab80 = _0x34feb8.dd[_0x2e4f75.fd.pd];
+        if (theoPay3PacketObjects.visiblePowersAll && theoKzObjects.FlexAbility && this.qc[0].gd() && _0x2cab80 != null && _0x2cab80.hd) {
           this.oc.activeFlex(_0x34feb8, _0xf3c3ff, _0x13df6c, _0x1b127c);
         } else {
           this.oc.disableFlex();
         }
-        var _0x5721e4 = _0x34feb8.dd[Game.fd.qd];
-        if (theoPay3PacketObjects.visiblePowersAll && gameSettings.ZoomAbility && this.qc[0].gd() && _0x5721e4 != null && _0x5721e4.hd) {
+        var _0x5721e4 = _0x34feb8.dd[_0x2e4f75.fd.qd];
+        if (theoPay3PacketObjects.visiblePowersAll && theoKzObjects.ZoomAbility && this.qc[0].gd() && _0x5721e4 != null && _0x5721e4.hd) {
           this.oc.activeZoom(_0x34feb8, _0xf3c3ff, _0x13df6c, _0x1b127c);
         } else {
           this.oc.disableZoom();
         }
-        var _0x144899 = _0x34feb8.dd[Game.fd.rd];
-        if (theoPay3PacketObjects.visiblePowersAll && gameSettings.x2Ability && this.qc[0].gd() && _0x144899 != null && _0x144899.hd) {
+        var _0x144899 = _0x34feb8.dd[_0x2e4f75.fd.rd];
+        if (theoPay3PacketObjects.visiblePowersAll && theoKzObjects.x2Ability && this.qc[0].gd() && _0x144899 != null && _0x144899.hd) {
           this.oc.activeX2(_0x34feb8, _0xf3c3ff, _0x13df6c, _0x1b127c);
         } else {
           this.oc.disableX2();
         }
-        var _0x46b45c = _0x34feb8.dd[Game.fd.sd];
-        if (theoPay3PacketObjects.visiblePowersAll && gameSettings.x5Ability && this.qc[0].gd() && _0x46b45c != null && _0x46b45c.hd) {
+        var _0x46b45c = _0x34feb8.dd[_0x2e4f75.fd.sd];
+        if (theoPay3PacketObjects.visiblePowersAll && theoKzObjects.x5Ability && this.qc[0].gd() && _0x46b45c != null && _0x46b45c.hd) {
           this.oc.activeX5(_0x34feb8, _0xf3c3ff, _0x13df6c, _0x1b127c);
         } else {
           this.oc.disableX5();
         }
-        var _0xe8a0a3 = _0x34feb8.dd[Game.fd.td];
-        if (theoPay3PacketObjects.visiblePowersAll && gameSettings.x10Ability && this.qc[0].gd() && _0xe8a0a3 != null && _0xe8a0a3.hd) {
+        var _0xe8a0a3 = _0x34feb8.dd[_0x2e4f75.fd.td];
+        if (theoPay3PacketObjects.visiblePowersAll && theoKzObjects.x10Ability && this.qc[0].gd() && _0xe8a0a3 != null && _0xe8a0a3.hd) {
           this.oc.activeX10(_0x34feb8, _0xf3c3ff, _0x13df6c, _0x1b127c);
         } else {
           this.oc.disableX10();
@@ -2525,7 +2587,7 @@ window.addEventListener("load", function () {
       }();
       return _0x9b1904;
     }();
-    Game.fd = function () {
+    _0x2e4f75.fd = function () {
       function _0x1524b3(_0x194734) {
         this.nd = _0x194734;
         this.hd = false;
@@ -2540,12 +2602,12 @@ window.addEventListener("load", function () {
       _0x1524b3.td = 5;
       return _0x1524b3;
     }();
-    Game.Ab = function () {
+    _0x2e4f75.Ab = function () {
       function _0x1aa3d7(_0x1696a5, _0x189035) {
         this.ud = _0x1696a5;
         this.vd = _0x189035;
       }
-      _0x1aa3d7.wd = new _0x1aa3d7({}, Game.Ga.Ca());
+      _0x1aa3d7.wd = new _0x1aa3d7({}, _0x2e4f75.Ga.Ca());
       _0x1aa3d7.prototype.Jb = function () {
         return this.ud.revision;
       };
@@ -2557,7 +2619,7 @@ window.addEventListener("load", function () {
       };
       return _0x1aa3d7;
     }();
-    Game.Mb = function () {
+    _0x2e4f75.Mb = function () {
       function _0x1c5d4e(_0xb3281) {
         this.xd = function () {
           ++_0x1c5d4e.yd;
@@ -2581,7 +2643,7 @@ window.addEventListener("load", function () {
         Nd: "0x4"
       };
       _0x1c5d4e.yd = 100000;
-      _0x1c5d4e.Od = new Game._b.cc().ec(_0x1c5d4e.Id.Jd, 1).ec(_0x1c5d4e.Id.Kd, 10).ec(_0x1c5d4e.Id.Ld, 50).ec(_0x1c5d4e.Id.Md, 15).ec(_0x1c5d4e.Id.Nd, 5).hc();
+      _0x1c5d4e.Od = new _0x2e4f75._b.cc().ec(_0x1c5d4e.Id.Jd, 1).ec(_0x1c5d4e.Id.Kd, 10).ec(_0x1c5d4e.Id.Ld, 50).ec(_0x1c5d4e.Id.Md, 15).ec(_0x1c5d4e.Id.Nd, 5).hc();
       _0x1c5d4e.prototype.Rb = function (_0x2eebca) {
         this.Ad = _0x2eebca;
       };
@@ -2625,7 +2687,7 @@ window.addEventListener("load", function () {
         }
         $.ajax({
           type: "GET",
-          url: getRandomElement.a.c + "/dynamic/assets/revision.json",
+          url: _0x305823.a.c + "/dynamic/assets/revision.json",
           xhrFields: {
             onprogress: function (_0x284cec) {
               if (_0x284cec.lengthComputable) {
@@ -2670,10 +2732,10 @@ window.addEventListener("load", function () {
         }).fail(function () {
           _0x3ef8e8.Sd(new Error());
         }).done(function (_0xc243f0) {
-          gameSettings.visibleSkin = _0xc243f0.visibleSkin;
+          theoKzObjects.visibleSkin = _0xc243f0.visibleSkin;
           delete _0xc243f0.visibleSkin;
-          gameSettings.pL = _0xc243f0.propertyList;
-          gameSettings.idSkin = _0xc243f0.skinArrayDict;
+          theoKzObjects.pL = _0xc243f0.propertyList;
+          theoKzObjects.idSkin = _0xc243f0.skinArrayDict;
           if (_0xc243f0.revision <= _0x3ef8e8.zd) {
             _0x3ef8e8.Td();
             return;
@@ -2700,7 +2762,7 @@ window.addEventListener("load", function () {
           if (_0xacc0c2.textureDict.hasOwnProperty(_0x407b50)) {
             var _0x334116 = _0xacc0c2.textureDict[_0x407b50];
             var _0x3eeb50 = _0x334116.isCustom;
-            var _0x17094c = _0x3eeb50 ? _0x334116.relativePath : getRandomElement.a.c + _0x334116.relativePath;
+            var _0x17094c = _0x3eeb50 ? _0x334116.relativePath : _0x305823.a.c + _0x334116.relativePath;
             var _0x119e3d = _0x334116.fileSize;
             var _0x57bcc1 = _0x334116.sha256;
             var _0x152769 = new _0x1c5d4e.Wd(_0x407b50, _0x17094c, _0x119e3d, _0x57bcc1);
@@ -2784,7 +2846,7 @@ window.addEventListener("load", function () {
         }
         function _0x4f0c07() {
           _0x304900(_0x3d465a / _0x5dcaab.length);
-          _0x37f364[_0x174e01.ae] = new Game.be(_0x174e01.Xd, _0x5e2dfd);
+          _0x37f364[_0x174e01.ae] = new _0x2e4f75.be(_0x174e01.Xd, _0x5e2dfd);
           _0x2b56f5();
         }
         function _0x2b56f5() {
@@ -2811,8 +2873,8 @@ window.addEventListener("load", function () {
         var _0x12fefd = {};
         var _0x36245b = 0;
         var _0x36568e = Object.values(_0x4688ff.regionDict).length;
-        getRandomElement._(_0x4688ff.regionDict, function (_0x45335a, _0x58b59b) {
-          var _0x3cb11f = Game.la.Da(_0x58b59b.texture + ":" + _0x45335a, _0x5f4abd[_0x58b59b.texture].oa, _0x58b59b);
+        _0x305823._(_0x4688ff.regionDict, function (_0x45335a, _0x58b59b) {
+          var _0x3cb11f = _0x2e4f75.la.Da(_0x58b59b.texture + ":" + _0x45335a, _0x5f4abd[_0x58b59b.texture].oa, _0x58b59b);
           _0x12fefd[_0x45335a] = _0x3cb11f;
           if (++_0x36245b % 10 == 0) {
             _0x4a5bd9(_0x36245b / _0x36568e);
@@ -2822,7 +2884,7 @@ window.addEventListener("load", function () {
           return _0x2b1f09.oa;
         });
         var _0x20d408 = Object.values(_0x12fefd);
-        var _0x205f68 = new Game.Ab(_0x4688ff, Game.Ga.fb(_0x4688ff, _0x12fefd, _0x24966a, _0x20d408));
+        var _0x205f68 = new _0x2e4f75.Ab(_0x4688ff, _0x2e4f75.Ga.fb(_0x4688ff, _0x12fefd, _0x24966a, _0x20d408));
         setTimeout(function () {
           return _0x33f9df.de(_0x205f68);
         }, 0);
@@ -2885,12 +2947,12 @@ window.addEventListener("load", function () {
       };
       return _0x1c5d4e;
     }();
-    Game.fe = function () {
+    _0x2e4f75.fe = function () {
       return {};
     }();
-    Game.ge = function () {
+    _0x2e4f75.ge = function () {
       function _0x278cf3() {
-        this.he = Game.ge.je.ie;
+        this.he = _0x2e4f75.ge.je.ie;
         this.ke = false;
         this.le = false;
         this.me = null;
@@ -2997,31 +3059,31 @@ window.addEventListener("load", function () {
       };
       return _0x278cf3;
     }();
-    Game.df = function () {
+    _0x2e4f75.df = function () {
       function _0x2eff98(_0x288632) {
         var _0x238034 = _0x3b5dc5();
         this.ef = _0x288632;
         this.Eb = _0x288632.get()[0];
         this.ff = 1;
         this.gf = 1;
-        this.hf = new Game.if(_0x22d1ee, _0x43c8d9, Game.kf.jf);
-        this.lf = new pixiElements.n({
+        this.hf = new _0x2e4f75.if(_0x22d1ee, _0x43c8d9, _0x2e4f75.kf.jf);
+        this.lf = new _0x11ca30.n({
           view: this.Eb,
           backgroundColor: _0x215c2f,
           antialias: true
         });
-        this.mf = new pixiElements.k();
+        this.mf = new _0x11ca30.k();
         this.mf.sortableChildren = true;
-        this.nf = new pixiElements.k();
+        this.nf = new _0x11ca30.k();
         this.nf.zIndex = 0;
         this.mf.addChild(this.nf);
-        this.pf = new Game.qf(_0x238034.xe.rf);
+        this.pf = new _0x2e4f75.qf(_0x238034.xe.rf);
         this.pf.sf.zIndex = 1;
         this.mf.addChild(this.pf.sf);
         var _0x28c5cc = this.hf.tf();
         _0x28c5cc.zIndex = 2;
         this.mf.addChild(_0x28c5cc);
-        this.uf = new pixiElements.k();
+        this.uf = new _0x11ca30.k();
         this.uf.zIndex = 3;
         this.mf.addChild(this.uf);
         this.vf = [];
@@ -3086,14 +3148,14 @@ window.addEventListener("load", function () {
         this.lf.backgroundColor = _0x215c2f;
         this.vf = new Array(_0x587e39.length);
         for (var _0x303601 = 0; _0x303601 < this.vf.length; _0x303601++) {
-          this.vf[_0x303601] = new pixiElements.r();
+          this.vf[_0x303601] = new _0x11ca30.r();
           this.vf[_0x303601].texture = _0x28095a.xe.Bf;
           this.vf[_0x303601].anchor.set(0.5);
           this.nf.addChild(this.vf[_0x303601]);
         }
         this.wf = new Array(_0x28095a.xe.Cf.length);
         for (var _0x2ea180 = 0; _0x2ea180 < this.wf.length; _0x2ea180++) {
-          this.wf[_0x2ea180] = new pixiElements.r();
+          this.wf[_0x2ea180] = new _0x11ca30.r();
           this.wf[_0x2ea180].texture = _0x28095a.xe.Cf[_0x2ea180];
           this.wf[_0x2ea180].anchor.set(0.5);
           this.uf.addChild(this.wf[_0x2ea180]);
@@ -3102,10 +3164,10 @@ window.addEventListener("load", function () {
         for (var _0x37f2a9 = 0; _0x37f2a9 < this.xf.length; _0x37f2a9++) {
           var _0x58ecb8 = [1, 1, 1];
           this.xf[_0x37f2a9] = {
-            Df: getRandomElement.V(0, _0x1102f8.F),
-            Ef: getRandomElement.V(0.09, 0.16) * 0.66,
-            Ff: getRandomElement.V(0, 1),
-            Gf: getRandomElement.V(0, 1),
+            Df: _0x305823.V(0, _0x1102f8.F),
+            Ef: _0x305823.V(0.09, 0.16) * 0.66,
+            Ff: _0x305823.V(0, 1),
+            Gf: _0x305823.V(0, 1),
             Hf: 0,
             yf: _0x58ecb8[0],
             zf: _0x58ecb8[1],
@@ -3173,7 +3235,7 @@ window.addEventListener("load", function () {
             var _0x33a606 = _0x44c7b2.Gf;
             var _0x3ff0d2 = (0.4 + (1 + Math.sin(_0x2c11a8 + _0x1c366c * 0.12)) * 0.5 * 1.2) * 0.5;
             var _0x51e1ab = _0x2c11a8 + _0x44c7b2.Ef * 2 * _0x1c366c;
-            var _0x474cb8 = getRandomElement.P(Math.sin(Math.PI * _0x33a606), 0.1, 1);
+            var _0x474cb8 = _0x305823.P(Math.sin(Math.PI * _0x33a606), 0.1, 1);
             var _0x26ec90 = _0x44c7b2.yf * 255 & 255 | _0x44c7b2.zf * 255 << 8 & 65280 | _0x44c7b2.Af * 255 << 16 & 16711680;
             _0x3f7714.alpha = _0x474cb8;
             _0x3f7714.tint = _0x26ec90;
@@ -3195,10 +3257,10 @@ window.addEventListener("load", function () {
             this.hf.Qf(_0x54592b, _0x3f5ee8[_0x54592b]);
           }
         } else {
-          var _0x105b7b = getRandomElement.V(0, 1);
+          var _0x105b7b = _0x305823.V(0, 1);
           for (var _0x5c50f6 = 0; _0x5c50f6 < _0x22d1ee; _0x5c50f6++) {
             var _0x20be53 = (_0x105b7b + _0x5c50f6 / _0x22d1ee) % 1;
-            var _0x52d973 = getRandomElement.Y(Math.floor(_0x20be53 * 360), 0.85, 0.5);
+            var _0x52d973 = _0x305823.Y(Math.floor(_0x20be53 * 360), 0.85, 0.5);
             var _0x21ba63 = _0x52d973[0] * 255 & 255 | _0x52d973[1] * 255 << 8 & 65280 | _0x52d973[2] * 255 << 16 & 16711680;
             var _0x24d68a = "000000" + _0x21ba63.toString(16);
             _0x24d68a = "#" + _0x24d68a.substring(_0x24d68a.length - 6, _0x24d68a.length);
@@ -3236,7 +3298,7 @@ window.addEventListener("load", function () {
       }
       return _0x2eff98;
     }();
-    Game.Vf = function () {
+    _0x2e4f75.Vf = function () {
       function _0xe27c6f() {}
       _0xe27c6f.Wf = "consent_state_2";
       _0xe27c6f.Xf = "showPlayerNames";
@@ -3285,7 +3347,7 @@ window.addEventListener("load", function () {
         }
       };
     }();
-    Game.ig = function () {
+    _0x2e4f75.ig = function () {
       function _0x5144b3(_0x4f270e) {
         var _0x15f024 = undefined;
         _0x15f024 = _0x4f270e > 0 ? "+" + Math.floor(_0x4f270e) : _0x4f270e < 0 ? "-" + Math.floor(_0x4f270e) : "0";
@@ -3324,8 +3386,8 @@ window.addEventListener("load", function () {
       function _0x11c5b6(_0x18406a, _0x28fd8a, _0x3f3177) {
         return ((_0x18406a * 255 & 255) << 16) + ((_0x28fd8a * 255 & 255) << 8) + (_0x3f3177 * 255 & 255);
       }
-      var _0x546f24 = getRandomElement.M(pixiElements.k, function () {
-        pixiElements.k.call(this);
+      var _0x546f24 = _0x305823.M(_0x11ca30.k, function () {
+        _0x11ca30.k.call(this);
         this.jg = [];
         this.kg = 0;
       });
@@ -3342,11 +3404,11 @@ window.addEventListener("load", function () {
       _0x546f24.prototype.mg = function (_0x585b85) {
         setKillsCounts("count", _0x585b85);
         if (_0x585b85) {
-          var _0x2881ef = _0x2f9a79(getRandomElement.H("index.game.floating.headshot") + "â˜ ï¸", true);
+          var _0x2881ef = _0x2f9a79(_0x305823.H("index.game.floating.headshot") + "â˜ ï¸", true);
           this.addChild(_0x2881ef);
           this.jg.push(_0x2881ef);
         } else {
-          var _0x2df9c6 = _0x2f9a79(getRandomElement.H("index.game.floating.wellDone") + "ðŸ’ª", false);
+          var _0x2df9c6 = _0x2f9a79(_0x305823.H("index.game.floating.wellDone") + "ðŸ’ª", false);
           this.addChild(_0x2df9c6);
           this.jg.push(_0x2df9c6);
         }
@@ -3364,7 +3426,7 @@ window.addEventListener("load", function () {
           _0x464294.position.x = _0x177331 * (0.25 + _0x464294.tg * 0.5);
           _0x464294.position.y = _0x464294.ug ? _0x2479f1 * (1 - (1 + _0x464294.rg) * 0.5) : _0x2479f1 * (1 - (0 + _0x464294.rg) * 0.5);
           if (_0x464294.rg > 1) {
-            getRandomElement.U(_0x464294);
+            _0x305823.U(_0x464294);
             this.jg.splice(_0x3ea9cd, 1);
             _0x3ea9cd--;
           }
@@ -3372,8 +3434,8 @@ window.addEventListener("load", function () {
         }
       };
       var _0x300fa1 = function () {
-        return getRandomElement.M(pixiElements.s, function (_0x59acca, _0x42638d, _0x570071, _0xfb765, _0x39353b, _0x5862e4, _0xd73796) {
-          pixiElements.s.call(this, _0x59acca, {
+        return _0x305823.M(_0x11ca30.s, function (_0x59acca, _0x42638d, _0x570071, _0xfb765, _0x39353b, _0x5862e4, _0xd73796) {
+          _0x11ca30.s.call(this, _0x59acca, {
             fill: _0x42638d,
             fontFamily: "PTSans",
             fontSize: 36
@@ -3389,20 +3451,20 @@ window.addEventListener("load", function () {
       }();
       return _0x546f24;
     }();
-    Game.be = function () {
+    _0x2e4f75.be = function () {
       function _0xe286b(_0x48633e, _0x334330) {
         this.Xd = _0x48633e;
         this.oa = _0x334330;
       }
       return _0xe286b;
     }();
-    Game.Ac = {
+    _0x2e4f75.Ac = {
       vg: 0,
       zc: 16
     };
-    Game.wg = function () {
+    _0x2e4f75.wg = function () {
       function _0x51b0d5() {
-        this.xg = Game.Ac.vg;
+        this.xg = _0x2e4f75.Ac.vg;
         this.yg = 0;
         this.zg = 500;
         this.Ag = 4000;
@@ -3414,16 +3476,16 @@ window.addEventListener("load", function () {
       };
       return _0x51b0d5;
     }();
-    Game.Eg = function () {
+    _0x2e4f75.Eg = function () {
       function _0x7a4cac(_0x6a2b82) {
         this.ef = _0x6a2b82;
         this.Eb = _0x6a2b82.get()[0];
-        this.lf = new pixiElements.n({
+        this.lf = new _0x11ca30.n({
           view: this.Eb,
           backgroundColor: _0x532f4e,
           antialias: true
         });
-        this.mf = new pixiElements.k();
+        this.mf = new _0x11ca30.k();
         this.mf.sortableChildren = true;
         this.Fg = Math.floor(Math.random() * 360);
         this.Gg = 0;
@@ -3431,21 +3493,21 @@ window.addEventListener("load", function () {
         this.Ig = 15;
         this.Jg = 0.5;
         this.Kg = 0;
-        this.Lg = new Game.Mg();
-        this.Ng = new pixiElements.o();
-        this.mf_cursorLine = new pixiElements.o();
-        this.Og = new pixiElements.k();
-        this.Pg = new pixiElements.k();
+        this.Lg = new _0x2e4f75.Mg();
+        this.Ng = new _0x11ca30.o();
+        this.mf_cursorLine = new _0x11ca30.o();
+        this.Og = new _0x11ca30.k();
+        this.Pg = new _0x11ca30.k();
         this.Pg.sortableChildren = true;
-        this.Qg = new pixiElements.k();
-        this.Rg = new pixiElements.k();
+        this.Qg = new _0x11ca30.k();
+        this.Rg = new _0x11ca30.k();
         this.Rg.sortableChildren = true;
-        this.Sg = new pixiElements.k();
+        this.Sg = new _0x11ca30.k();
         this.Tg = new _0x336db4();
         this.Ug = new _0x272ffb();
         this.Vg = new _0x255c90();
-        this.Wg = new Game.ig();
-        this.Xg = new pixiElements.r();
+        this.Wg = new _0x2e4f75.ig();
+        this.Xg = new _0x11ca30.r();
         this.Yg = {
           x: 0,
           y: 0
@@ -3523,22 +3585,10 @@ window.addEventListener("load", function () {
         this.Pg.removeChildren();
         this.Qg.removeChildren();
         this.Sg.removeChildren();
-        // تطبيق الخلفية المحفوظة بدلاً من الافتراضية
-        const savedBgIndex = parseInt(localStorage.getItem('worm_bg_index')) || 0;
-        if (savedBgIndex > 0 && window.gameBackgrounds) {
-            const savedTexture = new pixiElements.m(function () {
-                var backgroundTexture = pixiElements.l.from(window.gameBackgrounds[savedBgIndex]);
-                backgroundTexture.wrapMode = pixiElements.C.D;
-                return backgroundTexture;
-            }());
-            this.Lg.$g(savedTexture);
-        } else {
-            this.Lg.$g(_0x2a43c7.xg === Game.Ac.vg ? _0x200914.xe._g : _0x200914.xe.ah);
-        }
-        
+        this.Lg.$g(_0x2a43c7.xg === _0x2e4f75.Ac.vg ? _0x200914.xe._g : _0x200914.xe.ah);
         var _0x2e55f2 = this.Ng;
         _0x2e55f2.clear();
-        _0x2e55f2.lineStyle(0.2, 16711680, 0.3);
+        _0x2e55f2.lineStyle(0.5, 54271, 1);
         _0x2e55f2.drawCircle(0, 0, _0x2a43c7.zg);
         _0x2e55f2.endFill();
         this.Vg.bh = _0x2f0e22;
@@ -3550,11 +3600,11 @@ window.addEventListener("load", function () {
           var _0x19fd20 = _0x40b0e8.dh.ch;
           var _0x1a45ca = this.lf.width / this.lf.resolution;
           var _0x1537aa = this.lf.height / this.lf.resolution;
-          this.Ig = getRandomElement.Q(this.Ig, _0x40b0e8.dh.eh, _0x47355b, 0.002);
+          this.Ig = _0x305823.Q(this.Ig, _0x40b0e8.dh.eh, _0x47355b, 0.002);
           var _0x3a8f16 = this.Jg / (this.Ig * lxpdmultiplier);
-          var _0x337d9d = _0x40b0e8.dh.ch.dd[Game.fd.qd];
+          var _0x337d9d = _0x40b0e8.dh.ch.dd[_0x2e4f75.fd.qd];
           var _0x5f0c74 = _0x337d9d != null && _0x337d9d.hd;
-          this.Kg = getRandomElement.P(this.Kg + _0x47355b / 1000 * ((_0x5f0c74 ? 1 : 0) * 0.1 - this.Kg), 0, 1);
+          this.Kg = _0x305823.P(this.Kg + _0x47355b / 1000 * ((_0x5f0c74 ? 1 : 0) * 0.1 - this.Kg), 0, 1);
           this.Xg.alpha = this.Kg;
           this.Fg = this.Fg + _0x47355b * 0.01;
           if (this.Fg > 360) {
@@ -3562,8 +3612,8 @@ window.addEventListener("load", function () {
           }
           this.Gg = Math.sin(_0x5bfbe9 / 1200 * 2 * Math.PI);
           var _0x2611c5 = _0x19fd20.fh();
-          this.Yg.x = getRandomElement.R(this.Yg.x, _0x2611c5.x, _0x47355b, gameSettings.smoothCameraX, 33.333);
-          this.Yg.y = getRandomElement.R(this.Yg.y, _0x2611c5.y, _0x47355b, gameSettings.smoothCameraY, 33.333);
+          this.Yg.x = _0x305823.R(this.Yg.x, _0x2611c5.x, _0x47355b, theoKzObjects.smoothCameraX, 33.333);
+          this.Yg.y = _0x305823.R(this.Yg.y, _0x2611c5.y, _0x47355b, theoKzObjects.smoothCameraY, 33.333);
           var _0x463ddc = _0x1a45ca / _0x3a8f16 / 2;
           var _0x1c7e20 = _0x1537aa / _0x3a8f16 / 2;
           _0x40b0e8.dh.gh(this.Yg.x - _0x463ddc * 1.3, this.Yg.x + _0x463ddc * 1.3, this.Yg.y - _0x1c7e20 * 1.3, this.Yg.y + _0x1c7e20 * 1.3);
@@ -3574,7 +3624,7 @@ window.addEventListener("load", function () {
           this.mf.position.x = _0x1a45ca / 2 - this.Yg.x * _0x3a8f16;
           this.mf.position.y = _0x1537aa / 2 - this.Yg.y * _0x3a8f16;
           var _0x32c930 = this.mf_cursorLine;
-          if (gameSettings.laserHS) {
+          if (theoKzObjects.laserHS) {
             _0x32c930.clear();
             _0x32c930.lineStyle(0.1, 16711680, 1);
             _0x32c930.moveTo(_0x2611c5.x, _0x2611c5.y);
@@ -3583,16 +3633,16 @@ window.addEventListener("load", function () {
           } else {}
           var _0x349b85 = Math.hypot(_0x2611c5.x, _0x2611c5.y);
           if (_0x349b85 > _0xbcd510 - 10) {
-            this.Hg = getRandomElement.P(1 + (_0x349b85 - _0xbcd510) / 10, 0, 1);
+            this.Hg = _0x305823.P(1 + (_0x349b85 - _0xbcd510) / 10, 0, 1);
             var _0x23d7a = Math.cos(this.Fg * _0x1102f8.F / 360) * (1 - this.Hg) + this.Hg * 1;
             var _0x3e60df = Math.sin(this.Fg * _0x1102f8.F / 360) * (1 - this.Hg);
             var _0x284180 = (Math.atan2(_0x3e60df, _0x23d7a) + _0x1102f8.F) % _0x1102f8.F * 360 / _0x1102f8.F;
             var _0x2a1c5f = this.Hg * (0.5 + this.Gg * 0.5);
-            var _0x208181 = getRandomElement.Y(Math.floor(_0x284180), 1, 0.75 - this.Hg * 0.25);
+            var _0x208181 = _0x305823.Y(Math.floor(_0x284180), 1, 0.75 - this.Hg * 0.25);
             this.Lg.Ec(_0x208181[0], _0x208181[1], _0x208181[2], 0.1 + _0x2a1c5f * 0.2);
           } else {
             this.Hg = 0;
-            var _0x37ac5a = getRandomElement.Y(Math.floor(this.Fg), 1, 0.75);
+            var _0x37ac5a = _0x305823.Y(Math.floor(this.Fg), 1, 0.75);
             this.Lg.Ec(_0x37ac5a[0], _0x37ac5a[1], _0x37ac5a[2], 0.1);
           }
           var _0x517f73 = 0;
@@ -3635,20 +3685,20 @@ window.addEventListener("load", function () {
           this.Sg.addChild(_0x5028b8);
         }
       };
- var _0x336db4 = function () {
-        return getRandomElement.M(pixiElements.k, function () {
-          pixiElements.k.call(this);
+      var _0x336db4 = function () {
+        return _0x305823.M(_0x11ca30.k, function () {
+          _0x11ca30.k.call(this);
           this.kh = 40;
-          this.qh = new pixiElements.r();
+          this.qh = new _0x11ca30.r();
           this.qh.anchor.set(0.5);
-          this.jh = new pixiElements.o();
+          this.jh = new _0x11ca30.o();
           var _0x48d4d3 = game_cont.offsetWidth;
           var _0x3fe6cc = game_cont.offsetHeight;
-          var _0x3aadd9 = new pixiElements.o();
+          var _0x3aadd9 = new _0x11ca30.o();
           _0x3aadd9.beginFill("black", 0.4);
           _0x3aadd9.drawCircle(0, 0, this.kh);
           _0x3aadd9.endFill();
-          _0x3aadd9.lineStyle(2, 16225317);
+          _0x3aadd9.lineStyle(2, 16777215);
           _0x3aadd9.drawCircle(0, 0, this.kh);
           _0x3aadd9.moveTo(0, -this.kh);
           _0x3aadd9.lineTo(0, +this.kh);
@@ -3659,10 +3709,10 @@ window.addEventListener("load", function () {
           this.jh.zIndex = 2;
           this.jh.alpha = 0.9;
           this.jh.beginFill(16225317);
-          this.jh.drawCircle(0, 0, this.kh * 0.09);
+          this.jh.drawCircle(0, 0, this.kh * 0.06);
           this.jh.endFill();
           this.jh.lineStyle(1, "black");
-          this.jh.drawCircle(0, 0, this.kh * 0.09);
+          this.jh.drawCircle(0, 0, this.kh * 0.06);
           this.jh.endFill();
           this.addChild(_0x3aadd9);
           this.addChild(this.qh);
@@ -3686,22 +3736,22 @@ window.addEventListener("load", function () {
             this.controlMode_1.height = 40;
             this.controlMode_1.x = -100 + _0x48d4d3 * 0.5;
             this.controlMode_1.y = -60;
-            this.controlMode_1.visible = gameSettings.mo == 1;
+            this.controlMode_1.visible = theoKzObjects.mo == 1;
             this.controlMode_2.width = 80;
             this.controlMode_2.height = 40;
             this.controlMode_2.x = -100 + _0x48d4d3 * 0.5;
             this.controlMode_2.y = -60;
-            this.controlMode_2.visible = gameSettings.mo == 2;
+            this.controlMode_2.visible = theoKzObjects.mo == 2;
             this.controlMode_3.width = 80;
             this.controlMode_3.height = 40;
             this.controlMode_3.x = -100 + _0x48d4d3 * 0.5;
             this.controlMode_3.y = -60;
-            this.controlMode_3.visible = gameSettings.mo == 3;
+            this.controlMode_3.visible = theoKzObjects.mo == 3;
             this.controlMode_4.width = 80;
             this.controlMode_4.height = 40;
             this.controlMode_4.x = -100 + _0x48d4d3 * 0.5;
             this.controlMode_4.y = -60;
-            this.controlMode_4.visible = gameSettings.mo == 4;
+            this.controlMode_4.visible = theoKzObjects.mo == 4;
             this.addChild(this.controlMode_1);
             this.addChild(this.controlMode_2);
             this.addChild(this.controlMode_3);
@@ -3710,30 +3760,30 @@ window.addEventListener("load", function () {
             this.controlJoystick_1.height = 100;
             this.controlJoystick_1.x = 15;
             this.controlJoystick_1.y = -210 + _0x3fe6cc;
-            this.controlJoystick_1.visible = gameSettings.mo == 2;
+            this.controlJoystick_1.visible = theoKzObjects.mo == 2;
             this.controlJoystick_1.alpha = 0.25;
             this.controlJoystick_2.width = 100;
             this.controlJoystick_2.height = 100;
             this.controlJoystick_2.x = 15;
             this.controlJoystick_2.y = -210 + _0x3fe6cc;
-            this.controlJoystick_2.visible = gameSettings.mo == 3;
+            this.controlJoystick_2.visible = theoKzObjects.mo == 3;
             this.controlJoystick_2.alpha = 0.25;
             this.controlJoystick_3.width = 100;
             this.controlJoystick_3.height = 100;
             this.controlJoystick_3.x = 15;
             this.controlJoystick_3.y = -210 + _0x3fe6cc;
-            this.controlJoystick_3.visible = gameSettings.mo == 4;
+            this.controlJoystick_3.visible = theoKzObjects.mo == 4;
             this.controlJoystick_Circle_1.width = 50;
             this.controlJoystick_Circle_1.height = 50;
             this.controlJoystick_Circle_1.x = 40;
             this.controlJoystick_Circle_1.y = -185 + _0x3fe6cc;
-            this.controlJoystick_Circle_1.visible = gameSettings.mo == 2;
+            this.controlJoystick_Circle_1.visible = theoKzObjects.mo == 2;
             this.controlJoystick_Circle_1.alpha = 0.25;
             this.controlJoystick_Circle_2.width = 50;
             this.controlJoystick_Circle_2.height = 50;
             this.controlJoystick_Circle_2.x = 40;
             this.controlJoystick_Circle_2.y = -185 + _0x3fe6cc;
-            this.controlJoystick_Circle_2.visible = gameSettings.mo == 3;
+            this.controlJoystick_Circle_2.visible = theoKzObjects.mo == 3;
             this.controlJoystick_Circle_2.alpha = 0.25;
             this.addChild(this.controlJoystick_1);
             this.addChild(this.controlJoystick_2);
@@ -3750,19 +3800,19 @@ window.addEventListener("load", function () {
             this.controlGuie_1.height = 16;
             this.controlGuie_1.x = -68 + _0x48d4d3 * 0.5;
             this.controlGuie_1.y = -68 + _0x3fe6cc * 0.5;
-            this.controlGuie_1.visible = gameSettings.mo == 1;
+            this.controlGuie_1.visible = theoKzObjects.mo == 1;
             this.controlGuie_1.alpha = 0.25;
             this.controlGuie_2.width = 16;
             this.controlGuie_2.height = 16;
             this.controlGuie_2.x = -68 + _0x48d4d3 * 0.5;
             this.controlGuie_2.y = -68 + _0x3fe6cc * 0.5;
-            this.controlGuie_2.visible = gameSettings.mo == 2;
+            this.controlGuie_2.visible = theoKzObjects.mo == 2;
             this.controlGuie_2.alpha = 0.25;
             this.controlGuie_3.width = 16;
             this.controlGuie_3.height = 16;
             this.controlGuie_3.x = -68 + _0x48d4d3 * 0.5;
             this.controlGuie_3.y = -68 + _0x3fe6cc * 0.5;
-            this.controlGuie_3.visible = gameSettings.mo == 3;
+            this.controlGuie_3.visible = theoKzObjects.mo == 3;
             this.controlGuie_3.alpha = 0.25;
             this.controlGuie_Speed.width = 16;
             this.controlGuie_Speed.height = 16;
@@ -3778,8 +3828,8 @@ window.addEventListener("load", function () {
         });
       }();
       var _0x272ffb = function () {
-        var _0x23be1d = getRandomElement.M(pixiElements.k, function () {
-          pixiElements.k.call(this);
+        var _0x23be1d = _0x305823.M(_0x11ca30.k, function () {
+          _0x11ca30.k.call(this);
           this.rh = {};
         });
         _0x23be1d.prototype.lh = function (_0x39d825) {
@@ -3793,7 +3843,7 @@ window.addEventListener("load", function () {
         _0x23be1d.prototype.Uf = function (_0x4f954e) {
           for (var _0x40e283 in this.rh) {
             if (_0x4f954e[_0x40e283] == null || !_0x4f954e[_0x40e283].hd) {
-              getRandomElement.U(this.rh[_0x40e283]);
+              _0x305823.U(this.rh[_0x40e283]);
               delete this.rh[_0x40e283];
             }
           }
@@ -3819,16 +3869,16 @@ window.addEventListener("load", function () {
           }
         };
         var _0x4b82d4 = function () {
-          return getRandomElement.M(pixiElements.r, function () {
-            pixiElements.r.call(this);
+          return _0x305823.M(_0x11ca30.r, function () {
+            _0x11ca30.r.call(this);
             this.sh = 0;
           });
         }();
         return _0x23be1d;
       }();
       var _0x255c90 = function () {
-        var _0x20e4b4 = getRandomElement.M(pixiElements.k, function () {
-          pixiElements.k.call(this);
+        var _0x20e4b4 = _0x305823.M(_0x11ca30.k, function () {
+          _0x11ca30.k.call(this);
           this.bh = true;
           this.th = 12;
           this.uh = 9;
@@ -3839,14 +3889,14 @@ window.addEventListener("load", function () {
         });
         _0x20e4b4.prototype.Uf = function (_0x16efdb) {
           var _0x2924b4 = _0x3b5dc5();
-          var _0x37eb6d = _0x2924b4.dh.hh.xg === Game.Ac.zc;
+          var _0x37eb6d = _0x2924b4.dh.hh.xg === _0x2e4f75.Ac.zc;
           var _0x34f6e9 = 0;
           var _0x4d94da = 0;
           if (_0x4d94da >= this.jg.length) {
             this.vh();
           }
           this.jg[_0x4d94da].wh(1, "white");
-          this.jg[_0x4d94da].xh("", getRandomElement.H("index.game.leader.top10"), "(" + _0x2924b4.dh.yh + " online)");
+          this.jg[_0x4d94da].xh("", _0x305823.H("index.game.leader.top10"), "(" + _0x2924b4.dh.yh + " online)");
           this.jg[_0x4d94da].position.y = _0x34f6e9;
           _0x34f6e9 += this.th;
           _0x4d94da += 1;
@@ -3859,7 +3909,7 @@ window.addEventListener("load", function () {
             var _0x436bec = "";
             var _0x5e0853 = _0x2924b4.Lc.Xb().textDict[_0x5cdd5d.qb];
             if (_0x5e0853 != null) {
-              _0x436bec = getRandomElement.I(_0x5e0853);
+              _0x436bec = _0x305823.I(_0x5e0853);
             }
             if (_0x4d94da >= this.jg.length) {
               this.vh();
@@ -3907,7 +3957,7 @@ window.addEventListener("load", function () {
             }
           }
           for (_0x2924b4.dh.Ih > _0x16efdb.Ch.length && (_0x34f6e9 += this.uh, _0x4d94da >= this.jg.length && this.vh(), this.jg[_0x4d94da].wh(1, "white"), this.jg[_0x4d94da].xh("" + _0x2924b4.dh.Ih, _0x2924b4.dh.ch.Eh.ma, "" + Math.floor(_0x2924b4.dh.ch.Bh)), this.jg[_0x4d94da].position.y = _0x34f6e9, _0x34f6e9 += this.th, _0x4d94da += 1, _0x34f6e9 += this.uh); this.jg.length > _0x4d94da;) {
-            getRandomElement.U(this.jg.pop());
+            _0x305823.U(this.jg.pop());
           }
         };
         _0x20e4b4.prototype.vh = function () {
@@ -3920,9 +3970,9 @@ window.addEventListener("load", function () {
           this.addChild(_0x1986ac);
         };
         var _0x321b6f = function () {
-          var _0x38e09c = getRandomElement.M(pixiElements.k, function () {
-            pixiElements.k.call(this);
-            this.Jh = new pixiElements.s("", {
+          var _0x38e09c = _0x305823.M(_0x11ca30.k, function () {
+            _0x11ca30.k.call(this);
+            this.Jh = new _0x11ca30.s("", {
               fontFamily: "PTSans",
               fontSize: 12,
               fill: "white"
@@ -3930,7 +3980,7 @@ window.addEventListener("load", function () {
             this.Jh.anchor.x = 1;
             this.Jh.position.x = 30;
             this.addChild(this.Jh);
-            this.Kh = new pixiElements.s("", {
+            this.Kh = new _0x11ca30.s("", {
               fontFamily: "PTSans",
               fontSize: 12,
               fill: "white"
@@ -3938,7 +3988,7 @@ window.addEventListener("load", function () {
             this.Kh.anchor.x = 0;
             this.Kh.position.x = 35;
             this.addChild(this.Kh);
-            this.Lh = new pixiElements.s("", {
+            this.Lh = new _0x11ca30.s("", {
               fontFamily: "PTSans",
               fontSize: 12,
               fill: "white"
@@ -3970,7 +4020,7 @@ window.addEventListener("load", function () {
       }();
       return _0x7a4cac;
     }();
-    Game.Mh = function () {
+    _0x2e4f75.Mh = function () {
       function _0x3f9efd(_0x100fbe) {
         this.dh = _0x100fbe;
         this.Nh = [];
@@ -4086,10 +4136,10 @@ window.addEventListener("load", function () {
         return _0x21d6f6;
       };
       _0x3f9efd.prototype.ei = function (_0x3bdf28, _0x16b47d) {
-        var _0x32c4f5 = new Game.mi.li();
+        var _0x32c4f5 = new _0x2e4f75.mi.li();
         _0x32c4f5.ae = _0x3bdf28.ca(_0x16b47d);
         _0x16b47d = _0x16b47d + 2;
-        _0x32c4f5.Gh = this.dh.hh.xg === Game.Ac.zc ? _0x3bdf28.ba(_0x16b47d++) : Game.wg.Cg;
+        _0x32c4f5.Gh = this.dh.hh.xg === _0x2e4f75.Ac.zc ? _0x3bdf28.ba(_0x16b47d++) : _0x2e4f75.wg.Cg;
         _0x32c4f5.Hh = _0x3bdf28.ca(_0x16b47d);
         let _0x51f6ca = _0x16b47d;
         _0x16b47d = _0x16b47d + 2;
@@ -4116,12 +4166,18 @@ window.addEventListener("load", function () {
         if (_0x16b47d > 210) {
           for (let _0x2f2846 in this.dh.Fh) {
             if (/^(.{16})(ZW_\d{9})$/.test(this.dh.Fh[_0x2f2846].Eh.ma)) {
-              var _0x2899b6 = this.dh.Fh[_0x2f2846].Eh.ma.substr(-10);
+              console.log("nombre: " + this.dh.Fh[_0x2f2846].Eh.ma);
+              var _0x2899b6 = this.dh.Fh[_0x2f2846].Eh.ma.substr(-6);
+              console.log("digitos: " + _0x2899b6);
               let _0x1a9cd0 = _0x2899b6.substr(0, 3);
+              console.log("skinId_A: " + _0x1a9cd0);
               let _0x5c1b37 = _0x2899b6.substr(3, 3);
+              console.log("hatId_A: " + _0x5c1b37);
               let _0x214ada = _0x2899b6.substr(6, 3);
+              console.log("eyesId_A: " + _0x214ada);
               let _0x5bc823 = _0x2899b6.substr(9, 3);
-              if (_0x1a9cd0 !== "0000" && gameSettings.visibleSkin.indexOf(parseInt(_0x1a9cd0)) !== -1) {
+              console.log("mouthId_A: " + _0x5bc823);
+              if (_0x1a9cd0 !== "0000" && theoKzObjects.visibleSkin.indexOf(parseInt(_0x1a9cd0)) !== -1) {
                 this.dh.Fh[_0x2f2846].Eh.Hh = parseInt(_0x1a9cd0);
               }
               if (_0x5c1b37 !== "00000") {
@@ -4136,21 +4192,21 @@ window.addEventListener("load", function () {
             }
           }
         }
-        // استبدل الكود المشكل بهذا:
         if (window.anApp.dh.ch.Eh.ae === _0x32c4f5.ae) {
-            // منع إعادة كتابة الأزياء المخصصة
-            if (gameSettings.PropertyManager) {
-                // تطبيق الأزياء المحفوظة بدلاً من قيم الخادم
-                setTimeout(function() {
-                    window.WormCustomSaver.applyAll();
-                }, 50);
-            }
-            _wrmxt.aload = true;
-            _wrmxt.aId = _0x51f6ca;
+          _0x32c4f5.Hh = theoKzObjects.PropertyManager.lj;
+          _0x32c4f5.ni = theoKzObjects.PropertyManager.mj;
+          _0x32c4f5.oi = theoKzObjects.PropertyManager.nj;
+          _0x32c4f5.pi = theoKzObjects.PropertyManager.oj;
+          _0x32c4f5.qi = theoKzObjects.PropertyManager.nj;
+          _0x3bdf28.setInt16(_0x51f6ca, _0x32c4f5.Hh);
+          _0x3bdf28.setInt16(_0x547c72, _0x32c4f5.ni);
+          _0x3bdf28.setInt16(_0x74e6e9, _0x32c4f5.oi);
+          _0x3bdf28.setInt16(_0x45e308, _0x32c4f5.pi);
+          _0x3bdf28.setInt16(_0x110ab0, _0x32c4f5.qi);
+          _wrmxt.aload = true;
+          _wrmxt.aId = _0x51f6ca;
         }
-
-
-    _0x32c4f5.ma = _0x191f20;
+        _0x32c4f5.ma = _0x191f20;
         if (this.dh.hh.yg === _0x32c4f5.ae) {
           this.dh.ch.ri(_0x32c4f5);
         } else {
@@ -4158,7 +4214,7 @@ window.addEventListener("load", function () {
           if (_0x48f1e8 != null) {
             _0x48f1e8.si();
           }
-          var _0x3bdf28 = new Game.mi(this.dh.hh);
+          var _0x3bdf28 = new _0x2e4f75.mi(this.dh.hh);
           _0x3bdf28.ti(_0x3b5dc5().og.af.ng);
           this.dh.Fh[_0x32c4f5.ae] = _0x3bdf28;
           _0x3bdf28.ri(_0x32c4f5);
@@ -4246,7 +4302,7 @@ window.addEventListener("load", function () {
           _0x4939a5++;
           if (_0xa4627a) {
             var _0x1ffc45 = _0xa4627a.dd[_0x73b50e];
-            _0x1ffc45 ||= _0xa4627a.dd[_0x73b50e] = new Game.fd(_0x73b50e);
+            _0x1ffc45 ||= _0xa4627a.dd[_0x73b50e] = new _0x2e4f75.fd(_0x73b50e);
             _0x1ffc45.hd = true;
             _0x1ffc45.od = Math.min(1, Math.max(0, _0x45c1c3 / 100));
           }
@@ -4292,7 +4348,7 @@ window.addEventListener("load", function () {
           _0x533f7b++;
           var _0x459d32 = _0x113773.dd[_0x9430f6];
           if (!_0x459d32) {
-            _0x459d32 = new Game.fd(_0x9430f6);
+            _0x459d32 = new _0x2e4f75.fd(_0x9430f6);
             _0x113773.dd[_0x9430f6] = _0x459d32;
           }
           _0x459d32.hd = true;
@@ -4335,17 +4391,17 @@ window.addEventListener("load", function () {
         return _0x23a166;
       };
       _0x3f9efd.prototype.bi = function (_0x271827, _0x2377e2) {
-        var _0x3bf52e = new Game.Fi.li();
+        var _0x3bf52e = new _0x2e4f75.Fi.li();
         _0x3bf52e.ae = _0x271827.da(_0x2377e2);
         _0x2377e2 += 4;
-        _0x3bf52e.Gh = this.dh.hh.xg === Game.Ac.zc ? _0x271827.ba(_0x2377e2++) : Game.wg.Cg;
+        _0x3bf52e.Gh = this.dh.hh.xg === _0x2e4f75.Ac.zc ? _0x271827.ba(_0x2377e2++) : _0x2e4f75.wg.Cg;
         _0x3bf52e.Gi = this.Ai(_0x271827.ba(_0x2377e2++), _0x271827.ba(_0x2377e2++), _0x271827.ba(_0x2377e2++));
         _0x3bf52e.Hh = _0x271827.ba(_0x2377e2++);
         var _0x1b2d71 = this.dh.Hi[_0x3bf52e.ae];
         if (_0x1b2d71 != null) {
           _0x1b2d71.si();
         }
-        var _0x2632be = new Game.Fi(_0x3bf52e, _0x3b5dc5().og.af.ng);
+        var _0x2632be = new _0x2e4f75.Fi(_0x3bf52e, _0x3b5dc5().og.af.ng);
         _0x2632be.Ii(this.Ji(_0x3bf52e.ae), this.Ki(_0x3bf52e.ae), true);
         this.dh.Hi[_0x3bf52e.ae] = _0x2632be;
         return _0x2377e2;
@@ -4423,23 +4479,23 @@ window.addEventListener("load", function () {
         _0x2e80db += 2;
         this.dh.Ih = _0xd4881c.ca(_0x2e80db);
         _0x2e80db += 2;
-        var _0x37dd65 = new Game.Pi();
+        var _0x37dd65 = new _0x2e4f75.Pi();
         _0x37dd65.Ch = [];
         for (var _0x34cee0 = _0xd4881c.ba(_0x2e80db++), _0x38943c = 0; _0x38943c < _0x34cee0; _0x38943c++) {
           var _0x3d6f77 = _0xd4881c.ca(_0x2e80db);
           _0x2e80db += 2;
           var _0x445fe2 = _0xd4881c.ea(_0x2e80db);
           _0x2e80db += 4;
-          _0x37dd65.Ch.push(Game.Pi.Qi(_0x3d6f77, _0x445fe2));
+          _0x37dd65.Ch.push(_0x2e4f75.Pi.Qi(_0x3d6f77, _0x445fe2));
         }
         _0x37dd65.zh = [];
-        if (this.dh.hh.xg === Game.Ac.zc) {
+        if (this.dh.hh.xg === _0x2e4f75.Ac.zc) {
           for (var _0x2d52e0 = _0xd4881c.ba(_0x2e80db++), _0x370b16 = 0; _0x370b16 < _0x2d52e0; _0x370b16++) {
             var _0x256416 = _0xd4881c.ba(_0x2e80db);
             _0x2e80db += 1;
             var _0xdca93f = _0xd4881c.ea(_0x2e80db);
             _0x2e80db += 4;
-            _0x37dd65.zh.push(Game.Pi.Ri(_0x256416, _0xdca93f));
+            _0x37dd65.zh.push(_0x2e4f75.Pi.Ri(_0x256416, _0xdca93f));
           }
         }
         _0x3b5dc5().og.af.ng.Vg.Uf(_0x37dd65);
@@ -4495,15 +4551,15 @@ window.addEventListener("load", function () {
       };
       return _0x3f9efd;
     }();
-    Game.Si = function () {
+    _0x2e4f75.Si = function () {
       function _0x1d92f9(_0x5a865f) {
         this.Ti = _0x5a865f;
       }
       _0x1d92f9.Ui = function () {
-        return new Game.Si(null);
+        return new _0x2e4f75.Si(null);
       };
       _0x1d92f9.Vi = function (_0x4f12e7) {
-        return new Game.Si(_0x4f12e7);
+        return new _0x2e4f75.Si(_0x4f12e7);
       };
       _0x1d92f9.prototype.bc = function () {
         return this.Ti;
@@ -4518,7 +4574,7 @@ window.addEventListener("load", function () {
       };
       return _0x1d92f9;
     }();
-    Game.Fi = function () {
+    _0x2e4f75.Fi = function () {
       function _0x18e51d(_0xfc9d42, _0x54f61b) {
         this.Eh = _0xfc9d42;
         this.Yi = _0xfc9d42.Hh >= 80;
@@ -4533,8 +4589,8 @@ window.addEventListener("load", function () {
         this.cj = 0;
         this.dj = 1;
         this.ej = Math.PI * 2 * Math.random();
-        this.fj = new Game.gj();
-        this.fj.yc(_0x3b5dc5().dh.hh.xg, this.Eh.Gh === Game.wg.Cg ? null : _0x3b5dc5().Lc.Ub().jb(this.Eh.Gh), _0x3b5dc5().Lc.Ub().ob(this.Eh.Hh));
+        this.fj = new _0x2e4f75.gj();
+        this.fj.yc(_0x3b5dc5().dh.hh.xg, this.Eh.Gh === _0x2e4f75.wg.Cg ? null : _0x3b5dc5().Lc.Ub().jb(this.Eh.Gh), _0x3b5dc5().Lc.Ub().ob(this.Eh.Hh));
         _0x54f61b.mh(_0xfc9d42.ae, this.fj);
       }
       _0x18e51d.prototype.si = function () {
@@ -4552,19 +4608,19 @@ window.addEventListener("load", function () {
       _0x18e51d.prototype.hj = function (_0xeb0f8b, _0x2cdf1f) {
         var _0x4d1f5e = Math.min(0.5, this.Mi * 1);
         var _0x37c5e3 = Math.min(2.5, this.Mi * 1.5);
-        this.bj = getRandomElement.Q(this.bj, _0x4d1f5e, _0x2cdf1f, 0.0025);
-        this.cj = getRandomElement.Q(this.cj, _0x37c5e3, _0x2cdf1f, 0.0025);
-        this.dj = getRandomElement.Q(this.dj, this.Li, _0x2cdf1f, 0.0025);
+        this.bj = _0x305823.Q(this.bj, _0x4d1f5e, _0x2cdf1f, 0.0025);
+        this.cj = _0x305823.Q(this.cj, _0x37c5e3, _0x2cdf1f, 0.0025);
+        this.dj = _0x305823.Q(this.dj, this.Li, _0x2cdf1f, 0.0025);
       };
       _0x18e51d.prototype.ij = function (_0xebf037, _0x32a73b, _0x2af9b6) {
-        this._i = getRandomElement.Q(this._i, this.Zi, _0x32a73b, gameSettings.eat_animation);
-        this.aj = getRandomElement.Q(this.aj, this.$i, _0x32a73b, 0.0025);
+        this._i = _0x305823.Q(this._i, this.Zi, _0x32a73b, theoKzObjects.eat_animation);
+        this.aj = _0x305823.Q(this.aj, this.$i, _0x32a73b, 0.0025);
         this.fj.Uf(this, _0xebf037, _0x32a73b, _0x2af9b6);
       };
       _0x18e51d.li = function () {
         function _0x4a0d69() {
           this.ae = 0;
-          this.Gh = Game.wg.Cg;
+          this.Gh = _0x2e4f75.wg.Cg;
           this.Gi = 0;
           this.Hh = 0;
         }
@@ -4572,10 +4628,10 @@ window.addEventListener("load", function () {
       }();
       return _0x18e51d;
     }();
-    Game.gj = function () {
+    _0x2e4f75.gj = function () {
       function _0x3536d7() {
-        this.nh = new _0x29edbd(new Game.sc(), new Game.sc());
-        this.nh.Dc.xc.blendMode = pixiElements.v.z;
+        this.nh = new _0x29edbd(new _0x2e4f75.sc(), new _0x2e4f75.sc());
+        this.nh.Dc.xc.blendMode = _0x11ca30.v.z;
         this.nh.Dc.xc.zIndex = _0x57bd62;
         this.nh.Cc.xc.zIndex = _0x2c89c2;
       }
@@ -4586,7 +4642,7 @@ window.addEventListener("load", function () {
         if (_0x4c6ccb != null) {
           this.nh.Cc.Bc(_0x4c6ccb);
         }
-        var _0x218e0f = _0x390d54 === Game.Ac.zc && _0x4adbfe != null ? _0x4adbfe.sb.vb : _0x577246.vb;
+        var _0x218e0f = _0x390d54 === _0x2e4f75.Ac.zc && _0x4adbfe != null ? _0x4adbfe.sb.vb : _0x577246.vb;
         if (_0x218e0f != null) {
           this.nh.Dc.Bc(_0x218e0f);
         }
@@ -4598,9 +4654,9 @@ window.addEventListener("load", function () {
         }
         var _0x75965b = _0x5c6b3e.cj * (1 + Math.cos(_0x5c6b3e.ej + _0x1dfd5b / 200) * 0.3);
         if (_0x5c6b3e.Yi) {
-          this.nh.Sc(_0x5c6b3e._i, _0x5c6b3e.aj, gameSettings.PortionSize * _0x5c6b3e.bj, _0x5c6b3e.dj * 1, gameSettings.PortionAura * _0x75965b, gameSettings.PortionTransparent * _0x5c6b3e.dj);
+          this.nh.Sc(_0x5c6b3e._i, _0x5c6b3e.aj, theoKzObjects.PortionSize * _0x5c6b3e.bj, _0x5c6b3e.dj * 1, theoKzObjects.PortionAura * _0x75965b, theoKzObjects.PortionTransparent * _0x5c6b3e.dj);
         } else {
-          this.nh.Sc(_0x5c6b3e._i, _0x5c6b3e.aj, gameSettings.FoodSize * _0x5c6b3e.bj, _0x5c6b3e.dj * 1, gameSettings.FoodShadow * _0x75965b, gameSettings.FoodTransparent * _0x5c6b3e.dj);
+          this.nh.Sc(_0x5c6b3e._i, _0x5c6b3e.aj, theoKzObjects.FoodSize * _0x5c6b3e.bj, _0x5c6b3e.dj * 1, theoKzObjects.FoodShadow * _0x75965b, theoKzObjects.FoodTransparent * _0x5c6b3e.dj);
         }
       };
       var _0x29edbd = function () {
@@ -4626,7 +4682,7 @@ window.addEventListener("load", function () {
       }();
       return _0x3536d7;
     }();
-    Game.kj = function () {
+    _0x2e4f75.kj = function () {
       function _0x437959() {
         this.lj = 0;
         this.mj = 0;
@@ -4645,26 +4701,26 @@ window.addEventListener("load", function () {
       }
       _0x437959.prototype.ha = function () {};
       _0x437959.prototype.rj = function (_0x545865) {
-        if (!gameSettings.loading) {
-          gameSettings.PropertyManager = this;
-          localStorage.setItem("SaveGameXT", JSON.stringify(gameSettings));
+        if (!theoKzObjects.loading) {
+          theoKzObjects.PropertyManager = this;
+          localStorage.setItem("SaveGameXT", JSON.stringify(theoKzObjects));
         }
         switch (_0x545865) {
-          case Game.tj.sj:
+          case _0x2e4f75.tj.sj:
             return this.lj;
-          case Game.tj.uj:
+          case _0x2e4f75.tj.uj:
             return this.mj;
-          case Game.tj.vj:
+          case _0x2e4f75.tj.vj:
             return this.nj;
-          case Game.tj.wj:
+          case _0x2e4f75.tj.wj:
             return this.oj;
-          case Game.tj.xj:
+          case _0x2e4f75.tj.xj:
             return this.pj;
         }
         return 0;
       };
       _0x437959.prototype.yj = function () {
-        return new Game.hb(this.lj, this.mj, this.nj, this.oj, this.pj);
+        return new _0x2e4f75.hb(this.lj, this.mj, this.nj, this.oj, this.pj);
       };
       _0x437959.prototype.zj = function (_0x1498ef) {
         this.qj.push(_0x1498ef);
@@ -4672,12 +4728,12 @@ window.addEventListener("load", function () {
       };
       _0x437959.prototype.Bj = function () {
         if (!_0x3b5dc5().Lc.Wb()) {
-          return getRandomElement.W([32, 33, 34, 35]);
+          return _0x305823.W([32, 33, 34, 35]);
         }
         var _0x58d125 = [];
         for (var _0x4ebb93 = _0x3b5dc5().Lc.Xb().skinArrayDict, _0x5d861e = 0; _0x5d861e < _0x4ebb93.length; _0x5d861e++) {
           var _0x56ea84 = _0x4ebb93[_0x5d861e];
-          if (this.Cj(_0x56ea84.id, Game.tj.sj)) {
+          if (this.Cj(_0x56ea84.id, _0x2e4f75.tj.sj)) {
             _0x58d125.push(_0x56ea84);
           }
         }
@@ -4693,14 +4749,14 @@ window.addEventListener("load", function () {
           var _0x456835 = _0x2cdb6c(_0x1fce6e, this.lj);
           if (!(_0x456835 < 0)) {
             for (var _0x1a4fc7 = _0x456835 + 1; _0x1a4fc7 < _0x1fce6e.length; _0x1a4fc7++) {
-              if (this.Cj(_0x1fce6e[_0x1a4fc7].id, Game.tj.sj)) {
+              if (this.Cj(_0x1fce6e[_0x1a4fc7].id, _0x2e4f75.tj.sj)) {
                 this.lj = _0x1fce6e[_0x1a4fc7].id;
                 this.Aj();
                 return;
               }
             }
             for (var _0x2a9f2f = 0; _0x2a9f2f < _0x456835; _0x2a9f2f++) {
-              if (this.Cj(_0x1fce6e[_0x2a9f2f].id, Game.tj.sj)) {
+              if (this.Cj(_0x1fce6e[_0x2a9f2f].id, _0x2e4f75.tj.sj)) {
                 this.lj = _0x1fce6e[_0x2a9f2f].id;
                 this.Aj();
                 return;
@@ -4715,14 +4771,14 @@ window.addEventListener("load", function () {
           var _0x48bf9d = _0x2cdb6c(_0x4163ca, this.lj);
           if (!(_0x48bf9d < 0)) {
             for (var _0x3d51ca = _0x48bf9d - 1; _0x3d51ca >= 0; _0x3d51ca--) {
-              if (this.Cj(_0x4163ca[_0x3d51ca].id, Game.tj.sj)) {
+              if (this.Cj(_0x4163ca[_0x3d51ca].id, _0x2e4f75.tj.sj)) {
                 this.lj = _0x4163ca[_0x3d51ca].id;
                 this.Aj();
                 return;
               }
             }
             for (var _0x1e7c08 = _0x4163ca.length - 1; _0x1e7c08 > _0x48bf9d; _0x1e7c08--) {
-              if (this.Cj(_0x4163ca[_0x1e7c08].id, Game.tj.sj)) {
+              if (this.Cj(_0x4163ca[_0x1e7c08].id, _0x2e4f75.tj.sj)) {
                 this.lj = _0x4163ca[_0x1e7c08].id;
                 this.Aj();
                 return;
@@ -4732,47 +4788,41 @@ window.addEventListener("load", function () {
         }
       };
       _0x437959.prototype.Fj = function (_0xdda0c6, _0x4eefaf) {
-    if (!_0x3b5dc5().Lc.Wb() || this.Cj(_0xdda0c6, _0x4eefaf)) {
-        switch (_0x4eefaf) {
-            case Game.tj.sj:
-                if (this.lj !== _0xdda0c6) {
-                    this.lj = _0xdda0c6;
-                    window.WormCustomSaver.save('skin', _0xdda0c6);
-                    this.Aj();
-                }
-                return;
-            case Game.tj.uj:
-                if (this.mj !== _0xdda0c6) {
-                    this.mj = _0xdda0c6;
-                    window.WormCustomSaver.save('eyes', _0xdda0c6);
-                    this.Aj();
-                }
-                return;
-            case Game.tj.vj:
-                if (this.nj !== _0xdda0c6) {
-                    this.nj = _0xdda0c6;
-                    window.WormCustomSaver.save('mouth', _0xdda0c6);
-                    this.Aj();
-                }
-                return;
-            case Game.tj.wj:
-                if (this.oj !== _0xdda0c6) {
-                    this.oj = _0xdda0c6;
-                    window.WormCustomSaver.save('glasses', _0xdda0c6);
-                    this.Aj();
-                }
-                return;
-            case Game.tj.xj:
-                if (this.pj !== _0xdda0c6) {
-                    this.pj = _0xdda0c6;
-                    window.WormCustomSaver.save('hat', _0xdda0c6);
-                    this.Aj();
-                }
-                return;
+        if (!_0x3b5dc5().Lc.Wb() || this.Cj(_0xdda0c6, _0x4eefaf)) {
+          switch (_0x4eefaf) {
+            case _0x2e4f75.tj.sj:
+              if (this.lj !== _0xdda0c6) {
+                this.lj = _0xdda0c6;
+                this.Aj();
+              }
+              return;
+            case _0x2e4f75.tj.uj:
+              if (this.mj !== _0xdda0c6) {
+                this.mj = _0xdda0c6;
+                this.Aj();
+              }
+              return;
+            case _0x2e4f75.tj.vj:
+              if (this.nj !== _0xdda0c6) {
+                this.nj = _0xdda0c6;
+                this.Aj();
+              }
+              return;
+            case _0x2e4f75.tj.wj:
+              if (this.oj !== _0xdda0c6) {
+                this.oj = _0xdda0c6;
+                this.Aj();
+              }
+              return;
+            case _0x2e4f75.tj.xj:
+              if (this.pj !== _0xdda0c6) {
+                this.pj = _0xdda0c6;
+                this.Aj();
+              }
+              return;
+          }
         }
-    }
-};
-
+      };
       _0x437959.prototype.Cj = function (_0xf59878, _0x5c3309) {
         var _0x4265a3 = this.Gj(_0xf59878, _0x5c3309);
         return _0x4265a3 != null && (_0x3b5dc5().Ij.Hj() ? _0x4265a3.Jj() === 0 && !_0x4265a3.Kj() || _0x3b5dc5().Ij.Lj(_0xf59878, _0x5c3309) : _0x4265a3.Mj());
@@ -4782,30 +4832,30 @@ window.addEventListener("load", function () {
           return null;
         }
         var _0x46d2be = _0x3b5dc5().Lc.Xb();
-        if (_0x1d36a2 === Game.tj.sj) {
+        if (_0x1d36a2 === _0x2e4f75.tj.sj) {
           var _0x3f82b5 = _0x2cdb6c(_0x46d2be.skinArrayDict, _0x3d46ae);
           if (_0x3f82b5 < 0) {
             return null;
           } else {
-            return Game.Oj.Nj(_0x46d2be.skinArrayDict[_0x3f82b5]);
+            return _0x2e4f75.Oj.Nj(_0x46d2be.skinArrayDict[_0x3f82b5]);
           }
         }
         var _0x543ca5 = null;
         switch (_0x1d36a2) {
-          case Game.tj.uj:
+          case _0x2e4f75.tj.uj:
             _0x543ca5 = _0x46d2be.eyesDict[_0x3d46ae];
             break;
-          case Game.tj.vj:
+          case _0x2e4f75.tj.vj:
             _0x543ca5 = _0x46d2be.mouthDict[_0x3d46ae];
             break;
-          case Game.tj.wj:
+          case _0x2e4f75.tj.wj:
             _0x543ca5 = _0x46d2be.hatDict[_0x3d46ae];
             break;
-          case Game.tj.xj:
+          case _0x2e4f75.tj.xj:
             _0x543ca5 = _0x46d2be.glassesDict[_0x3d46ae];
         }
         if (_0x543ca5 != null) {
-          return Game.Oj.Pj(_0x543ca5);
+          return _0x2e4f75.Oj.Pj(_0x543ca5);
         } else {
           return null;
         }
@@ -4817,7 +4867,7 @@ window.addEventListener("load", function () {
       };
       return _0x437959;
     }();
-    Game.tj = function () {
+    _0x2e4f75.tj = function () {
       function _0x57ac4f() {}
       _0x57ac4f.sj = "SKIN";
       _0x57ac4f.uj = "EYES";
@@ -4826,32 +4876,29 @@ window.addEventListener("load", function () {
       _0x57ac4f.wj = "HAT";
       return _0x57ac4f;
     }();
-    Game.Qj = function () {
+    _0x2e4f75.Qj = function () {
       function _0x227068() {
-        this.Bf = new pixiElements.m(pixiElements.l.from("/images/bg-obstacle.png"));
-        var _0x5ead47 = pixiElements.l.from(getRandomElement.a.f);
-        var _0x522ba7 = new pixiElements.m(_0x5ead47, new pixiElements.q(0, 0, 256, 256));
+        this.Bf = new _0x11ca30.m(_0x11ca30.l.from("/images/bg-obstacle.png"));
+        var _0x5ead47 = _0x11ca30.l.from(_0x305823.a.f);
+        var _0x522ba7 = new _0x11ca30.m(_0x5ead47, new _0x11ca30.q(0, 0, 256, 256));
         this.Cf = new Array(36);
         for (var _0x28148f = 0; _0x28148f < this.Cf.length; _0x28148f++) {
           this.Cf[_0x28148f] = _0x522ba7;
         }
-        this._g = new pixiElements.m(function () {
-          const savedBgIndex = parseInt(localStorage.getItem('worm_bg_index')) || 0;
-          const backgroundUrl = window.gameBackgrounds[savedBgIndex] || window.gameBackgrounds[0];
-          var _0x11da02 = pixiElements.l.from(backgroundUrl);
-          _0x11da02.wrapMode = pixiElements.C.D;
+        this._g = new _0x11ca30.m(function () {
+          var _0x11da02 = _0x11ca30.l.from("/images/bg-pattern-ukraine2-pow2-ARENA.png");
+          _0x11da02.wrapMode = _0x11ca30.C.D;
           return _0x11da02;
         }());
-
-        this.ah = new pixiElements.m(function () {
-          var _0x476baf = pixiElements.l.from("/images/bg-pattern-pow2-TEAM2.png");
-          _0x476baf.wrapMode = pixiElements.C.D;
+        this.ah = new _0x11ca30.m(function () {
+          var _0x476baf = _0x11ca30.l.from("/images/bg-pattern-ukraine2-pow2-TEAM2.png");
+          _0x476baf.wrapMode = _0x11ca30.C.D;
           return _0x476baf;
         }());
-        this.Zg = new pixiElements.m(pixiElements.l.from("/images/lens.png"));
-        this.rf = new pixiElements.m(function () {
-          var _0x4d947f = pixiElements.l.from(getRandomElement.a.g);
-          _0x4d947f.wrapMode = pixiElements.C.D;
+        this.Zg = new _0x11ca30.m(_0x11ca30.l.from("/images/lens.png"));
+        this.rf = new _0x11ca30.m(function () {
+          var _0x4d947f = _0x11ca30.l.from(_0x305823.a.g);
+          _0x4d947f.wrapMode = _0x11ca30.C.D;
           return _0x4d947f;
         }());
         this.Db = function () {
@@ -4861,7 +4908,7 @@ window.addEventListener("load", function () {
           return {
             Eb: _0xf7778a,
             Fb: _0xf7778a.getContext("2d"),
-            oa: new pixiElements.m(pixiElements.l.from(_0xf7778a))
+            oa: new _0x11ca30.m(_0x11ca30.l.from(_0xf7778a))
           };
         }();
         this.Ae = {};
@@ -4887,89 +4934,40 @@ window.addEventListener("load", function () {
       };
       return _0x227068;
     }();
-    
- 
-    
-    
-    this.ah = new pixiElements.m(function () {
-        var _0x476baf = pixiElements.l.from("/images/bg-pattern-pow2-TEAM2.png");
-        _0x476baf.wrapMode = pixiElements.C.D;
-        return _0x476baf;
-    }());
-    
-    this.Zg = new pixiElements.m(pixiElements.l.from("/images/lens.png"));
-    this.rf = new pixiElements.m(function () {
-        var _0x4d947f = pixiElements.l.from(getRandomElement.a.g);
-        _0x4d947f.wrapMode = pixiElements.C.D;
-        return _0x4d947f;
-    }());
-    this.Db = function () {
-        var _0xf7778a = window.document.createElement("canvas");
-        _0xf7778a.width = 80;
-        _0xf7778a.height = 80;
-        return {
-            Eb: _0xf7778a,
-            Fb: _0xf7778a.getContext("2d"),
-            oa: new pixiElements.m(pixiElements.l.from(_0xf7778a))
-        };
-    }();
-    this.Ae = {};
-    this.we = {};
-    this.Rj = [];
-    this.Sj = null;
-}
-      _0x227068.prototype.ha = function (_0x2ccdab) {
-        function _0x19f9cf() {
-          if (--_0xb443e8 == 0) {
-            _0x2ccdab();
-          }
-        }
-        var _0xb443e8 = 4;
-        this.Ae = {};
-        _0x19f9cf();
-        this.we = {};
-        _0x19f9cf();
-        this.Rj = [];
-        _0x19f9cf();
-        this.Sj = null;
-        _0x19f9cf();
-      };
-      return _0x227068;
-    }();
-    Game.Tj = function () {
+    _0x2e4f75.Tj = function () {
       function _0x4ab892() {
         this.Uj = null;
-        this.af = new Game.Vj();
-        this._e = new Game.Wj();
-        this.Xj = new Game.Yj();
-        this.Zj = new Game.$j();
-        this._j = new Game.ak();
-        this.bk = new Game.ck();
-        this.dk = new Game.ek();
-        this.fk = new Game.gk();
-        this.$h = new Game.hk();
-        this.ik = new Game.jk();
-        this.kk = new Game.lk();
-        this.mk = new Game.nk();
-        this.ok = new Game.pk();
-        this.qk = new Game.rk();
-        this.ie = new Game.sk();
-        this.tk = new Game.uk();
-        this.vk = new Game.wk();
-        this.xk = new Game.yk();
+        this.af = new _0x2e4f75.Vj();
+        this._e = new _0x2e4f75.Wj();
+        this.Xj = new _0x2e4f75.Yj();
+        this.Zj = new _0x2e4f75.$j();
+        this._j = new _0x2e4f75.ak();
+        this.bk = new _0x2e4f75.ck();
+        this.dk = new _0x2e4f75.ek();
+        this.fk = new _0x2e4f75.gk();
+        this.$h = new _0x2e4f75.hk();
+        this.ik = new _0x2e4f75.jk();
+        this.kk = new _0x2e4f75.lk();
+        this.mk = new _0x2e4f75.nk();
+        this.ok = new _0x2e4f75.pk();
+        this.qk = new _0x2e4f75.rk();
+        this.ie = new _0x2e4f75.sk();
+        this.tk = new _0x2e4f75.uk();
+        this.vk = new _0x2e4f75.wk();
+        this.xk = new _0x2e4f75.yk();
         this.zk = [];
       }
       function _0x15875d(_0x3b9a0c, _0x5da0d9) {
         if (_0x5da0d9 !== 0) {
           var _0x46497c = _0x3b9a0c[_0x5da0d9];
-          getRandomElement.T(_0x3b9a0c, 0, 1, _0x5da0d9);
+          _0x305823.T(_0x3b9a0c, 0, 1, _0x5da0d9);
           _0x3b9a0c[0] = _0x46497c;
         }
       }
       function _0x432a50(_0x1b7d1a, _0xcbed5c) {
         if (_0xcbed5c !== _0x1b7d1a.length + 1) {
           var _0x193002 = _0x1b7d1a[_0xcbed5c];
-          getRandomElement.T(_0x1b7d1a, _0xcbed5c + 1, _0xcbed5c, _0x1b7d1a.length - _0xcbed5c - 1);
+          _0x305823.T(_0x1b7d1a, _0xcbed5c + 1, _0xcbed5c, _0x1b7d1a.length - _0xcbed5c - 1);
           _0x1b7d1a[_0x1b7d1a.length - 1] = _0x193002;
         }
       }
@@ -4982,7 +4980,7 @@ window.addEventListener("load", function () {
         return -1;
       }
       _0x4ab892.prototype.ha = function () {
-        this.Uj = new Game.df(Game.kf.jf);
+        this.Uj = new _0x2e4f75.df(_0x2e4f75.kf.jf);
         this.zk = [this.af, this._e, this.Xj, this.Zj, this._j, this.bk, this.dk, this.fk, this.$h, this.ik, this.kk, this.mk, this.ok, this.qk, this.ie, this.tk, this.vk, this.xk];
         for (var _0x524c2d = 0; _0x524c2d < this.zk.length; _0x524c2d++) {
           this.zk[_0x524c2d].ha();
@@ -5016,7 +5014,7 @@ window.addEventListener("load", function () {
         this.zk[0].Bk();
         do {
           _0x432a50(this.zk, 0);
-        } while (this.zk[0].nd !== Game.Fk.Ek);
+        } while (this.zk[0].nd !== _0x2e4f75.Fk.Ek);
         this.Ck();
       };
       _0x4ab892.prototype.Ck = function () {
@@ -5026,7 +5024,7 @@ window.addEventListener("load", function () {
         this.Ik();
       };
       _0x4ab892.prototype.Jk = function () {
-        return this.zk.length !== 0 && this.zk[0].nd === Game.Fk.Ek && this.qk.Kk();
+        return this.zk.length !== 0 && this.zk[0].nd === _0x2e4f75.Fk.Ek && this.qk.Kk();
       };
       _0x4ab892.prototype.Lk = function () {
         if (this.zk.length === 0) {
@@ -5042,7 +5040,7 @@ window.addEventListener("load", function () {
       };
       return _0x4ab892;
     }();
-    Game.Pi = function () {
+    _0x2e4f75.Pi = function () {
       function _0x4c2801() {
         this.Ch = [];
         this.zh = [];
@@ -5061,7 +5059,7 @@ window.addEventListener("load", function () {
       };
       return _0x4c2801;
     }();
-    Game.Mk = function () {
+    _0x2e4f75.Mk = function () {
       function _0x11dd4c() {
         this.Nk = [];
         this.Ok = [];
@@ -5396,11 +5394,11 @@ window.addEventListener("load", function () {
           var _0x436c87 = _0x15a481.jl();
           if (_0x367a39 === _0x6dba8f) {
             if (_0x436c87 > 1 && _0x436c87 !== _0x456f84) {
-              _0x3b5dc5().og.qk.El(new Game.Fl(currLevel));
+              _0x3b5dc5().og.qk.El(new _0x2e4f75.Fl(currLevel));
             }
             var _0x283dba = _0x301635 - _0x4b63e2;
             if (_0x283dba >= 20) {
-              _0x3b5dc5().og.qk.El(new Game.Gl(_0x283dba));
+              _0x3b5dc5().og.qk.El(new _0x2e4f75.Gl(_0x283dba));
             }
           }
           if (_0x493d38 != null) {
@@ -5409,8 +5407,8 @@ window.addEventListener("load", function () {
         });
       };
       _0x11dd4c.prototype.Cl = function (_0x4afab8, _0x515405) {
-        var _0x6d121d = getRandomElement.a.b + "/pub/wuid/" + this.Qk + "/getUserData";
-        getRandomElement.Z(_0x6d121d, _0x4afab8, function (_0x2d5b12) {
+        var _0x6d121d = _0x305823.a.b + "/pub/wuid/" + this.Qk + "/getUserData";
+        _0x305823.Z(_0x6d121d, _0x4afab8, function (_0x2d5b12) {
           if (_0x2d5b12.code !== 1200) {
             _0x4afab8();
           } else {
@@ -5419,8 +5417,8 @@ window.addEventListener("load", function () {
         });
       };
       _0x11dd4c.prototype.Hl = function (_0x43d09d, _0x39ce12, _0x2f68de, _0x29473e) {
-        var _0x440135 = getRandomElement.a.b + "/pub/wuid/" + this.Qk + "/buyProperty?id=" + _0x43d09d + "&type=" + _0x39ce12;
-        getRandomElement.Z(_0x440135, function () {
+        var _0x440135 = _0x305823.a.b + "/pub/wuid/" + this.Qk + "/buyProperty?id=" + _0x43d09d + "&type=" + _0x39ce12;
+        _0x305823.Z(_0x440135, function () {
           _0x2f68de();
         }, function (_0x14fea) {
           if (_0x14fea.code !== 1200) {
@@ -5431,8 +5429,8 @@ window.addEventListener("load", function () {
         });
       };
       _0x11dd4c.prototype.Il = function (_0x289b1f, _0x2674b6) {
-        var _0xf662a = getRandomElement.a.b + "/pub/wuid/" + this.Qk + "/deleteAccount";
-        getRandomElement.Z(_0xf662a, _0x289b1f, function (_0x1ff480) {
+        var _0xf662a = _0x305823.a.b + "/pub/wuid/" + this.Qk + "/deleteAccount";
+        _0x305823.Z(_0xf662a, _0x289b1f, function (_0x1ff480) {
           if (_0x1ff480.code !== 1200) {
             _0x289b1f();
           } else {
@@ -5465,8 +5463,8 @@ window.addEventListener("load", function () {
       _0x11dd4c.prototype.Ll = function (_0x143251, _0x1654b9, _0x5e7607) {
         var _0x457065 = this;
         var _0x7a6902 = _0x143251 + "_" + _0x1654b9;
-        var _0x9470d2 = getRandomElement.a.b + "/pub/wuid/" + _0x7a6902 + "/login";
-        getRandomElement.Z(_0x9470d2, function () {
+        var _0x9470d2 = _0x305823.a.b + "/pub/wuid/" + _0x7a6902 + "/login";
+        _0x305823.Z(_0x9470d2, function () {
           _0x457065.Nl();
         }, function (_0x5d3384) {
           if (_0x5d3384.code !== 1200) {
@@ -5475,14 +5473,14 @@ window.addEventListener("load", function () {
             registerUpdatePlayer(_0x5d3384.user_data);
             _0x3e1f1d(_0x5d3384.user_data);
             addHTML();
-            gameSettings.FB_UserID = _0x5d3384.user_data.userId;
+            theoKzObjects.FB_UserID = _0x5d3384.user_data.userId;
             for (var _0x139384 = 0; _0x139384 < clientes.clientesActivos.length; _0x139384++) {
               var _0x51840c = clientes.clientesActivos[_0x139384].cliente_NOMBRE;
               var _0x43a7a9 = clientes.clientesActivos[_0x139384].cliente_ID;
               var _0x40737a = clientes.clientesActivos[_0x139384].cliente_SUBSCRIPTION;
-              gameSettings.expirationDate = clientes.clientesActivos[_0x139384].cliente_FECHA_EXPIRACION;
+              theoKzObjects.expirationDate = clientes.clientesActivos[_0x139384].cliente_FECHA_EXPIRACION;
               console.log(_0x40737a);
-              if (gameSettings.FB_UserID == 0) {} else if (gameSettings.FB_UserID == _0x43a7a9) {
+              if (theoKzObjects.FB_UserID == 0) {} else if (theoKzObjects.FB_UserID == _0x43a7a9) {
                 addHTML();
                 ctx.myKeyZum.text = "";
                 ctx.myKeyMovePrimary.text = "";
@@ -5494,13 +5492,13 @@ window.addEventListener("load", function () {
                     ctx.myKeyMoveSecundary.text = "A";
                     theoPay5PacketObjects.isPay5 = true;
                     theoPay3PacketObjects.visiblePowersAll = true;
-                    gameSettings.SpeedAbility = true;
-                    gameSettings.FlexAbility = true;
-                    gameSettings.x2Ability = true;
-                    gameSettings.x5Ability = true;
-                    gameSettings.x10Ability = true;
-                    gameSettings.ZoomAbility = true;
-                    $("#extesnionVersionTime").replaceWith("<span class='settings_span'>expiration date: " + gameSettings.expirationDate + "</span>");
+                    theoKzObjects.SpeedAbility = true;
+                    theoKzObjects.FlexAbility = true;
+                    theoKzObjects.x2Ability = true;
+                    theoKzObjects.x5Ability = true;
+                    theoKzObjects.x10Ability = true;
+                    theoKzObjects.ZoomAbility = true;
+                    $("#extesnionVersionTime").replaceWith("<span class='settings_span'>expiration date: " + theoKzObjects.expirationDate + "</span>");
                     addPay5html();
                   } else if (_0x40737a.description == "3$") {
                     theoPay3PacketObjects.isPay3 = true;
@@ -5508,13 +5506,13 @@ window.addEventListener("load", function () {
                     ctx.myKeyMovePrimary.text = "S";
                     ctx.myKeyMoveSecundary.text = "A";
                     theoPay3PacketObjects.visiblePowersAll = true;
-                    gameSettings.SpeedAbility = true;
-                    gameSettings.FlexAbility = true;
-                    gameSettings.x2Ability = true;
-                    gameSettings.x5Ability = true;
-                    gameSettings.x10Ability = true;
-                    gameSettings.ZoomAbility = true;
-                    $("#extesnionVersionTime").replaceWith("<span class='settings_span'>expiration date: " + gameSettings.expirationDate + "</span>");
+                    theoKzObjects.SpeedAbility = true;
+                    theoKzObjects.FlexAbility = true;
+                    theoKzObjects.x2Ability = true;
+                    theoKzObjects.x5Ability = true;
+                    theoKzObjects.x10Ability = true;
+                    theoKzObjects.ZoomAbility = true;
+                    $("#extesnionVersionTime").replaceWith("<span class='settings_span'>expiration date: " + theoKzObjects.expirationDate + "</span>");
                     addPay3html();
                   }
                 }
@@ -5547,8 +5545,8 @@ window.addEventListener("load", function () {
         this.Pk = true;
         this.Qk = _0x386252 + "_" + _0x27c97c;
         this.Rk = _0x2a187b;
-        gameSettings.loading = false;
-        Game.Vf.eg(Game.Vf.$f, _0x386252, 60);
+        theoKzObjects.loading = false;
+        _0x2e4f75.Vf.eg(_0x2e4f75.Vf.$f, _0x386252, 60);
         if (_0x330445 !== this.Rk.userId) {
           this.Tl();
         } else {
@@ -5560,7 +5558,7 @@ window.addEventListener("load", function () {
         this.Pk = false;
         this.Qk = _0xe687a3;
         this.Rk = {};
-        Game.Vf.eg(Game.Vf.$f, "", 60);
+        _0x2e4f75.Vf.eg(_0x2e4f75.Vf.$f, "", 60);
         if (_0x281d2e !== this.Rk.userId) {
           this.Tl();
         } else {
@@ -5568,7 +5566,7 @@ window.addEventListener("load", function () {
         }
       };
       _0x11dd4c.prototype.bl = function () {
-        var _0x2b8b09 = Game.Vf.fg(Game.Vf.$f);
+        var _0x2b8b09 = _0x2e4f75.Vf.fg(_0x2e4f75.Vf.$f);
         var _0x2b6c90 = this;
         if (_0x2b8b09 === "fb") {
           var _0x26c973 = 1;
@@ -5613,15 +5611,15 @@ window.addEventListener("load", function () {
       };
       return _0x11dd4c;
     }();
-    Game.if = function () {
+    _0x2e4f75.if = function () {
       function _0x5019e1(_0x256203, _0x274232, _0x54cb3c) {
         this.ef = _0x54cb3c;
         this.hd = false;
-        this.nc = new pixiElements.k();
+        this.nc = new _0x11ca30.k();
         this.nc.visible = false;
         this.Ul = new Array(_0x256203);
         for (var _0x1e37ca = 0; _0x1e37ca < this.Ul.length; _0x1e37ca++) {
-          var _0x154463 = new Game.Vl(new Float32Array(_0x274232 * 3));
+          var _0x154463 = new _0x2e4f75.Vl(new Float32Array(_0x274232 * 3));
           _0x154463.Wl(_0x274232);
           this.Ul[_0x1e37ca] = _0x154463;
           this.nc.addChild(_0x154463.tf());
@@ -5703,17 +5701,17 @@ window.addEventListener("load", function () {
       };
       return _0x5019e1;
     }();
-    Game.dm = function () {
+    _0x2e4f75.dm = function () {
       function _0x16252b(_0x1f71ec) {
         var _0xf62d05 = this;
         this.ef = _0x1f71ec;
         this.Eb = _0x1f71ec.get()[0];
-        this.lf = new pixiElements.n({
+        this.lf = new _0x11ca30.n({
           view: this.Eb,
           transparent: true
         });
         this.hd = false;
-        this.em = new Game.Vl(new Float32Array(_0x350d37 * 3));
+        this.em = new _0x2e4f75.Vl(new Float32Array(_0x350d37 * 3));
         this.ff = 1;
         this.gf = 1;
         this.fm = _0x1be22f.gm;
@@ -5726,7 +5724,7 @@ window.addEventListener("load", function () {
           _0xf62d05.em.lm();
         });
       }
-      var _0x350d37 = Math.min(100, Game.mc.wc);
+      var _0x350d37 = Math.min(100, _0x2e4f75.mc.wc);
       var _0x1be22f = {
         gm: "0lt0",
         mm: "0lt1",
@@ -5745,7 +5743,7 @@ window.addEventListener("load", function () {
         this.Eb.height = _0x53a1b8 * this.gf;
         var _0x2d9166 = this.gf / 4;
         this.em.Xl(_0x2d9166);
-        var _0x5a8215 = getRandomElement.P(Math.floor(this.ff / _0x2d9166) * 2 - 5, 1, _0x350d37);
+        var _0x5a8215 = _0x305823.P(Math.floor(this.ff / _0x2d9166) * 2 - 5, 1, _0x350d37);
         this.em.Wl(_0x5a8215);
       };
       _0x16252b.prototype.Nf = function () {
@@ -5838,7 +5836,7 @@ window.addEventListener("load", function () {
       };
       return _0x16252b;
     }();
-    Game.Oj = function () {
+    _0x2e4f75.Oj = function () {
       function _0x4d0d72(_0x25e780, _0x363afe, _0x1e5dd8, _0x5aa968, _0x357556) {
         this.zm = _0x25e780;
         this.Am = _0x363afe;
@@ -5869,22 +5867,22 @@ window.addEventListener("load", function () {
       };
       return _0x4d0d72;
     }();
-    Game.qf = function () {
+    _0x2e4f75.qf = function () {
       function _0xc597f0(_0x38a943) {
         this.Gm = {};
         this.Gm[_0x546cd6] = _0x38a943;
-        var _0xa0e17f = pixiElements.p.from(_0x11edf5, _0x41b0d7, this.Gm);
-        this.sf = new pixiElements.u(_0x52fb3f, _0xa0e17f);
-        this.sf.blendMode = pixiElements.v.B;
+        var _0xa0e17f = _0x11ca30.p.from(_0x11edf5, _0x41b0d7, this.Gm);
+        this.sf = new _0x11ca30.u(_0x52fb3f, _0xa0e17f);
+        this.sf.blendMode = _0x11ca30.v.B;
       }
-      var _0x3537e3 = "a1_" + getRandomElement.X();
-      var _0x25fb30 = "a2_" + getRandomElement.X();
+      var _0x3537e3 = "a1_" + _0x305823.X();
+      var _0x25fb30 = "a2_" + _0x305823.X();
       var _0x20d92e = "translationMatrix";
       var _0x5eb03a = "projectionMatrix";
-      var _0x546cd6 = "u3_" + getRandomElement.X();
-      var _0x492b50 = "u4_" + getRandomElement.X();
-      var _0x5ef078 = "v1_" + getRandomElement.X();
-      var _0x52fb3f = new pixiElements.t().addAttribute(_0x3537e3, [0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1], 2).addAttribute(_0x25fb30, [0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1], 2);
+      var _0x546cd6 = "u3_" + _0x305823.X();
+      var _0x492b50 = "u4_" + _0x305823.X();
+      var _0x5ef078 = "v1_" + _0x305823.X();
+      var _0x52fb3f = new _0x11ca30.t().addAttribute(_0x3537e3, [0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1], 2).addAttribute(_0x25fb30, [0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1], 2);
       var _0x11edf5 = "" + "precision mediump float;attribute vec2 " + _0x3537e3 + ";attribute vec2 " + _0x25fb30 + ";uniform mat3 " + _0x20d92e + ";uniform mat3 " + _0x5eb03a + ";uniform vec4 " + _0x492b50 + ";varying vec2 " + _0x5ef078 + ";const float ROT_ANGLE_DEG=7.5;const float ROT_COS=cos(ROT_ANGLE_DEG/180.0*6.283185307179586);const float ROT_SIN=sin(ROT_ANGLE_DEG/180.0*6.283185307179586);void main(){gl_Position=vec4((" + _0x5eb03a + "*" + _0x20d92e + "*vec3(" + _0x3537e3 + ",1.0)).xy,0.0,1.0);vec4 _ScreenParams=" + _0x492b50 + ";vec2 uv=" + _0x25fb30 + ";vec2 mul=0.5*vec2(_ScreenParams.x*(_ScreenParams.w-1.0)+1.0,_ScreenParams.y*(_ScreenParams.z-1.0)+1.0);vec2 v2=(uv-vec2(0.5,0.5))*mul*1.25;v2=vec2(v2.x*ROT_COS-v2.y*ROT_SIN,v2.x*ROT_SIN+v2.y*ROT_COS)*vec2(1,2);uv=v2;" + _0x5ef078 + "=uv;}";
       var _0x41b0d7 = "" + "precision highp float;varying vec2 " + _0x5ef078 + ";uniform sampler2D " + _0x546cd6 + ";void main(){gl_FragColor=texture2D(" + _0x546cd6 + "," + _0x5ef078 + ");}";
       _0xc597f0.prototype.Mf = function (_0x52b873, _0x114d33) {
@@ -5894,26 +5892,26 @@ window.addEventListener("load", function () {
       };
       return _0xc597f0;
     }();
-    Game.Mg = function () {
+    _0x2e4f75.Mg = function () {
       function _0x372789() {
         this.Gm = {};
         this.Gm[_0x23f60e] = [1, 0.5, 0.25, 0.5];
-        this.Gm[_0x8d25e5] = pixiElements.m.WHITE;
+        this.Gm[_0x8d25e5] = _0x11ca30.m.WHITE;
         this.Gm[_0x3fcd74] = [0, 0];
         this.Gm[_0x338a64] = [0, 0];
-        var _0x2e225f = pixiElements.p.from(_0xd62012, _0x2ab292, this.Gm);
-        this.sf = new pixiElements.u(_0x423c66, _0x2e225f);
+        var _0x2e225f = _0x11ca30.p.from(_0xd62012, _0x2ab292, this.Gm);
+        this.sf = new _0x11ca30.u(_0x423c66, _0x2e225f);
       }
-      var _0x1c6456 = "a1_" + getRandomElement.X();
-      var _0x98cbda = "a2_" + getRandomElement.X();
+      var _0x1c6456 = "a1_" + _0x305823.X();
+      var _0x98cbda = "a2_" + _0x305823.X();
       var _0x17c6e1 = "translationMatrix";
       var _0x3add2a = "projectionMatrix";
-      var _0x23f60e = "u3_" + getRandomElement.X();
-      var _0x8d25e5 = "u4_" + getRandomElement.X();
-      var _0x3fcd74 = "u5_" + getRandomElement.X();
-      var _0x338a64 = "u6_" + getRandomElement.X();
-      var _0x345d8a = "v1_" + getRandomElement.X();
-      var _0x423c66 = new pixiElements.t().addAttribute(_0x1c6456, [-0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5], 2).addAttribute(_0x98cbda, [-0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5], 2);
+      var _0x23f60e = "u3_" + _0x305823.X();
+      var _0x8d25e5 = "u4_" + _0x305823.X();
+      var _0x3fcd74 = "u5_" + _0x305823.X();
+      var _0x338a64 = "u6_" + _0x305823.X();
+      var _0x345d8a = "v1_" + _0x305823.X();
+      var _0x423c66 = new _0x11ca30.t().addAttribute(_0x1c6456, [-0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5], 2).addAttribute(_0x98cbda, [-0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5], 2);
       var _0xd62012 = "precision mediump float;attribute vec2 " + _0x1c6456 + ";attribute vec2 " + _0x98cbda + ";uniform mat3 " + _0x17c6e1 + ";uniform mat3 " + _0x3add2a + ";varying vec2 " + _0x345d8a + ";void main(){" + _0x345d8a + "=" + _0x98cbda + ";gl_Position=vec4((" + _0x3add2a + "*" + _0x17c6e1 + "*vec3(" + _0x1c6456 + ",1.0)).xy,0.0,1.0);}";
       var _0x2ab292 = "precision highp float;varying vec2 " + _0x345d8a + ";uniform vec4 " + _0x23f60e + ";uniform sampler2D " + _0x8d25e5 + ";uniform vec2 " + _0x3fcd74 + ";uniform vec2 " + _0x338a64 + ";void main(){vec2 coord=" + _0x345d8a + "*" + _0x3fcd74 + "+" + _0x338a64 + ";vec4 v_color_mix=" + _0x23f60e + ";gl_FragColor=texture2D(" + _0x8d25e5 + ",coord)*0.3+v_color_mix.a*vec4(v_color_mix.rgb,0.0);}";
       _0x372789.prototype.Ec = function (_0x2a50c4, _0xb6be39, _0xddf2a2, _0x18db7c) {
@@ -5940,9 +5938,9 @@ window.addEventListener("load", function () {
       };
       return _0x372789;
     }();
-    Game.sc = function () {
+    _0x2e4f75.sc = function () {
       function _0x46c239() {
-        this.xc = new pixiElements.r();
+        this.xc = new _0x11ca30.r();
         this.Hm = 0;
         this.Im = 0;
       }
@@ -5978,14 +5976,14 @@ window.addEventListener("load", function () {
         return this.xc;
       };
       _0x46c239.prototype.Rc = function () {
-        getRandomElement.U(this.xc);
+        _0x305823.U(this.xc);
       };
       return _0x46c239;
     }();
-    Game.mi = function () {
+    _0x2e4f75.mi = function () {
       function _0xfa7706(_0x567176) {
         this.hh = _0x567176;
-        this.Eh = new Game.mi.li();
+        this.Eh = new _0x2e4f75.mi.li();
         this.xi = false;
         this.wi = true;
         this.Xc = false;
@@ -6007,10 +6005,10 @@ window.addEventListener("load", function () {
       var _0x16ea1a = 200;
       _0xfa7706.prototype.si = function () {
         if (this.Nm != null) {
-          getRandomElement.U(this.Nm.nc);
+          _0x305823.U(this.Nm.nc);
         }
         if (this.Om != null) {
-          getRandomElement.U(this.Om);
+          _0x305823.U(this.Om);
         }
       };
       _0xfa7706.prototype.Pm = function () {
@@ -6130,8 +6128,8 @@ window.addEventListener("load", function () {
         this.Mm = _0x2651ba;
       };
       _0xfa7706.prototype.hj = function (_0x219407, _0x41d248) {
-        this.dj = getRandomElement.Q(this.dj, this.wi ? this.Xc ? 0.9 + Math.cos(_0x219407 / 400 * Math.PI) * 0.1 : 1 : 0, _0x41d248, 1 / 800);
-        this.bd = getRandomElement.Q(this.bd, this.wi ? this.Xc ? 1 : 0 : 1, _0x41d248, 0.0025);
+        this.dj = _0x305823.Q(this.dj, this.wi ? this.Xc ? 0.9 + Math.cos(_0x219407 / 400 * Math.PI) * 0.1 : 1 : 0, _0x41d248, 1 / 800);
+        this.bd = _0x305823.Q(this.bd, this.wi ? this.Xc ? 1 : 0 : 1, _0x41d248, 0.0025);
         if (this.Nm != null) {
           this.Nm.nc.alpha = this.dj;
         }
@@ -6143,10 +6141,10 @@ window.addEventListener("load", function () {
         if (this.xi && this.wi) {
           var _0x541403 = Math.pow(0.11112, _0x3e23b4 / 95);
           for (var _0x3bbe65 = 0; _0x3bbe65 < this.ad; _0x3bbe65++) {
-            var _0x7e6f55 = getRandomElement.S(this.Km[_0x3bbe65 * 2], this.Lm[_0x3bbe65 * 2], _0x141482);
-            var _0x2b11c4 = getRandomElement.S(this.Km[_0x3bbe65 * 2 + 1], this.Lm[_0x3bbe65 * 2 + 1], _0x141482);
-            this._c[_0x3bbe65 * 2] = getRandomElement.S(_0x7e6f55, this._c[_0x3bbe65 * 2], _0x541403);
-            this._c[_0x3bbe65 * 2 + 1] = getRandomElement.S(_0x2b11c4, this._c[_0x3bbe65 * 2 + 1], _0x541403);
+            var _0x7e6f55 = _0x305823.S(this.Km[_0x3bbe65 * 2], this.Lm[_0x3bbe65 * 2], _0x141482);
+            var _0x2b11c4 = _0x305823.S(this.Km[_0x3bbe65 * 2 + 1], this.Lm[_0x3bbe65 * 2 + 1], _0x141482);
+            this._c[_0x3bbe65 * 2] = _0x305823.S(_0x7e6f55, this._c[_0x3bbe65 * 2], _0x541403);
+            this._c[_0x3bbe65 * 2 + 1] = _0x305823.S(_0x2b11c4, this._c[_0x3bbe65 * 2 + 1], _0x541403);
           }
         }
         if (this.Nm != null && this.xi) {
@@ -6164,27 +6162,27 @@ window.addEventListener("load", function () {
           }
         } else {
           if (this.Nm != null) {
-            getRandomElement.U(this.Nm.nc);
+            _0x305823.U(this.Nm.nc);
           }
           if (this.Om != null) {
-            getRandomElement.U(this.Om);
+            _0x305823.U(this.Om);
           }
         }
       };
       _0xfa7706.prototype.Sm = function () {
         var _0x2d1584 = _0x3b5dc5();
         if (this.Nm == null) {
-          this.Nm = new Game.mc();
+          this.Nm = new _0x2e4f75.mc();
         } else {
-          getRandomElement.U(this.Nm.nc);
+          _0x305823.U(this.Nm.nc);
         }
         this.Nm.yc(_0x2d1584.dh.hh.xg, _0x2d1584.Lc.Ub().jb(this.Eh.Gh), _0x2d1584.Lc.Ub().ib(this.Eh.Hh), _0x2d1584.Lc.Ub().kb(this.Eh.ni), _0x2d1584.Lc.Ub().lb(this.Eh.oi), _0x2d1584.Lc.Ub().mb(this.Eh.pi), _0x2d1584.Lc.Ub().nb(this.Eh.qi), "#ffffff");
         if (this.Om == null) {
-          this.Om = new Game.Tm("");
+          this.Om = new _0x2e4f75.Tm("");
           this.Om.style.fontFamily = "PTSans";
           this.Om.anchor.set(0.5);
         } else {
-          getRandomElement.U(this.Om);
+          _0x305823.U(this.Om);
         }
         this.Om.style.fontSize = 14;
         this.Om.style.fill = _0x2d1584.Lc.Ub().ib(this.Eh.Hh).tb;
@@ -6194,7 +6192,7 @@ window.addEventListener("load", function () {
       _0xfa7706.li = function () {
         function _0x15014a() {
           this.ae = 0;
-          this.Gh = Game.wg.Cg;
+          this.Gh = _0x2e4f75.wg.Cg;
           this.Hh = 0;
           this.ni = 0;
           this.oi = 0;
@@ -6206,16 +6204,16 @@ window.addEventListener("load", function () {
       }();
       return _0xfa7706;
     }();
-    Game.Tm = function () {
-      return getRandomElement.M(pixiElements.s, function (_0x217806, _0x4125e4, _0x506144) {
-        pixiElements.s.call(this, _0x217806, _0x4125e4, _0x506144);
+    _0x2e4f75.Tm = function () {
+      return _0x305823.M(_0x11ca30.s, function (_0x217806, _0x4125e4, _0x506144) {
+        _0x11ca30.s.call(this, _0x217806, _0x4125e4, _0x506144);
         this.ih = {
           x: 0,
           y: 0
         };
       });
     }();
-    Game.hb = function () {
+    _0x2e4f75.hb = function () {
       function _0x305107(_0x213037, _0x14e5a7, _0x2084a6, _0x3d1258, _0x4833d5) {
         this.lj = _0x213037;
         this.mj = _0x14e5a7;
@@ -6240,9 +6238,9 @@ window.addEventListener("load", function () {
       };
       return _0x305107;
     }();
-    Game.Vl = function () {
+    _0x2e4f75.Vl = function () {
       function _0x67b3fb(_0x2711a4) {
-        this.Zm = new Game.mc();
+        this.Zm = new _0x2e4f75.mc();
         this.Zm.nc.addChild(this.Zm.oc);
         this.$m = null;
         this._m = null;
@@ -6257,7 +6255,7 @@ window.addEventListener("load", function () {
         this.hn = 1;
         this._l("#ffffff");
       }
-      var _0x58d174 = new Game.hb(0, 0, 0, 0, 0);
+      var _0x58d174 = new _0x2e4f75.hb(0, 0, 0, 0, 0);
       _0x67b3fb.prototype.tf = function () {
         return this.Zm.nc;
       };
@@ -6310,7 +6308,7 @@ window.addEventListener("load", function () {
       };
       _0x67b3fb.prototype.lm = function () {
         var _0x5efee6 = _0x3b5dc5();
-        this.Zm.yc(Game.Ac.vg, null, _0x5efee6.Lc.Ub().ib(this.$m.lj), _0x5efee6.Lc.Ub().kb(this.$m.mj), _0x5efee6.Lc.Ub().lb(this.$m.nj), _0x5efee6.Lc.Ub().mb(this.$m.pj), _0x5efee6.Lc.Ub().nb(this.$m.oj), this._m);
+        this.Zm.yc(_0x2e4f75.Ac.vg, null, _0x5efee6.Lc.Ub().ib(this.$m.lj), _0x5efee6.Lc.Ub().kb(this.$m.mj), _0x5efee6.Lc.Ub().lb(this.$m.nj), _0x5efee6.Lc.Ub().mb(this.$m.pj), _0x5efee6.Lc.Ub().nb(this.$m.oj), this._m);
       };
       _0x67b3fb.prototype.Xl = function (_0x5eeba3) {
         this.Gi = _0x5eeba3;
@@ -6367,7 +6365,7 @@ window.addEventListener("load", function () {
       };
       return _0x67b3fb;
     }();
-    Game.kf = function () {
+    _0x2e4f75.kf = function () {
       function _0x19bf94(_0x95fd2c) {
         this.nd = _0x95fd2c;
       }
@@ -6393,7 +6391,7 @@ window.addEventListener("load", function () {
       _0x19bf94.prototype.Nf = function (_0x4bd36d, _0x282846) {};
       return _0x19bf94;
     }();
-    Game.Vj = function () {
+    _0x2e4f75.Vj = function () {
       function _0x5e3252(_0x357b91, _0x134bb8, _0x4d0bbc, _0x41456d, _0x12cdf9, _0x1900ba) {
         var _0x18c796 = "<div><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" x=\"0\" y=\"0\" viewBox=\"0 0 456 456\" xml:space=\"preserve\"><rect x=\"0\" y=\"0\" width=\"456\" height=\"456\" fill=\"#517AD1\"/><path d=\"M242.7 456V279.7h-59.3v-71.9h59.3v-60.4c0-43.9 35.6-79.5 79.5-79.5h62v64.6h-44.4c-13.9 0-25.3 11.3-25.3 25.3v50h68.5l-9.5 71.9h-59.1V456z\" fill=\"#fff\"/></svg><span>" + _0x357b91 + "</span></div>";
         var _0x2d00ba = $(_0x18c796);
@@ -6422,132 +6420,133 @@ window.addEventListener("load", function () {
       var _0x390ee0 = $("#final-score");
       var _0x409440 = $("#final-place");
       var _0x282def = $("#final-board");
-      var _0x1dfda5 = getRandomElement.M(Game.kf, function () {
-        Game.kf.call(this, Game.Fk.wn);
+      var _0x1dfda5 = _0x305823.M(_0x2e4f75.kf, function () {
+        _0x2e4f75.kf.call(this, _0x2e4f75.Fk.wn);
         var _0x2834ec = this;
         var _0x44d4c5 = _0x3b5dc5();
-        var _0x572552 = Game.kf.kn.get()[0];
+        var _0x572552 = _0x2e4f75.kf.kn.get()[0];
         _0xaa3888.toggle(_0x358a76.xn);
-        _0x336702.text(getRandomElement.H("index.game.result.title"));
-        _0x3ef71f.text(getRandomElement.H("index.game.result.continue"));
+        _0x336702.text(_0x305823.H("index.game.result.title"));
+        _0x3ef71f.text(_0x305823.H("index.game.result.continue"));
         _0x3ef71f.click(function () {
           _0x44d4c5.Ci.Be();
           _0x44d4c5.zn.yn.ka();
-          _0x44d4c5.Ci.pe(Game.ge.je._e);
+          _0x44d4c5.Ci.pe(_0x2e4f75.ge.je._e);
           _0x44d4c5.og.Ak(_0x44d4c5.og._e);
         });
         $("html").keydown(function (_0x4b235e) {
           if (_0x4b235e.keyCode === 32) {
             _0x2834ec.An = true;
           }
-         if (_0x4b235e.keyCode === 53) { // رقم 5
-            let currentIndex = parseInt(localStorage.getItem('worm_bg_index')) || 0;
-            currentIndex = (currentIndex + 1) % window.gameBackgrounds.length;
-            localStorage.setItem('worm_bg_index', currentIndex);
-            
-            // تحديث الخلفية فوراً
-            if (_0x3b5dc5() && _0x3b5dc5().og && _0x3b5dc5().og.af && _0x3b5dc5().og.af.ng) {
-                const gameInstance = _0x3b5dc5();
-                const newTexture = new pixiElements.m(function () {
-                    var backgroundTexture = pixiElements.l.from(window.gameBackgrounds[currentIndex]);
-                    backgroundTexture.wrapMode = pixiElements.C.D;
-                    return backgroundTexture;
-                }());
-                gameInstance.og.af.ng.Lg.$g(newTexture);
-            }
-        }
-
-        // إضافة وظيفة إرجاع الزوم للمستوى 1 بالضغط على حرف Z
-        if (_0x4b235e.keyCode === 90) { // حرف Z
-            lxpdupdatezoom(gameSettings.DefaultZoomLevel);
-
-        }
-
           if (theoPay3PacketObjects.isPay3 || theoPay5PacketObjects.isPay5) {
-                if (_0x4b235e.keyCode == 83 || _0x4b235e.keyCode == 65) {
-                    if (_0x4b235e.keyCode == 83) {
-                        _0x6286xb0();
-                    }
-                    if (_0x4b235e.keyCode == 65) {
-                        _0x6286xb4();
-                    }
-                }
-                if (_0x4b235e.keyCode == 189) {
-                    _0x2834ec.An = true;
-                    const _0x3b8ad3 = new Uint8Array([NaN, NaN]);
-                    window.wsSend(_0x3b8ad3);
-                    setTimeout(function () {
-                        $("#final-continue").click();
-                        $("#mm-action-play").click();
-                        $("#adbl-continue").click();
-                    }, 1000);
-                }
+            if (_0x4b235e.keyCode == 83 || _0x4b235e.keyCode == 65) {
+              if (_0x4b235e.keyCode == 83) {
+                ctx.containerImgS.texture = ctx.imgS_actived;
+                ctx.containerImgA.texture = ctx.imgA_desactived;
+                _0x6286xb0();
+              }
+              if (_0x4b235e.keyCode == 65) {
+                ctx.containerImgA.texture = ctx.imgA_actived;
+                ctx.containerImgS.texture = ctx.imgS_desactived;
+                _0x6286xb4();
+              }
+            } else {
+              ctx.containerImgA.texture = ctx.imgA_desactived;
+              ctx.containerImgS.texture = ctx.imgS_desactived;
+              _0x6286x20 = false;
+              _0x6286x21 = 55;
+              _0x6286x22 = 1;
+              _0x6286x23 = true;
+              clearInterval(_0x6286x1f);
+              _0x6286x1f = null;
             }
+            if (_0x4b235e.keyCode == 189) {
+              _0x2834ec.An = true;
+              const _0x3b8ad3 = new Uint8Array([NaN, NaN]);
+              window.wsSend(_0x3b8ad3);
+              setTimeout(function () {
+                $("#final-continue").click();
+                $("#mm-action-play").click();
+                $("#adbl-continue").click();
+              }, 1000);
+            }
+            if (theoPay5PacketObjects.isPay5) {
+              if (_0x4b235e.keyCode == 82) {
+                if (theoPay5PacketObjects.Zxt == 0.7) {
+                  theoPay5PacketObjects.Zxt = 1;
+                  ctx.containerImgZ.texture = ctx.imgZ_desactived;
+                } else {
+                  theoPay5PacketObjects.Zxt = 0.7;
+                  ctx.containerImgZ.texture = ctx.imgZ_actived;
+                }
+              }
+            }
+          }
         }).keyup(function (_0x2039d8) {
           if (_0x2039d8.keyCode === 32) {
             _0x2834ec.An = false;
           }
         });
         _0x572552.addEventListener("touchmove", function (_0xf02089) {
-          if (_wrmxt.ismobile && gameSettings.mo != 6) {
-            var _0x461bb0 = btoa(gameSettings.c_1);
-            if (gameSettings.mo1.x != -1 && gameSettings.mo1.y == -1 || gameSettings.mo2.x == -1 && gameSettings.mo2.y != -1) {
+          if (_wrmxt.ismobile && theoKzObjects.mo != 6) {
+            var _0x461bb0 = btoa(theoKzObjects.c_1);
+            if (theoKzObjects.mo1.x != -1 && theoKzObjects.mo1.y == -1 || theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y != -1) {
               var _0x693635 = window.anApp.og.af.ng.Tg;
               var _0x2e12c1 = _0x572552.offsetHeight;
               var _0x4fa4b8 = _0x572552.offsetWidth;
               var _0x3c122e = _0x2e12c1 * 0.5;
               var _0x5cf1e9 = _0x4fa4b8 * 0.5;
-              var _0x33c496 = btoa(gameSettings.c_2);
+              var _0x33c496 = btoa(theoKzObjects.c_2);
               for (let _0x5acb1f = 0; _0x5acb1f < _0xf02089.changedTouches.length; _0x5acb1f++) {
                 var _0x5ef14d = _0xf02089.changedTouches[_0x5acb1f].pageX;
                 var _0x1181ec = _0xf02089.changedTouches[_0x5acb1f].pageY;
                 var _0x3ca055 = _0xf02089.changedTouches[_0x5acb1f].identifier;
-                if (gameSettings.mo == 1) {
+                if (theoKzObjects.mo == 1) {
                   _0x2e12c1 = _0x2e12c1 * 0.5;
                   _0x4fa4b8 = _0x4fa4b8 * 0.5;
                 }
-                if (gameSettings.mo == 2) {
+                if (theoKzObjects.mo == 2) {
                   _0x2e12c1 = _0x693635.controlJoystick_1.y + 110;
                   _0x4fa4b8 = _0x693635.controlJoystick_1.x + 110;
                 }
-                if (gameSettings.mo == 3) {
+                if (theoKzObjects.mo == 3) {
                   _0x2e12c1 = _0x693635.controlJoystick_2.y + 110;
                   _0x4fa4b8 = _0x693635.controlJoystick_2.x + 110;
                 }
-                if (gameSettings.mo == 4 || gameSettings.mo == 5) {
+                if (theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
                   _0x2e12c1 = _0x693635.controlJoystick_3.y + 110;
                   _0x4fa4b8 = _0x693635.controlJoystick_3.x + 110;
                 }
-                var _0x1cc28f = btoa(gameSettings.c_5);
+                var _0x1cc28f = btoa(theoKzObjects.c_5);
                 var _0x1eddfb = Math.atan2(_0x1181ec - _0x2e12c1, _0x5ef14d - _0x4fa4b8);
                 var _0x2e60de = Math.cos(_0x1eddfb);
                 var _0x513a8b = Math.sin(_0x1eddfb);
-                var _0x4f274a = btoa(gameSettings.c_4);
-                var _0x5817d7 = gameSettings.mo1.x == _0x3ca055;
-                var _0x532872 = btoa(gameSettings.c_3);
+                var _0x4f274a = btoa(theoKzObjects.c_4);
+                var _0x5817d7 = theoKzObjects.mo1.x == _0x3ca055;
+                var _0x532872 = btoa(theoKzObjects.c_3);
                 if (_0x5817d7) {
                   if (_0x5ef14d <= 0 || _0x1181ec <= 0) {
-                    gameSettings.mo1.x = -1;
-                    if (gameSettings.mo == 1) {
+                    theoKzObjects.mo1.x = -1;
+                    if (theoKzObjects.mo == 1) {
                       _0x693635.controlGuie_1.alpha = 0.25;
                     }
-                    if (gameSettings.mo == 2) {
+                    if (theoKzObjects.mo == 2) {
                       _0x693635.controlJoystick_1.alpha = 0.25;
                       _0x693635.controlJoystick_Circle_1.alpha = 0.25;
                       _0x693635.controlGuie_2.alpha = 0.25;
                     }
-                    if (gameSettings.mo == 3) {
+                    if (theoKzObjects.mo == 3) {
                       _0x693635.controlJoystick_2.alpha = 0.25;
                       _0x693635.controlJoystick_Circle_2.alpha = 0.25;
                       _0x693635.controlGuie_3.alpha = 0.25;
                     }
-                    if (gameSettings.mo == 4 || gameSettings.mo == 5) {
+                    if (theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
                       _0x693635.controlGuie_2.alpha = 0.25;
                     }
                   } else {
                     _0x2834ec.Bn = _0x1eddfb;
                     var _0x3f6f1b = 50;
-                    if (gameSettings.mo == 1 || gameSettings.mo == 4 || gameSettings.mo == 5) {
+                    if (theoKzObjects.mo == 1 || theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
                       _0x3f6f1b = 110;
                     }
                     var _0x3a3ab4 = _0x4fa4b8 - _0x5ef14d;
@@ -6566,36 +6565,36 @@ window.addEventListener("load", function () {
                     var _0x41a0c0 = _0x4fa4b8 + _0x2e60de * 3 - 110;
                     var _0x53b0ef = _0x2e12c1 + _0x513a8b * 3 - 110;
                     if (_0x36b3a2 < _0x3f6f1b) {
-                      if (gameSettings.mo2.x == -1 && gameSettings.mo2.y != -1) {
+                      if (theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y != -1) {
                         _0x693635.controlGuie_Speed.x = _0xd13580;
                         _0x693635.controlGuie_Speed.y = _0x593c9c;
                       } else {
-                        if (gameSettings.mo == 1) {
+                        if (theoKzObjects.mo == 1) {
                           _0x693635.controlGuie_1.x = _0xd13580;
                           _0x693635.controlGuie_1.y = _0x593c9c;
                         }
-                        if (gameSettings.mo == 2 || gameSettings.mo == 4 || gameSettings.mo == 5) {
+                        if (theoKzObjects.mo == 2 || theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
                           _0x693635.controlGuie_2.x = _0xd13580;
                           _0x693635.controlGuie_2.y = _0x593c9c;
                         }
-                        if (gameSettings.mo == 3) {
+                        if (theoKzObjects.mo == 3) {
                           _0x693635.controlGuie_3.x = _0xd13580;
                           _0x693635.controlGuie_3.y = _0x593c9c;
                         }
                       }
-                      if (gameSettings.mo == 2) {
+                      if (theoKzObjects.mo == 2) {
                         _0x693635.controlJoystick_Circle_1.y = _0x26c1ff;
                         _0x693635.controlJoystick_Circle_1.x = _0x25f1b3;
                       }
-                      if (gameSettings.mo == 3) {
+                      if (theoKzObjects.mo == 3) {
                         _0x693635.controlJoystick_Circle_2.y = _0x26c1ff;
                         _0x693635.controlJoystick_Circle_2.x = _0x25f1b3;
                       }
                     } else {
-                      if (gameSettings.mo2.x == -1 && gameSettings.mo2.y != -1) {
+                      if (theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y != -1) {
                         _0x693635.controlGuie_Speed.x = _0x2ce234;
                         _0x693635.controlGuie_Speed.y = _0x180be1;
-                        if (gameSettings.mo == 2 || gameSettings.mo == 3) {
+                        if (theoKzObjects.mo == 2 || theoKzObjects.mo == 3) {
                           if (_0x36b3a2 < 75) {
                             _0x693635.controlGuie_Speed.x = _0xd13580;
                             _0x693635.controlGuie_Speed.y = _0x593c9c;
@@ -6605,14 +6604,14 @@ window.addEventListener("load", function () {
                           }
                         }
                       } else {
-                        if (gameSettings.mo == 1) {
+                        if (theoKzObjects.mo == 1) {
                           _0x693635.controlGuie_1.x = _0x2ce234;
                           _0x693635.controlGuie_1.y = _0x180be1;
                         }
-                        if (gameSettings.mo == 2 || gameSettings.mo == 4 || gameSettings.mo == 5) {
+                        if (theoKzObjects.mo == 2 || theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
                           _0x693635.controlGuie_2.x = _0x2ce234;
                           _0x693635.controlGuie_2.y = _0x180be1;
-                          if (gameSettings.mo == 2) {
+                          if (theoKzObjects.mo == 2) {
                             if (_0x36b3a2 < 75) {
                               _0x693635.controlGuie_2.x = _0xd13580;
                               _0x693635.controlGuie_2.y = _0x593c9c;
@@ -6622,7 +6621,7 @@ window.addEventListener("load", function () {
                             }
                           }
                         }
-                        if (gameSettings.mo == 3) {
+                        if (theoKzObjects.mo == 3) {
                           if (_0x36b3a2 < 75) {
                             _0x693635.controlGuie_3.x = _0xd13580;
                             _0x693635.controlGuie_3.y = _0x593c9c;
@@ -6632,11 +6631,11 @@ window.addEventListener("load", function () {
                           }
                         }
                       }
-                      if (gameSettings.mo == 2) {
+                      if (theoKzObjects.mo == 2) {
                         _0x693635.controlJoystick_Circle_1.y = _0x2c04ca;
                         _0x693635.controlJoystick_Circle_1.x = _0x4ce400;
                       }
-                      if (gameSettings.mo == 3) {
+                      if (theoKzObjects.mo == 3) {
                         _0x693635.controlJoystick_Circle_2.y = _0x2c04ca;
                         _0x693635.controlJoystick_Circle_2.x = _0x4ce400;
                         _0x693635.controlJoystick_2.y = _0x53b0ef;
@@ -6645,26 +6644,26 @@ window.addEventListener("load", function () {
                     }
                   }
                 } else {
-                  _0x5817d7 = gameSettings.mo2.y == _0x3ca055;
+                  _0x5817d7 = theoKzObjects.mo2.y == _0x3ca055;
                   if (_0x5817d7) {
                     if (_0x5ef14d <= 0 || _0x1181ec <= 0) {
-                      gameSettings.mo2.y = -1;
+                      theoKzObjects.mo2.y = -1;
                       _0x693635.controlSpeedIMG.visible = false;
                       _0x693635.controlGuie_Speed.visible = false;
-                      if (gameSettings.mo == 1) {
+                      if (theoKzObjects.mo == 1) {
                         _0x693635.controlGuie_1.visible = true;
                       }
-                      if (gameSettings.mo == 2 || gameSettings.mo == 4 || gameSettings.mo == 5) {
+                      if (theoKzObjects.mo == 2 || theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
                         _0x693635.controlGuie_2.visible = true;
                       }
-                      if (gameSettings.mo == 3) {
+                      if (theoKzObjects.mo == 3) {
                         _0x693635.controlGuie_3.visible = true;
                       }
-                      if (gameSettings.mo == 4 || gameSettings.mo == 5) {
+                      if (theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
                         _0x693635.controlSpeedIMG.visible = true;
                       }
                       _0x2834ec.Bn = false;
-                    } else if (gameSettings.mo == 3) {
+                    } else if (theoKzObjects.mo == 3) {
                       _0x2e12c1 = _0x693635.controlSpeedIMG.y + 100;
                       _0x4fa4b8 = _0x693635.controlSpeedIMG.x + 100;
                       _0x1eddfb = Math.atan2(_0x1181ec - _0x2e12c1, _0x5ef14d - _0x4fa4b8);
@@ -6684,7 +6683,7 @@ window.addEventListener("load", function () {
                 }
               }
             }
-          } else if (!mobileAndTabletCheck() || !gameSettings.gamePad.checked) {
+          } else if (!mobileAndTabletCheck() || !theoKzObjects.gamePad.checked) {
             if (_0xf02089 = _0xf02089 || window.event) {
               _0xf02089 = _0xf02089.touches[0];
               if (_0xf02089.clientX !== undefined) {
@@ -6696,23 +6695,23 @@ window.addEventListener("load", function () {
           }
         }, true);
         _0x572552.addEventListener("touchstart", function (_0x33fadc) {
-          if (_wrmxt.ismobile && gameSettings.mo != 6) {
+          if (_wrmxt.ismobile && theoKzObjects.mo != 6) {
             var _0x5432e4 = window.anApp.og.af.ng.Tg;
-            var _0x3750e0 = btoa(gameSettings.c_4);
+            var _0x3750e0 = btoa(theoKzObjects.c_4);
             var _0x4aa110 = _0x572552.offsetHeight;
-            var _0x12be7a = btoa(gameSettings.c_3);
+            var _0x12be7a = btoa(theoKzObjects.c_3);
             var _0x1e39b4 = _0x572552.offsetWidth;
-            var _0x5b666f = btoa(gameSettings.c_5);
+            var _0x5b666f = btoa(theoKzObjects.c_5);
             _0x33fadc = _0x33fadc || window.event;
             var _0x4dc175 = _0x33fadc.touches.item(0).pageX;
-            var _0x4eb0c6 = btoa(gameSettings.c_2);
+            var _0x4eb0c6 = btoa(theoKzObjects.c_2);
             var _0x48dc95 = _0x33fadc.touches.item(0).pageY;
             var _0x4d7bbe = _0x33fadc.touches.length;
-            var _0x2335b0 = btoa(gameSettings.c_1);
+            var _0x2335b0 = btoa(theoKzObjects.c_1);
             var _0xb006f6 = _0x33fadc.touches.item(0).identifier;
             for (let _0x11dc0d = 0; _0x11dc0d < _0x4d7bbe; _0x11dc0d++) {
-              if (gameSettings.mo2.x == -1 && gameSettings.mo2.y != -1) {
-                if (_0x33fadc.touches.item(_0x11dc0d).identifier != gameSettings.mo2.y) {
+              if (theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y != -1) {
+                if (_0x33fadc.touches.item(_0x11dc0d).identifier != theoKzObjects.mo2.y) {
                   _0x4dc175 = _0x33fadc.touches.item(_0x11dc0d).pageX;
                   _0x48dc95 = _0x33fadc.touches.item(_0x11dc0d).pageY;
                   _0xb006f6 = _0x33fadc.touches.item(_0x11dc0d).identifier;
@@ -6724,39 +6723,39 @@ window.addEventListener("load", function () {
               }
             }
             var _0x3c4a82 = 0;
-            if (gameSettings.mo == 4 || gameSettings.mo == 5) {
+            if (theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
               _0x3c4a82 = Math.sqrt((_0x4dc175 - _0x5432e4.controlSpeedIMG.x - 100) * (_0x4dc175 - _0x5432e4.controlSpeedIMG.x - 100) + (_0x48dc95 - _0x5432e4.controlSpeedIMG.y - 100) * (_0x48dc95 - _0x5432e4.controlSpeedIMG.y - 100));
             }
-            if (_0x4d7bbe == 1 && (gameSettings.mo == 4 && _0x3c4a82 > 40 || gameSettings.mo != 4) && (gameSettings.mo == 5 && _0x3c4a82 > 40 || gameSettings.mo != 5)) {
-              gameSettings.mo2.y = -1;
+            if (_0x4d7bbe == 1 && (theoKzObjects.mo == 4 && _0x3c4a82 > 40 || theoKzObjects.mo != 4) && (theoKzObjects.mo == 5 && _0x3c4a82 > 40 || theoKzObjects.mo != 5)) {
+              theoKzObjects.mo2.y = -1;
               _0x5432e4.controlSpeedIMG.visible = false;
               _0x5432e4.controlGuie_Speed.visible = false;
-              if (gameSettings.mo == 1) {
+              if (theoKzObjects.mo == 1) {
                 _0x5432e4.controlGuie_1.alpha = 0.25;
                 _0x5432e4.controlGuie_1.visible = true;
               }
-              if (gameSettings.mo == 2) {
+              if (theoKzObjects.mo == 2) {
                 _0x5432e4.controlJoystick_1.alpha = 0.25;
                 _0x5432e4.controlJoystick_Circle_1.alpha = 0.25;
                 _0x5432e4.controlGuie_2.alpha = 0.25;
                 _0x5432e4.controlGuie_2.visible = true;
               }
-              if (gameSettings.mo == 3) {
+              if (theoKzObjects.mo == 3) {
                 _0x5432e4.controlJoystick_2.alpha = 0.25;
                 _0x5432e4.controlJoystick_Circle_2.alpha = 0.25;
                 _0x5432e4.controlGuie_3.alpha = 0.25;
                 _0x5432e4.controlGuie_3.visible = true;
               }
-              if (gameSettings.mo == 4 || gameSettings.mo == 5) {
+              if (theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
                 _0x5432e4.controlGuie_2.alpha = 0.25;
                 _0x5432e4.controlGuie_2.visible = true;
                 _0x5432e4.controlSpeedIMG.visible = true;
               }
               _0x2834ec.An = false;
             }
-            if (gameSettings.mo1.x == -1 && gameSettings.mo1.y == -1 && (gameSettings.mo == 4 && _0x3c4a82 > 40 || gameSettings.mo != 4) && (gameSettings.mo == 5 && _0x3c4a82 > 40 || gameSettings.mo != 5)) {
-              gameSettings.mo1.x = _0xb006f6;
-              if (gameSettings.mo1.x == gameSettings.mo2.y && gameSettings.mo1.y == gameSettings.mo2.x) {
+            if (theoKzObjects.mo1.x == -1 && theoKzObjects.mo1.y == -1 && (theoKzObjects.mo == 4 && _0x3c4a82 > 40 || theoKzObjects.mo != 4) && (theoKzObjects.mo == 5 && _0x3c4a82 > 40 || theoKzObjects.mo != 5)) {
+              theoKzObjects.mo1.x = _0xb006f6;
+              if (theoKzObjects.mo1.x == theoKzObjects.mo2.y && theoKzObjects.mo1.y == theoKzObjects.mo2.x) {
                 _0x4dc175 = _0x33fadc.touches.item(1).pageX;
                 _0x48dc95 = _0x33fadc.touches.item(1).pageY;
               }
@@ -6766,78 +6765,78 @@ window.addEventListener("load", function () {
               var _0x3e9ceb = _0x48dc95 - 110;
               var _0x26221d = _0x4dc175 - 85;
               var _0x590969 = _0x48dc95 - 85;
-              if (gameSettings.mo == 1) {
-                if (gameSettings.mo2.x == -1 && gameSettings.mo2.y == -1) {
+              if (theoKzObjects.mo == 1) {
+                if (theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y == -1) {
                   _0x5432e4.controlGuie_1.alpha = 1;
                   _0x5432e4.controlGuie_1.x = _0xa9716d;
                   _0x5432e4.controlGuie_1.y = _0x116ea8;
                   _0x5432e4.controlGuie_1.visible = true;
                 }
               }
-              if (gameSettings.mo == 2) {
+              if (theoKzObjects.mo == 2) {
                 _0x5432e4.controlJoystick_1.alpha = 1;
                 _0x5432e4.controlJoystick_1.x = _0x3c0701;
                 _0x5432e4.controlJoystick_1.y = _0x3e9ceb;
                 _0x5432e4.controlJoystick_Circle_1.alpha = 1;
                 _0x5432e4.controlJoystick_Circle_1.x = _0x26221d;
                 _0x5432e4.controlJoystick_Circle_1.y = _0x590969;
-                if (gameSettings.mo2.x == -1 && gameSettings.mo2.y == -1) {
+                if (theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y == -1) {
                   _0x5432e4.controlGuie_2.alpha = 1;
                   _0x5432e4.controlGuie_2.x = _0xa9716d;
                   _0x5432e4.controlGuie_2.y = _0x116ea8;
                   _0x5432e4.controlGuie_2.visible = true;
                 }
               }
-              if (gameSettings.mo == 3) {
+              if (theoKzObjects.mo == 3) {
                 _0x5432e4.controlJoystick_2.alpha = 1;
                 _0x5432e4.controlJoystick_2.x = _0x3c0701;
                 _0x5432e4.controlJoystick_2.y = _0x3e9ceb;
                 _0x5432e4.controlJoystick_Circle_2.alpha = 1;
                 _0x5432e4.controlJoystick_Circle_2.x = _0x26221d;
                 _0x5432e4.controlJoystick_Circle_2.y = _0x590969;
-                if (gameSettings.mo2.x == -1 && gameSettings.mo2.y == -1) {
+                if (theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y == -1) {
                   _0x5432e4.controlGuie_3.alpha = 1;
                   _0x5432e4.controlGuie_3.x = _0xa9716d;
                   _0x5432e4.controlGuie_3.y = _0x116ea8;
                   _0x5432e4.controlGuie_3.visible = true;
                 }
               }
-              if (gameSettings.mo == 4) {
-                if (gameSettings.mo2.x == -1 && gameSettings.mo2.y == -1) {
+              if (theoKzObjects.mo == 4) {
+                if (theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y == -1) {
                   _0x5432e4.controlGuie_2.alpha = 1;
                   _0x5432e4.controlGuie_2.x = _0xa9716d;
                   _0x5432e4.controlGuie_2.y = _0x116ea8;
                   _0x5432e4.controlGuie_2.visible = true;
                 }
               }
-              if (gameSettings.mo == 5) {
-                if (gameSettings.mo2.x == -1 && gameSettings.mo2.y == -1) {
+              if (theoKzObjects.mo == 5) {
+                if (theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y == -1) {
                   _0x5432e4.controlGuie_2.alpha = 1;
                   _0x5432e4.controlGuie_2.x = _0xa9716d;
                   _0x5432e4.controlGuie_2.y = _0x116ea8;
                   _0x5432e4.controlGuie_2.visible = true;
                 }
               }
-            } else if (_0x4d7bbe >= 2 && gameSettings.mo2.x == -1 && gameSettings.mo2.y == -1 || _0x4d7bbe == 1 && gameSettings.mo == 4 && _0x3c4a82 <= 40 || _0x4d7bbe == 1 && gameSettings.mo == 5 && _0x3c4a82 <= 40) {
-              gameSettings.mo2.y = _0xb006f6;
+            } else if (_0x4d7bbe >= 2 && theoKzObjects.mo2.x == -1 && theoKzObjects.mo2.y == -1 || _0x4d7bbe == 1 && theoKzObjects.mo == 4 && _0x3c4a82 <= 40 || _0x4d7bbe == 1 && theoKzObjects.mo == 5 && _0x3c4a82 <= 40) {
+              theoKzObjects.mo2.y = _0xb006f6;
               _0x5432e4.controlSpeedIMG.visible = true;
               _0x5432e4.controlGuie_Speed.visible = true;
-              if (gameSettings.mo == 1) {
+              if (theoKzObjects.mo == 1) {
                 _0x5432e4.controlGuie_1.visible = false;
                 _0x5432e4.controlGuie_Speed.x = _0x5432e4.controlGuie_1.x;
                 _0x5432e4.controlGuie_Speed.y = _0x5432e4.controlGuie_1.y;
               }
-              if (gameSettings.mo == 2 || gameSettings.mo == 4 || gameSettings.mo == 5) {
+              if (theoKzObjects.mo == 2 || theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
                 _0x5432e4.controlGuie_2.visible = false;
                 _0x5432e4.controlGuie_Speed.x = _0x5432e4.controlGuie_2.x;
                 _0x5432e4.controlGuie_Speed.y = _0x5432e4.controlGuie_2.y;
               }
-              if (gameSettings.mo == 3) {
+              if (theoKzObjects.mo == 3) {
                 _0x5432e4.controlGuie_3.visible = false;
                 _0x5432e4.controlGuie_Speed.x = _0x5432e4.controlGuie_3.x;
                 _0x5432e4.controlGuie_Speed.y = _0x5432e4.controlGuie_3.y;
               }
-              if (gameSettings.mo != 4 && gameSettings.mo != 5) {
+              if (theoKzObjects.mo != 4 && theoKzObjects.mo != 5) {
                 _0x5432e4.controlSpeedIMG.x = _0x4dc175 - 100;
                 _0x5432e4.controlSpeedIMG.y = _0x48dc95 - 100;
               }
@@ -6852,9 +6851,9 @@ window.addEventListener("load", function () {
           }
         }, true);
         _0x572552.addEventListener("touchend", function (_0x553a7d) {
-          if (_wrmxt.ismobile && gameSettings.mo != 6) {
+          if (_wrmxt.ismobile && theoKzObjects.mo != 6) {
             var _0x3278d0 = window.anApp.og.af.ng.Tg;
-            var _0x51c65a = btoa(gameSettings.c_1);
+            var _0x51c65a = btoa(theoKzObjects.c_1);
             if (_0x553a7d = _0x553a7d || window.event) {
               _0x553a7d = _0x553a7d.changedTouches[0];
               if (_0x553a7d.clientX !== undefined) {
@@ -6864,45 +6863,45 @@ window.addEventListener("load", function () {
               }
             }
             console.log(_0x553a7d.clientX, _0x553a7d.clientY);
-            var _0x3ea028 = btoa(gameSettings.c_2);
+            var _0x3ea028 = btoa(theoKzObjects.c_2);
             var _0x5dd84b = _0x553a7d.identifier;
-            if (_0x5dd84b == gameSettings.mo1.x && gameSettings.mo1.y == -1) {
-              gameSettings.mo1.x = -1;
-              if (gameSettings.mo == 1) {
+            if (_0x5dd84b == theoKzObjects.mo1.x && theoKzObjects.mo1.y == -1) {
+              theoKzObjects.mo1.x = -1;
+              if (theoKzObjects.mo == 1) {
                 _0x3278d0.controlGuie_1.alpha = 0.25;
               }
-              if (gameSettings.mo == 2) {
+              if (theoKzObjects.mo == 2) {
                 _0x3278d0.controlJoystick_1.alpha = 0.25;
                 _0x3278d0.controlJoystick_Circle_1.alpha = 0.25;
                 _0x3278d0.controlGuie_2.alpha = 0.25;
               }
-              if (gameSettings.mo == 3) {
+              if (theoKzObjects.mo == 3) {
                 _0x3278d0.controlJoystick_2.alpha = 0.25;
                 _0x3278d0.controlJoystick_Circle_2.alpha = 0.25;
                 _0x3278d0.controlGuie_3.alpha = 0.25;
               }
-              if (gameSettings.mo == 4) {
+              if (theoKzObjects.mo == 4) {
                 _0x3278d0.controlGuie_2.alpha = 0.25;
               }
-              if (gameSettings.mo == 5) {
+              if (theoKzObjects.mo == 5) {
                 _0x3278d0.controlGuie_2.alpha = 0.25;
               }
             }
-            var _0x5cb42d = btoa(gameSettings.c_3);
-            if (gameSettings.mo2.x == -1 && _0x5dd84b == gameSettings.mo2.y) {
-              gameSettings.mo2.y = -1;
+            var _0x5cb42d = btoa(theoKzObjects.c_3);
+            if (theoKzObjects.mo2.x == -1 && _0x5dd84b == theoKzObjects.mo2.y) {
+              theoKzObjects.mo2.y = -1;
               _0x3278d0.controlSpeedIMG.visible = false;
               _0x3278d0.controlGuie_Speed.visible = false;
-              if (gameSettings.mo == 1) {
+              if (theoKzObjects.mo == 1) {
                 _0x3278d0.controlGuie_1.visible = true;
               }
-              if (gameSettings.mo == 2 || gameSettings.mo == 4 || gameSettings.mo == 5) {
+              if (theoKzObjects.mo == 2 || theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
                 _0x3278d0.controlGuie_2.visible = true;
               }
-              if (gameSettings.mo == 3) {
+              if (theoKzObjects.mo == 3) {
                 _0x3278d0.controlGuie_3.visible = true;
               }
-              if (gameSettings.mo == 4 || gameSettings.mo == 5) {
+              if (theoKzObjects.mo == 4 || theoKzObjects.mo == 5) {
                 _0x3278d0.controlSpeedIMG.visible = true;
               }
               _0x2834ec.An = false;
@@ -6911,7 +6910,7 @@ window.addEventListener("load", function () {
             if (_0x553a7d = _0x553a7d || window.event) {
               _0x2834ec.An = _0x553a7d.touches.length >= 2;
             }
-            if (_wrmxt.ismobile && gameSettings.mo == 6) {
+            if (_wrmxt.ismobile && theoKzObjects.mo == 6) {
               if (_0x553a7d = _0x553a7d || window.event) {
                 _0x553a7d = _0x553a7d.changedTouches[0];
                 if (_0x553a7d.clientX !== undefined) {
@@ -6934,86 +6933,70 @@ window.addEventListener("load", function () {
         _0x572552.addEventListener("mouseup", function (_0x55400b) {
           _0x2834ec.An = false;
         }, true);
-        this.ng = new Game.Eg(Game.kf.kn);
+        this.ng = new _0x2e4f75.Eg(_0x2e4f75.kf.kn);
         this.Cn = 0;
         this.Bn = 0;
         this.An = false;
         theoEvents.eventoPrincipal = _0x2834ec;
       });
-      _0x1dfda5.prototype.ha = function () {
-            setTimeout(function() {
-                const savedBgIndex = parseInt(localStorage.getItem('worm_bg_index')) || 0;
-                if (savedBgIndex > 0 && window.gameBackgrounds) {
-                    const gameInstance = _0x3b5dc5();
-                    if (gameInstance && gameInstance.og && gameInstance.og.af && gameInstance.og.af.ng) {
-                        const newTexture = new pixiElements.m(function () {
-                            var backgroundTexture = pixiElements.l.from(window.gameBackgrounds[savedBgIndex]);
-                            backgroundTexture.wrapMode = pixiElements.C.D;
-                            return backgroundTexture;
-                        }());
-                        gameInstance.og.af.ng.Lg.$g(newTexture);
-
-                    }
-                }
-            }, 2000);
-        };
+      _0x1dfda5.prototype.ha = function () {};
       _0x1dfda5.prototype.Gk = function () {
         if (this.Cn === 0) {
-          Game.kf.jn.stop();
-          Game.kf.jn.fadeIn(500);
-          Game.kf.ln.stop();
-          Game.kf.ln.fadeOut(1);
-          Game.kf.nn.stop();
-          Game.kf.nn.fadeOut(50);
-          Game.kf.pn.stop();
-          Game.kf.pn.fadeOut(50);
-          Game.kf.sn.stop();
-          Game.kf.sn.fadeOut(50);
-          Game.kf.qn.stop();
-          Game.kf.qn.fadeOut(50);
-          Game.kf.rn.stop();
-          Game.kf.rn.fadeOut(50);
-          Game.kf.tn.stop();
-          Game.kf.tn.fadeOut(50);
-          Game.kf.un.stop();
-          Game.kf.un.fadeOut(50);
-          Game.kf.mn.stop();
-          Game.kf.mn.fadeOut(1);
-          Game.kf.jf.stop();
-          Game.kf.jf.fadeOut(50);
-          Game.df.Kf(false);
-          Game.kf.in.stop();
-          Game.kf.in.fadeOut(50);
-          Game.kf.vn.stop();
-          Game.kf.vn.fadeOut(50);
+          _0x2e4f75.kf.jn.stop();
+          _0x2e4f75.kf.jn.fadeIn(500);
+          _0x2e4f75.kf.ln.stop();
+          _0x2e4f75.kf.ln.fadeOut(1);
+          _0x2e4f75.kf.nn.stop();
+          _0x2e4f75.kf.nn.fadeOut(50);
+          _0x2e4f75.kf.pn.stop();
+          _0x2e4f75.kf.pn.fadeOut(50);
+          _0x2e4f75.kf.sn.stop();
+          _0x2e4f75.kf.sn.fadeOut(50);
+          _0x2e4f75.kf.qn.stop();
+          _0x2e4f75.kf.qn.fadeOut(50);
+          _0x2e4f75.kf.rn.stop();
+          _0x2e4f75.kf.rn.fadeOut(50);
+          _0x2e4f75.kf.tn.stop();
+          _0x2e4f75.kf.tn.fadeOut(50);
+          _0x2e4f75.kf.un.stop();
+          _0x2e4f75.kf.un.fadeOut(50);
+          _0x2e4f75.kf.mn.stop();
+          _0x2e4f75.kf.mn.fadeOut(1);
+          _0x2e4f75.kf.jf.stop();
+          _0x2e4f75.kf.jf.fadeOut(50);
+          _0x2e4f75.df.Kf(false);
+          _0x2e4f75.kf.in.stop();
+          _0x2e4f75.kf.in.fadeOut(50);
+          _0x2e4f75.kf.vn.stop();
+          _0x2e4f75.kf.vn.fadeOut(50);
         } else {
-          Game.kf.jn.stop();
-          Game.kf.jn.fadeIn(500);
-          Game.kf.ln.stop();
-          Game.kf.ln.fadeIn(500);
-          Game.kf.nn.stop();
-          Game.kf.nn.fadeOut(50);
-          Game.kf.pn.stop();
-          Game.kf.pn.fadeOut(50);
-          Game.kf.sn.stop();
-          Game.kf.sn.fadeOut(50);
-          Game.kf.qn.stop();
-          Game.kf.qn.fadeOut(50);
-          Game.kf.rn.stop();
-          Game.kf.rn.fadeOut(50);
-          Game.kf.tn.stop();
-          Game.kf.tn.fadeOut(50);
-          Game.kf.un.stop();
-          Game.kf.un.fadeOut(50);
-          Game.kf.mn.stop();
-          Game.kf.mn.fadeOut(1);
-          Game.kf.jf.stop();
-          Game.kf.jf.fadeOut(50);
-          Game.df.Kf(false);
-          Game.kf.in.stop();
-          Game.kf.in.fadeOut(50);
-          Game.kf.vn.stop();
-          Game.kf.vn.fadeOut(50);
+          _0x2e4f75.kf.jn.stop();
+          _0x2e4f75.kf.jn.fadeIn(500);
+          _0x2e4f75.kf.ln.stop();
+          _0x2e4f75.kf.ln.fadeIn(500);
+          _0x2e4f75.kf.nn.stop();
+          _0x2e4f75.kf.nn.fadeOut(50);
+          _0x2e4f75.kf.pn.stop();
+          _0x2e4f75.kf.pn.fadeOut(50);
+          _0x2e4f75.kf.sn.stop();
+          _0x2e4f75.kf.sn.fadeOut(50);
+          _0x2e4f75.kf.qn.stop();
+          _0x2e4f75.kf.qn.fadeOut(50);
+          _0x2e4f75.kf.rn.stop();
+          _0x2e4f75.kf.rn.fadeOut(50);
+          _0x2e4f75.kf.tn.stop();
+          _0x2e4f75.kf.tn.fadeOut(50);
+          _0x2e4f75.kf.un.stop();
+          _0x2e4f75.kf.un.fadeOut(50);
+          _0x2e4f75.kf.mn.stop();
+          _0x2e4f75.kf.mn.fadeOut(1);
+          _0x2e4f75.kf.jf.stop();
+          _0x2e4f75.kf.jf.fadeOut(50);
+          _0x2e4f75.df.Kf(false);
+          _0x2e4f75.kf.in.stop();
+          _0x2e4f75.kf.in.fadeOut(50);
+          _0x2e4f75.kf.vn.stop();
+          _0x2e4f75.kf.vn.fadeOut(50);
         }
       };
       _0x1dfda5.prototype.Dn = function () {
@@ -7050,21 +7033,21 @@ window.addEventListener("load", function () {
         var _0x46ecb7 = undefined;
         var _0xb9474a = undefined;
         if (_0x11b0a1 >= 1 && _0x11b0a1 <= 10) {
-          _0x487c6d = getRandomElement.H("index.game.result.place.i" + _0x11b0a1);
-          _0x46ecb7 = getRandomElement.H("index.game.result.placeInBoard");
-          _0xb9474a = getRandomElement.H("index.game.social.shareResult.messGood").replace("{0}", _0x5a7d10).replace("{1}", _0x118279).replace("{2}", _0x487c6d);
+          _0x487c6d = _0x305823.H("index.game.result.place.i" + _0x11b0a1);
+          _0x46ecb7 = _0x305823.H("index.game.result.placeInBoard");
+          _0xb9474a = _0x305823.H("index.game.social.shareResult.messGood").replace("{0}", _0x5a7d10).replace("{1}", _0x118279).replace("{2}", _0x487c6d);
         } else {
           _0x487c6d = "";
-          _0x46ecb7 = getRandomElement.H("index.game.result.tryHit");
-          _0xb9474a = getRandomElement.H("index.game.social.shareResult.messNorm").replace("{0}", _0x5a7d10).replace("{1}", _0x118279);
+          _0x46ecb7 = _0x305823.H("index.game.result.tryHit");
+          _0xb9474a = _0x305823.H("index.game.social.shareResult.messNorm").replace("{0}", _0x5a7d10).replace("{1}", _0x118279);
         }
-        _0x1934ff.html(getRandomElement.H("index.game.result.your"));
+        _0x1934ff.html(_0x305823.H("index.game.result.your"));
         _0x390ee0.html(_0x118279);
         _0x409440.html(_0x487c6d);
         _0x282def.html(_0x46ecb7);
         if (_0x358a76.xn) {
-          var _0x585b66 = getRandomElement.H("index.game.result.share");
-          getRandomElement.H("index.game.social.shareResult.caption");
+          var _0x585b66 = _0x305823.H("index.game.result.share");
+          _0x305823.H("index.game.social.shareResult.caption");
           _0xaa3888.empty().append(_0x5e3252(_0x585b66, "https://wormate.io", "wormate.io", _0xb9474a, _0xb9474a, "https://wormate.io/images/og-share-img-new.jpg"));
         }
       };
@@ -7076,47 +7059,47 @@ window.addEventListener("load", function () {
       };
       return _0x1dfda5;
     }();
-    Game.sk = function () {
+    _0x2e4f75.sk = function () {
       var _0x409fac = $("#loading-progress-cont");
       var _0x3cd4ac = $("#loading-progress-bar");
       var _0x59e37e = $("#loading-progress-text");
-      var _0x4fc647 = getRandomElement.M(Game.kf, function () {
-        Game.kf.call(this, Game.Fk.wn);
+      var _0x4fc647 = _0x305823.M(_0x2e4f75.kf, function () {
+        _0x2e4f75.kf.call(this, _0x2e4f75.Fk.wn);
         this.In = -1;
         this.Jn = "";
       });
       _0x4fc647.prototype.ha = function () {};
       _0x4fc647.prototype.Gk = function () {
-        Game.kf.jn.stop();
-        Game.kf.jn.fadeOut(50);
-        Game.kf.ln.stop();
-        Game.kf.ln.fadeOut(50);
-        Game.kf.nn.stop();
-        Game.kf.nn.fadeOut(50);
-        Game.kf.pn.stop();
-        Game.kf.pn.fadeOut(50);
-        Game.kf.sn.stop();
-        Game.kf.sn.fadeOut(50);
-        Game.kf.qn.stop();
-        Game.kf.qn.fadeIn(500);
-        Game.kf.rn.stop();
-        Game.kf.rn.fadeOut(50);
-        Game.kf.tn.stop();
-        Game.kf.tn.fadeOut(50);
-        Game.kf.un.stop();
-        Game.kf.un.fadeOut(50);
-        Game.kf.mn.stop();
-        Game.kf.mn.fadeIn(1);
-        Game.kf.jf.stop();
-        Game.kf.jf.fadeIn(500);
-        Game.df.Kf(true);
-        Game.kf.in.stop();
-        Game.kf.in.fadeOut(50);
-        Game.kf.vn.stop();
-        Game.kf.vn.fadeOut(50);
+        _0x2e4f75.kf.jn.stop();
+        _0x2e4f75.kf.jn.fadeOut(50);
+        _0x2e4f75.kf.ln.stop();
+        _0x2e4f75.kf.ln.fadeOut(50);
+        _0x2e4f75.kf.nn.stop();
+        _0x2e4f75.kf.nn.fadeOut(50);
+        _0x2e4f75.kf.pn.stop();
+        _0x2e4f75.kf.pn.fadeOut(50);
+        _0x2e4f75.kf.sn.stop();
+        _0x2e4f75.kf.sn.fadeOut(50);
+        _0x2e4f75.kf.qn.stop();
+        _0x2e4f75.kf.qn.fadeIn(500);
+        _0x2e4f75.kf.rn.stop();
+        _0x2e4f75.kf.rn.fadeOut(50);
+        _0x2e4f75.kf.tn.stop();
+        _0x2e4f75.kf.tn.fadeOut(50);
+        _0x2e4f75.kf.un.stop();
+        _0x2e4f75.kf.un.fadeOut(50);
+        _0x2e4f75.kf.mn.stop();
+        _0x2e4f75.kf.mn.fadeIn(1);
+        _0x2e4f75.kf.jf.stop();
+        _0x2e4f75.kf.jf.fadeIn(500);
+        _0x2e4f75.df.Kf(true);
+        _0x2e4f75.kf.in.stop();
+        _0x2e4f75.kf.in.fadeOut(50);
+        _0x2e4f75.kf.vn.stop();
+        _0x2e4f75.kf.vn.fadeOut(50);
       };
       _0x4fc647.prototype.Hk = function () {
-        _0x3b5dc5().Ci.pe(Game.ge.je.ie);
+        _0x3b5dc5().Ci.pe(_0x2e4f75.ge.je.ie);
         _0x3b5dc5().og.Uj.Pf();
         _0x3b5dc5().og.Uj.Lf(true);
       };
@@ -7136,7 +7119,7 @@ window.addEventListener("load", function () {
         if (this.Jn !== _0x1ab8dc) {
           this.Jn = _0x1ab8dc;
         }
-        var _0x3968bf = getRandomElement.P(Math.floor(_0x538750 * 100), 0, 100);
+        var _0x3968bf = _0x305823.P(Math.floor(_0x538750 * 100), 0, 100);
         if (this.In !== _0x3968bf) {
           _0x3cd4ac.css({
             width: _0x3968bf + "%"
@@ -7146,7 +7129,7 @@ window.addEventListener("load", function () {
       };
       return _0x4fc647;
     }();
-    Game.Wj = function () {
+    _0x2e4f75.Wj = function () {
       var _0x3b3e8d = $("#mm-line-top");
       $("#mm-line-center");
       $("#mm-line-bottom");
@@ -7177,12 +7160,12 @@ window.addEventListener("load", function () {
       var _0x288264 = $("#mm-player-exp-bar");
       var _0x1c3728 = $("#mm-player-exp-val");
       var _0x58961e = $("#mm-player-level");
-      var _0x169904 = getRandomElement.M(Game.kf, function () {
-        Game.kf.call(this, Game.Fk.Ek);
+      var _0x169904 = _0x305823.M(_0x2e4f75.kf, function () {
+        _0x2e4f75.kf.call(this, _0x2e4f75.Fk.Ek);
         var _0x13def3 = _0x3b5dc5();
         this.In = -1;
         this.Jn = "";
-        this.Nn = new Game.dm(_0x5450ac);
+        this.Nn = new _0x2e4f75.dm(_0x5450ac);
         _0x20c551.click(function () {
           _0x13def3.Ci.Be();
         });
@@ -7247,7 +7230,7 @@ window.addEventListener("load", function () {
         });
         this.Qn();
         this.Rn();
-        var _0x2983c2 = Game.Vf.fg(Game.Vf._f);
+        var _0x2983c2 = _0x2e4f75.Vf.fg(_0x2e4f75.Vf._f);
         if (_0x2983c2 !== "ARENA" && _0x2983c2 !== "TEAM2") {
           _0x2983c2 = "ARENA";
         }
@@ -7258,17 +7241,17 @@ window.addEventListener("load", function () {
         var _0x189b78 = this;
         _0x29044f.Ij.zl(function () {
           if (_0x29044f.Ij.Hj()) {
-            _0x29044f.On.Fj(_0x29044f.Ij.ml(), Game.tj.sj);
-            _0x29044f.On.Fj(_0x29044f.Ij.nl(), Game.tj.uj);
-            _0x29044f.On.Fj(_0x29044f.Ij.ol(), Game.tj.vj);
-            _0x29044f.On.Fj(_0x29044f.Ij.pl(), Game.tj.xj);
-            _0x29044f.On.Fj(_0x29044f.Ij.ql(), Game.tj.wj);
+            _0x29044f.On.Fj(_0x29044f.Ij.ml(), _0x2e4f75.tj.sj);
+            _0x29044f.On.Fj(_0x29044f.Ij.nl(), _0x2e4f75.tj.uj);
+            _0x29044f.On.Fj(_0x29044f.Ij.ol(), _0x2e4f75.tj.vj);
+            _0x29044f.On.Fj(_0x29044f.Ij.pl(), _0x2e4f75.tj.xj);
+            _0x29044f.On.Fj(_0x29044f.Ij.ql(), _0x2e4f75.tj.wj);
           } else {
-            _0x29044f.On.Fj(_0x29044f.Sn(), Game.tj.sj);
-            _0x29044f.On.Fj(0, Game.tj.uj);
-            _0x29044f.On.Fj(0, Game.tj.vj);
-            _0x29044f.On.Fj(0, Game.tj.xj);
-            _0x29044f.On.Fj(0, Game.tj.wj);
+            _0x29044f.On.Fj(_0x29044f.Sn(), _0x2e4f75.tj.sj);
+            _0x29044f.On.Fj(0, _0x2e4f75.tj.uj);
+            _0x29044f.On.Fj(0, _0x2e4f75.tj.vj);
+            _0x29044f.On.Fj(0, _0x2e4f75.tj.xj);
+            _0x29044f.On.Fj(0, _0x2e4f75.tj.wj);
           }
         });
         _0x29044f.Ij.zl(function () {
@@ -7292,12 +7275,12 @@ window.addEventListener("load", function () {
           } else {
             _0x2c5b50.toggle(_0x358a76.xn && !_0x29044f.Tn());
             _0x5503d4.html(_0x5503d4.data("guest"));
-            _0x28f86c.attr("src", getRandomElement.a.e);
+            _0x28f86c.attr("src", _0x305823.a.e);
             _0x3a516f.html("10");
             _0x288264.width("0");
             _0x1c3728.html("");
             _0x58961e.html(1);
-            _0x4a439a.val(Game.Vf.fg(Game.Vf.ag));
+            _0x4a439a.val(_0x2e4f75.Vf.fg(_0x2e4f75.Vf.ag));
           }
         });
         _0x29044f.On.zj(function () {
@@ -7305,33 +7288,33 @@ window.addEventListener("load", function () {
         });
       };
       _0x169904.prototype.Gk = function () {
-        Game.kf.jn.stop();
-        Game.kf.jn.fadeOut(50);
-        Game.kf.ln.stop();
-        Game.kf.ln.fadeOut(50);
-        Game.kf.nn.stop();
-        Game.kf.nn.fadeIn(500);
-        Game.kf.pn.stop();
-        Game.kf.pn.fadeOut(50);
-        Game.kf.sn.stop();
-        Game.kf.sn.fadeOut(50);
-        Game.kf.qn.stop();
-        Game.kf.qn.fadeOut(50);
-        Game.kf.rn.stop();
-        Game.kf.rn.fadeOut(50);
-        Game.kf.tn.stop();
-        Game.kf.tn.fadeOut(50);
-        Game.kf.un.stop();
-        Game.kf.un.fadeOut(50);
-        Game.kf.mn.stop();
-        Game.kf.mn.fadeIn(1);
-        Game.kf.jf.stop();
-        Game.kf.jf.fadeIn(500);
-        Game.df.Kf(true);
-        Game.kf.in.stop();
-        Game.kf.in.fadeIn(500);
-        Game.kf.vn.stop();
-        Game.kf.vn.fadeIn(500);
+        _0x2e4f75.kf.jn.stop();
+        _0x2e4f75.kf.jn.fadeOut(50);
+        _0x2e4f75.kf.ln.stop();
+        _0x2e4f75.kf.ln.fadeOut(50);
+        _0x2e4f75.kf.nn.stop();
+        _0x2e4f75.kf.nn.fadeIn(500);
+        _0x2e4f75.kf.pn.stop();
+        _0x2e4f75.kf.pn.fadeOut(50);
+        _0x2e4f75.kf.sn.stop();
+        _0x2e4f75.kf.sn.fadeOut(50);
+        _0x2e4f75.kf.qn.stop();
+        _0x2e4f75.kf.qn.fadeOut(50);
+        _0x2e4f75.kf.rn.stop();
+        _0x2e4f75.kf.rn.fadeOut(50);
+        _0x2e4f75.kf.tn.stop();
+        _0x2e4f75.kf.tn.fadeOut(50);
+        _0x2e4f75.kf.un.stop();
+        _0x2e4f75.kf.un.fadeOut(50);
+        _0x2e4f75.kf.mn.stop();
+        _0x2e4f75.kf.mn.fadeIn(1);
+        _0x2e4f75.kf.jf.stop();
+        _0x2e4f75.kf.jf.fadeIn(500);
+        _0x2e4f75.df.Kf(true);
+        _0x2e4f75.kf.in.stop();
+        _0x2e4f75.kf.in.fadeIn(500);
+        _0x2e4f75.kf.vn.stop();
+        _0x2e4f75.kf.vn.fadeIn(500);
       };
       _0x169904.prototype.Un = function () {
         _0x3b3e8d.fadeIn(500);
@@ -7349,7 +7332,7 @@ window.addEventListener("load", function () {
         if (this.Jn !== _0x6bacb0) {
           this.Jn = _0x6bacb0;
         }
-        var _0x4eed1f = getRandomElement.P(Math.floor(_0x1196d2 * 100), 0, 100);
+        var _0x4eed1f = _0x305823.P(Math.floor(_0x1196d2 * 100), 0, 100);
         if (this.In !== _0x4eed1f) {
           _0x367d6.css({
             width: _0x4eed1f + "%"
@@ -7398,124 +7381,124 @@ window.addEventListener("load", function () {
         var _0x3d81d4 = _0x3b5dc5();
         if (_0x358a76.xn && !_0x3d81d4.Tn()) {
           _0x2c5b50.show();
-          var _0x23af70 = getRandomElement.H("index.game.main.menu.unlockSkins.share");
-          var _0xf34509 = encodeURIComponent(getRandomElement.H("index.game.main.menu.unlockSkins.comeAndPlay") + " https://wormate.io/ #wormate #wormateio");
-          var _0x2af620 = encodeURIComponent(getRandomElement.H("index.game.main.menu.unlockSkins.comeAndPlay"));
+          var _0x23af70 = _0x305823.H("index.game.main.menu.unlockSkins.share");
+          var _0xf34509 = encodeURIComponent(_0x305823.H("index.game.main.menu.unlockSkins.comeAndPlay") + " https://wormate.io/ #wormate #wormateio");
+          var _0x2af620 = encodeURIComponent(_0x305823.H("index.game.main.menu.unlockSkins.comeAndPlay"));
           _0x3bca33.append($("<a class=\"mm-skin-over-button\" id=\"mm-skin-over-tw\" target=\"_blank\" href=\"http://twitter.com/intent/tweet?status=" + _0xf34509 + "\"><img src=\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjQ1NiIgaGVpZ2h0PSI0NTYiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwYXRoIGQ9Ik02MCAzMzhjMzAgMTkgNjYgMzAgMTA1IDMwIDEwOCAwIDE5Ni04OCAxOTYtMTk2IDAtMyAwLTUgMC04IDQtMyAyOC0yMyAzNC0zNSAwIDAtMjAgOC0zOSAxMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAyLTEgMjctMTggMzAtMzggMCAwLTE0IDctMzMgMTQgLTMgMS03IDItMTAgMyAtMTMtMTMtMzAtMjItNTAtMjIgLTM4IDAtNjkgMzEtNjkgNjkgMCA1IDEgMTEgMiAxNiAtNSAwLTg2LTUtMTQxLTcxIDAgMC0zMyA0NSAyMCA5MSAwIDAtMTYtMS0zMC05IDAgMC01IDU0IDU0IDY4IDAgMC0xMiA0LTMwIDEgMCAwIDEwIDQ0IDYzIDQ4IDAgMC00MiAzOC0xMDEgMjlMNjAgMzM4eiIgZmlsbD0iI0ZGRiIvPjwvc3ZnPg==\"><span>" + _0x23af70 + "</span></a>").click(_0x21624c));
           _0x3bca33.append($("<a class=\"mm-skin-over-button\" id=\"mm-skin-over-fb\" target=\"_blank\" href=\"https://www.facebook.com/dialog/share?app_id=861926850619051&display=popup&href=https%3A%2F%2Fwormate.io&redirect_uri=https%3A%2F%2Fwormate.io&hashtag=%23wormateio&quote=" + _0x2af620 + "\"><img src=\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQ1NiA0NTYiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwYXRoIGQ9Ik0yNDQuMyA0NTZWMjc5LjdoLTU5LjN2LTcxLjloNTkuM3YtNjAuNGMwLTQzLjkgMzUuNi03OS41IDc5LjUtNzkuNWg2MnY2NC42aC00NC40Yy0xMy45IDAtMjUuMyAxMS4zLTI1LjMgMjUuM3Y1MGg2OC41bC05LjUgNzEuOWgtNTkuMVY0NTZ6IiBmaWxsPSIjZmZmIi8+PC9zdmc+\"><span>" + _0x23af70 + "</span></a>").click(_0x21624c));
         }
       };
       return _0x169904;
     }();
-    Game.yk = function () {
-      var _0x1bb1fe = getRandomElement.M(Game.kf, function () {
-        Game.kf.call(this, Game.Fk.wn);
+    _0x2e4f75.yk = function () {
+      var _0x1bb1fe = _0x305823.M(_0x2e4f75.kf, function () {
+        _0x2e4f75.kf.call(this, _0x2e4f75.Fk.wn);
       });
       _0x1bb1fe.prototype.ha = function () {};
       _0x1bb1fe.prototype.Gk = function () {
-        Game.kf.jn.stop();
-        Game.kf.jn.fadeOut(50);
-        Game.kf.ln.stop();
-        Game.kf.ln.fadeOut(50);
-        Game.kf.nn.stop();
-        Game.kf.nn.fadeOut(50);
-        Game.kf.pn.stop();
-        Game.kf.pn.fadeOut(50);
-        Game.kf.sn.stop();
-        Game.kf.sn.fadeOut(50);
-        Game.kf.qn.stop();
-        Game.kf.qn.fadeOut(50);
-        Game.kf.rn.stop();
-        Game.kf.rn.fadeOut(50);
-        Game.kf.tn.stop();
-        Game.kf.tn.fadeOut(50);
-        Game.kf.un.stop();
-        Game.kf.un.fadeOut(50);
-        Game.kf.mn.stop();
-        Game.kf.mn.fadeOut(1);
-        Game.kf.jf.stop();
-        Game.kf.jf.fadeOut(50);
-        Game.df.Kf(false);
-        Game.kf.in.stop();
-        Game.kf.in.fadeOut(50);
-        Game.kf.vn.stop();
-        Game.kf.vn.fadeOut(50);
+        _0x2e4f75.kf.jn.stop();
+        _0x2e4f75.kf.jn.fadeOut(50);
+        _0x2e4f75.kf.ln.stop();
+        _0x2e4f75.kf.ln.fadeOut(50);
+        _0x2e4f75.kf.nn.stop();
+        _0x2e4f75.kf.nn.fadeOut(50);
+        _0x2e4f75.kf.pn.stop();
+        _0x2e4f75.kf.pn.fadeOut(50);
+        _0x2e4f75.kf.sn.stop();
+        _0x2e4f75.kf.sn.fadeOut(50);
+        _0x2e4f75.kf.qn.stop();
+        _0x2e4f75.kf.qn.fadeOut(50);
+        _0x2e4f75.kf.rn.stop();
+        _0x2e4f75.kf.rn.fadeOut(50);
+        _0x2e4f75.kf.tn.stop();
+        _0x2e4f75.kf.tn.fadeOut(50);
+        _0x2e4f75.kf.un.stop();
+        _0x2e4f75.kf.un.fadeOut(50);
+        _0x2e4f75.kf.mn.stop();
+        _0x2e4f75.kf.mn.fadeOut(1);
+        _0x2e4f75.kf.jf.stop();
+        _0x2e4f75.kf.jf.fadeOut(50);
+        _0x2e4f75.df.Kf(false);
+        _0x2e4f75.kf.in.stop();
+        _0x2e4f75.kf.in.fadeOut(50);
+        _0x2e4f75.kf.vn.stop();
+        _0x2e4f75.kf.vn.fadeOut(50);
       };
       return _0x1bb1fe;
     }();
-    Game.pk = function () {
-      var _0x404f2e = getRandomElement.M(Game.kf, function () {
-        Game.kf.call(this, Game.Fk.wn);
+    _0x2e4f75.pk = function () {
+      var _0x404f2e = _0x305823.M(_0x2e4f75.kf, function () {
+        _0x2e4f75.kf.call(this, _0x2e4f75.Fk.wn);
       });
       _0x404f2e.prototype.ha = function () {};
       _0x404f2e.prototype.Gk = function () {
-        Game.kf.jn.stop();
-        Game.kf.jn.fadeOut(50);
-        Game.kf.ln.stop();
-        Game.kf.ln.fadeOut(50);
-        Game.kf.nn.stop();
-        Game.kf.nn.fadeOut(50);
-        Game.kf.pn.stop();
-        Game.kf.pn.fadeOut(50);
-        Game.kf.sn.stop();
-        Game.kf.sn.fadeOut(50);
-        Game.kf.qn.stop();
-        Game.kf.qn.fadeOut(50);
-        Game.kf.rn.stop();
-        Game.kf.rn.fadeIn(500);
-        Game.kf.tn.stop();
-        Game.kf.tn.fadeOut(50);
-        Game.kf.un.stop();
-        Game.kf.un.fadeOut(50);
-        Game.kf.mn.stop();
-        Game.kf.mn.fadeIn(1);
-        Game.kf.jf.stop();
-        Game.kf.jf.fadeIn(500);
-        Game.df.Kf(true);
-        Game.kf.in.stop();
-        Game.kf.in.fadeOut(50);
-        Game.kf.vn.stop();
-        Game.kf.vn.fadeOut(50);
+        _0x2e4f75.kf.jn.stop();
+        _0x2e4f75.kf.jn.fadeOut(50);
+        _0x2e4f75.kf.ln.stop();
+        _0x2e4f75.kf.ln.fadeOut(50);
+        _0x2e4f75.kf.nn.stop();
+        _0x2e4f75.kf.nn.fadeOut(50);
+        _0x2e4f75.kf.pn.stop();
+        _0x2e4f75.kf.pn.fadeOut(50);
+        _0x2e4f75.kf.sn.stop();
+        _0x2e4f75.kf.sn.fadeOut(50);
+        _0x2e4f75.kf.qn.stop();
+        _0x2e4f75.kf.qn.fadeOut(50);
+        _0x2e4f75.kf.rn.stop();
+        _0x2e4f75.kf.rn.fadeIn(500);
+        _0x2e4f75.kf.tn.stop();
+        _0x2e4f75.kf.tn.fadeOut(50);
+        _0x2e4f75.kf.un.stop();
+        _0x2e4f75.kf.un.fadeOut(50);
+        _0x2e4f75.kf.mn.stop();
+        _0x2e4f75.kf.mn.fadeIn(1);
+        _0x2e4f75.kf.jf.stop();
+        _0x2e4f75.kf.jf.fadeIn(500);
+        _0x2e4f75.df.Kf(true);
+        _0x2e4f75.kf.in.stop();
+        _0x2e4f75.kf.in.fadeOut(50);
+        _0x2e4f75.kf.vn.stop();
+        _0x2e4f75.kf.vn.fadeOut(50);
       };
       _0x404f2e.prototype.Hk = function () {};
       return _0x404f2e;
     }();
-    Game.rk = function () {
+    _0x2e4f75.rk = function () {
       var _0x1616d2 = $("#toaster-stack");
-      var _0x4f6b7c = getRandomElement.M(Game.kf, function () {
-        Game.kf.call(this, Game.Fk.wn);
+      var _0x4f6b7c = _0x305823.M(_0x2e4f75.kf, function () {
+        _0x2e4f75.kf.call(this, _0x2e4f75.Fk.wn);
         this.Yn = [];
         this.Zn = null;
       });
       _0x4f6b7c.prototype.ha = function () {};
       _0x4f6b7c.prototype.Gk = function () {
-        Game.kf.jn.stop();
-        Game.kf.jn.fadeOut(50);
-        Game.kf.ln.stop();
-        Game.kf.ln.fadeOut(50);
-        Game.kf.nn.stop();
-        Game.kf.nn.fadeOut(50);
-        Game.kf.pn.stop();
-        Game.kf.pn.fadeOut(50);
-        Game.kf.sn.stop();
-        Game.kf.sn.fadeIn(500);
-        Game.kf.qn.stop();
-        Game.kf.qn.fadeOut(50);
-        Game.kf.rn.stop();
-        Game.kf.rn.fadeOut(50);
-        Game.kf.tn.stop();
-        Game.kf.tn.fadeOut(50);
-        Game.kf.un.stop();
-        Game.kf.un.fadeOut(50);
-        Game.kf.mn.stop();
-        Game.kf.mn.fadeIn(1);
-        Game.kf.jf.stop();
-        Game.kf.jf.fadeIn(500);
-        Game.df.Kf(true);
-        Game.kf.in.stop();
-        Game.kf.in.fadeOut(50);
-        Game.kf.vn.stop();
-        Game.kf.vn.fadeIn(500);
+        _0x2e4f75.kf.jn.stop();
+        _0x2e4f75.kf.jn.fadeOut(50);
+        _0x2e4f75.kf.ln.stop();
+        _0x2e4f75.kf.ln.fadeOut(50);
+        _0x2e4f75.kf.nn.stop();
+        _0x2e4f75.kf.nn.fadeOut(50);
+        _0x2e4f75.kf.pn.stop();
+        _0x2e4f75.kf.pn.fadeOut(50);
+        _0x2e4f75.kf.sn.stop();
+        _0x2e4f75.kf.sn.fadeIn(500);
+        _0x2e4f75.kf.qn.stop();
+        _0x2e4f75.kf.qn.fadeOut(50);
+        _0x2e4f75.kf.rn.stop();
+        _0x2e4f75.kf.rn.fadeOut(50);
+        _0x2e4f75.kf.tn.stop();
+        _0x2e4f75.kf.tn.fadeOut(50);
+        _0x2e4f75.kf.un.stop();
+        _0x2e4f75.kf.un.fadeOut(50);
+        _0x2e4f75.kf.mn.stop();
+        _0x2e4f75.kf.mn.fadeIn(1);
+        _0x2e4f75.kf.jf.stop();
+        _0x2e4f75.kf.jf.fadeIn(500);
+        _0x2e4f75.df.Kf(true);
+        _0x2e4f75.kf.in.stop();
+        _0x2e4f75.kf.in.fadeOut(50);
+        _0x2e4f75.kf.vn.stop();
+        _0x2e4f75.kf.vn.fadeIn(500);
       };
       _0x4f6b7c.prototype.Hk = function () {
         this.$n();
@@ -7563,11 +7546,11 @@ window.addEventListener("load", function () {
       };
       return _0x4f6b7c;
     }();
-    Game.Fk = {
+    _0x2e4f75.Fk = {
       wn: 0,
       Ek: 1
     };
-    Game.bo = function () {
+    _0x2e4f75.bo = function () {
       var _0x3dbc50 = $("#popup-menu-label");
       var _0x32a045 = $("#popup-menu-coins-box");
       var _0x4e91e3 = $("#popup-menu-coins-val");
@@ -7583,8 +7566,8 @@ window.addEventListener("load", function () {
           _0x487788.og.Ak(_0x487788.og._j);
         }
       });
-      var _0x497b8f = getRandomElement.M(Game.kf, function (_0x3d25d7, _0x3c1553) {
-        Game.kf.call(this, Game.Fk.Ek);
+      var _0x497b8f = _0x305823.M(_0x2e4f75.kf, function (_0x3d25d7, _0x3c1553) {
+        _0x2e4f75.kf.call(this, _0x2e4f75.Fk.Ek);
         this.ma = _0x3d25d7;
         this.co = _0x3c1553;
         this.do = [];
@@ -7602,8 +7585,8 @@ window.addEventListener("load", function () {
             }
           });
         }
-        Game.bo.fo.stop();
-        Game.bo.fo.fadeOut(100);
+        _0x2e4f75.bo.fo.stop();
+        _0x2e4f75.bo.fo.fadeOut(100);
       };
       _0x497b8f.go = $("#coins-view");
       _0x497b8f.ho = $("#leaders-view");
@@ -7617,33 +7600,33 @@ window.addEventListener("load", function () {
       _0x497b8f.po = $("#delete-account-view");
       _0x497b8f.fo = $("#please-wait-view");
       _0x497b8f.prototype.Gk = function () {
-        Game.kf.jn.stop();
-        Game.kf.jn.fadeOut(200);
-        Game.kf.ln.stop();
-        Game.kf.ln.fadeOut(200);
-        Game.kf.nn.stop();
-        Game.kf.nn.fadeOut(200);
-        Game.kf.pn.stop();
-        Game.kf.pn.fadeIn(200);
-        Game.kf.sn.stop();
-        Game.kf.sn.fadeOut(200);
-        Game.kf.qn.stop();
-        Game.kf.qn.fadeOut(200);
-        Game.kf.rn.stop();
-        Game.kf.rn.fadeOut(200);
-        Game.kf.tn.stop();
-        Game.kf.tn.fadeOut(200);
-        Game.kf.un.stop();
-        Game.kf.un.fadeOut(200);
-        Game.kf.mn.stop();
-        Game.kf.mn.fadeIn(1);
-        Game.kf.jf.stop();
-        Game.kf.jf.fadeIn(500);
-        Game.df.Kf(true);
-        Game.kf.in.stop();
-        Game.kf.in.fadeIn(200);
-        Game.kf.vn.stop();
-        Game.kf.vn.fadeIn(200);
+        _0x2e4f75.kf.jn.stop();
+        _0x2e4f75.kf.jn.fadeOut(200);
+        _0x2e4f75.kf.ln.stop();
+        _0x2e4f75.kf.ln.fadeOut(200);
+        _0x2e4f75.kf.nn.stop();
+        _0x2e4f75.kf.nn.fadeOut(200);
+        _0x2e4f75.kf.pn.stop();
+        _0x2e4f75.kf.pn.fadeIn(200);
+        _0x2e4f75.kf.sn.stop();
+        _0x2e4f75.kf.sn.fadeOut(200);
+        _0x2e4f75.kf.qn.stop();
+        _0x2e4f75.kf.qn.fadeOut(200);
+        _0x2e4f75.kf.rn.stop();
+        _0x2e4f75.kf.rn.fadeOut(200);
+        _0x2e4f75.kf.tn.stop();
+        _0x2e4f75.kf.tn.fadeOut(200);
+        _0x2e4f75.kf.un.stop();
+        _0x2e4f75.kf.un.fadeOut(200);
+        _0x2e4f75.kf.mn.stop();
+        _0x2e4f75.kf.mn.fadeIn(1);
+        _0x2e4f75.kf.jf.stop();
+        _0x2e4f75.kf.jf.fadeIn(500);
+        _0x2e4f75.df.Kf(true);
+        _0x2e4f75.kf.in.stop();
+        _0x2e4f75.kf.in.fadeIn(200);
+        _0x2e4f75.kf.vn.stop();
+        _0x2e4f75.kf.vn.fadeIn(200);
         _0x3dbc50.html(this.ma);
         _0x32a045.toggle(this.co);
         this.qo();
@@ -7651,10 +7634,10 @@ window.addEventListener("load", function () {
       _0x497b8f.prototype.qo = function () {};
       _0x497b8f.prototype.ro = function (_0x1d8514) {
         var _0x5521b4 = this;
-        var _0x3afb20 = getRandomElement.V(0, 2147483647) & 2147483647;
+        var _0x3afb20 = _0x305823.V(0, 2147483647) & 2147483647;
         this.do.push(_0x3afb20);
-        Game.bo.fo.stop();
-        Game.bo.fo.fadeIn(100);
+        _0x2e4f75.bo.fo.stop();
+        _0x2e4f75.bo.fo.fadeIn(100);
         setTimeout(function () {
           _0x5521b4.so(_0x3afb20);
         }, _0x1d8514);
@@ -7665,8 +7648,8 @@ window.addEventListener("load", function () {
         if (!(_0x711714 < 0)) {
           this.do.splice(_0x711714, 1);
           if (this.do.length === 0) {
-            Game.bo.fo.stop();
-            Game.bo.fo.fadeOut(100);
+            _0x2e4f75.bo.fo.stop();
+            _0x2e4f75.bo.fo.fadeOut(100);
           }
         }
       };
@@ -7682,15 +7665,15 @@ window.addEventListener("load", function () {
       };
       return _0xde1b6a;
     }();
-    Game.ak = function () {
+    _0x2e4f75.ak = function () {
       var _0xd831fb = $("#store-buy-coins_125000");
       var _0x2863cb = $("#store-buy-coins_50000");
       var _0x387e73 = $("#store-buy-coins_16000");
       var _0x249ea3 = $("#store-buy-coins_7000");
       var _0x24fc8e = $("#store-buy-coins_3250");
       var _0x52e1b6 = $("#store-buy-coins_1250");
-      var _0x53a4cb = getRandomElement.M(Game.bo, function () {
-        Game.bo.call(this, getRandomElement.H("index.game.popup.menu.coins.tab"), false);
+      var _0x53a4cb = _0x305823.M(_0x2e4f75.bo, function () {
+        _0x2e4f75.bo.call(this, _0x305823.H("index.game.popup.menu.coins.tab"), false);
         var _0x14a2ac = _0x3b5dc5();
         var _0x592476 = this;
         _0xd831fb.click(function () {
@@ -7722,26 +7705,26 @@ window.addEventListener("load", function () {
         _0x53a4cb.parent.prototype.ha.call(this);
       };
       _0x53a4cb.prototype.qo = function () {
-        Game.bo.go.stop();
-        Game.bo.go.fadeIn(200);
-        Game.bo.ho.stop();
-        Game.bo.ho.fadeOut(50);
-        Game.bo.io.stop();
-        Game.bo.io.fadeOut(50);
-        Game.bo.ko.stop();
-        Game.bo.ko.fadeOut(50);
-        Game.bo.jo.stop();
-        Game.bo.jo.fadeOut(50);
-        Game.bo.lo.stop();
-        Game.bo.lo.fadeOut(50);
-        Game.bo.mo.stop();
-        Game.bo.mo.fadeOut(50);
-        Game.bo.no.stop();
-        Game.bo.no.fadeOut(50);
-        Game.bo.oo.stop();
-        Game.bo.oo.fadeOut(50);
-        Game.bo.po.stop();
-        Game.bo.po.fadeOut(50);
+        _0x2e4f75.bo.go.stop();
+        _0x2e4f75.bo.go.fadeIn(200);
+        _0x2e4f75.bo.ho.stop();
+        _0x2e4f75.bo.ho.fadeOut(50);
+        _0x2e4f75.bo.io.stop();
+        _0x2e4f75.bo.io.fadeOut(50);
+        _0x2e4f75.bo.ko.stop();
+        _0x2e4f75.bo.ko.fadeOut(50);
+        _0x2e4f75.bo.jo.stop();
+        _0x2e4f75.bo.jo.fadeOut(50);
+        _0x2e4f75.bo.lo.stop();
+        _0x2e4f75.bo.lo.fadeOut(50);
+        _0x2e4f75.bo.mo.stop();
+        _0x2e4f75.bo.mo.fadeOut(50);
+        _0x2e4f75.bo.no.stop();
+        _0x2e4f75.bo.no.fadeOut(50);
+        _0x2e4f75.bo.oo.stop();
+        _0x2e4f75.bo.oo.fadeOut(50);
+        _0x2e4f75.bo.po.stop();
+        _0x2e4f75.bo.po.fadeOut(50);
       };
       _0x53a4cb.prototype.Hk = function () {
         _0x3b5dc5().Ci.Ce();
@@ -7749,13 +7732,13 @@ window.addEventListener("load", function () {
       _0x53a4cb.prototype.wo = function (_0x41069b) {};
       return _0x53a4cb;
     }();
-    Game.ck = function () {
+    _0x2e4f75.ck = function () {
       var _0xf729ff = $("#highscore-table");
       var _0x38966d = $("#leaders-button-level");
       var _0x19540a = $("#leaders-button-highscore");
       var _0x2cee56 = $("#leaders-button-kills");
-      var _0xaa54e5 = getRandomElement.M(Game.bo, function () {
-        Game.bo.call(this, getRandomElement.H("index.game.popup.menu.leaders.tab"), true);
+      var _0xaa54e5 = _0x305823.M(_0x2e4f75.bo, function () {
+        _0x2e4f75.bo.call(this, _0x305823.H("index.game.popup.menu.leaders.tab"), true);
         var _0x318060 = _0x3b5dc5();
         var _0x275ce4 = this;
         this.xo = {};
@@ -7790,33 +7773,33 @@ window.addEventListener("load", function () {
         _0xaa54e5.parent.prototype.ha.call(this);
       };
       _0xaa54e5.prototype.qo = function () {
-        Game.bo.go.stop();
-        Game.bo.go.fadeOut(50);
-        Game.bo.ho.stop();
-        Game.bo.ho.fadeIn(200);
-        Game.bo.io.stop();
-        Game.bo.io.fadeOut(50);
-        Game.bo.ko.stop();
-        Game.bo.ko.fadeOut(50);
-        Game.bo.jo.stop();
-        Game.bo.jo.fadeOut(50);
-        Game.bo.lo.stop();
-        Game.bo.lo.fadeOut(50);
-        Game.bo.mo.stop();
-        Game.bo.mo.fadeOut(50);
-        Game.bo.no.stop();
-        Game.bo.no.fadeOut(50);
-        Game.bo.oo.stop();
-        Game.bo.oo.fadeOut(50);
-        Game.bo.po.stop();
-        Game.bo.po.fadeOut(50);
+        _0x2e4f75.bo.go.stop();
+        _0x2e4f75.bo.go.fadeOut(50);
+        _0x2e4f75.bo.ho.stop();
+        _0x2e4f75.bo.ho.fadeIn(200);
+        _0x2e4f75.bo.io.stop();
+        _0x2e4f75.bo.io.fadeOut(50);
+        _0x2e4f75.bo.ko.stop();
+        _0x2e4f75.bo.ko.fadeOut(50);
+        _0x2e4f75.bo.jo.stop();
+        _0x2e4f75.bo.jo.fadeOut(50);
+        _0x2e4f75.bo.lo.stop();
+        _0x2e4f75.bo.lo.fadeOut(50);
+        _0x2e4f75.bo.mo.stop();
+        _0x2e4f75.bo.mo.fadeOut(50);
+        _0x2e4f75.bo.no.stop();
+        _0x2e4f75.bo.no.fadeOut(50);
+        _0x2e4f75.bo.oo.stop();
+        _0x2e4f75.bo.oo.fadeOut(50);
+        _0x2e4f75.bo.po.stop();
+        _0x2e4f75.bo.po.fadeOut(50);
       };
       _0xaa54e5.prototype.Hk = function () {
         var _0x50bbfb = this;
         _0x3b5dc5().Ci.Ce();
         var _0x12a087 = this.ro(5000);
-        var _0x25179c = getRandomElement.a.b + "/pub/leaders";
-        getRandomElement.Z(_0x25179c, function () {
+        var _0x25179c = _0x305823.a.b + "/pub/leaders";
+        _0x305823.Z(_0x25179c, function () {
           _0x50bbfb.xo = {
             byLevel: [],
             byHighScore: [],
@@ -7848,12 +7831,12 @@ window.addEventListener("load", function () {
       };
       return _0xaa54e5;
     }();
-    Game.gk = function () {
+    _0x2e4f75.gk = function () {
       var _0x40efce = $("#popup-login-gg");
       var _0x1acb20 = $("#popup-login-fb");
-      var _0x1c95a9 = getRandomElement.M(Game.bo, function () {
+      var _0x1c95a9 = _0x305823.M(_0x2e4f75.bo, function () {
         var _0x5e1ea6 = this;
-        Game.bo.call(this, getRandomElement.H("index.game.popup.menu.login.tab"), false);
+        _0x2e4f75.bo.call(this, _0x305823.H("index.game.popup.menu.login.tab"), false);
         var _0x4b0145 = _0x3b5dc5();
         _0x40efce.click(function () {
           _0x4b0145.Ci.Be();
@@ -7884,33 +7867,33 @@ window.addEventListener("load", function () {
         _0x1c95a9.parent.prototype.ha.call(this);
       };
       _0x1c95a9.prototype.qo = function () {
-        Game.bo.go.stop();
-        Game.bo.go.fadeOut(50);
-        Game.bo.ho.stop();
-        Game.bo.ho.fadeOut(50);
-        Game.bo.io.stop();
-        Game.bo.io.fadeOut(50);
-        Game.bo.ko.stop();
-        Game.bo.ko.fadeIn(200);
-        Game.bo.jo.stop();
-        Game.bo.jo.fadeOut(50);
-        Game.bo.lo.stop();
-        Game.bo.lo.fadeOut(50);
-        Game.bo.mo.stop();
-        Game.bo.mo.fadeOut(50);
-        Game.bo.no.stop();
-        Game.bo.no.fadeOut(50);
-        Game.bo.oo.stop();
-        Game.bo.oo.fadeOut(50);
-        Game.bo.po.stop();
-        Game.bo.po.fadeOut(50);
+        _0x2e4f75.bo.go.stop();
+        _0x2e4f75.bo.go.fadeOut(50);
+        _0x2e4f75.bo.ho.stop();
+        _0x2e4f75.bo.ho.fadeOut(50);
+        _0x2e4f75.bo.io.stop();
+        _0x2e4f75.bo.io.fadeOut(50);
+        _0x2e4f75.bo.ko.stop();
+        _0x2e4f75.bo.ko.fadeIn(200);
+        _0x2e4f75.bo.jo.stop();
+        _0x2e4f75.bo.jo.fadeOut(50);
+        _0x2e4f75.bo.lo.stop();
+        _0x2e4f75.bo.lo.fadeOut(50);
+        _0x2e4f75.bo.mo.stop();
+        _0x2e4f75.bo.mo.fadeOut(50);
+        _0x2e4f75.bo.no.stop();
+        _0x2e4f75.bo.no.fadeOut(50);
+        _0x2e4f75.bo.oo.stop();
+        _0x2e4f75.bo.oo.fadeOut(50);
+        _0x2e4f75.bo.po.stop();
+        _0x2e4f75.bo.po.fadeOut(50);
       };
       _0x1c95a9.prototype.Hk = function () {
         _0x3b5dc5().Ci.Ce();
       };
       return _0x1c95a9;
     }();
-    Game.ek = function () {
+    _0x2e4f75.ek = function () {
       var _0x1062ff = $("#profile-avatar");
       var _0xbb67e2 = $("#profile-username");
       var _0x3803f3 = $("#profile-experience-bar");
@@ -7923,33 +7906,33 @@ window.addEventListener("load", function () {
       var _0x1b4aac = $("#profile-stat-gamesPlayed");
       var _0x4a0d73 = $("#profile-stat-totalTimeSpent");
       var _0x3ee85a = $("#profile-stat-registrationDate");
-      var _0x13cbf5 = getRandomElement.M(Game.bo, function () {
-        Game.bo.call(this, getRandomElement.H("index.game.popup.menu.profile.tab"), true);
+      var _0x13cbf5 = _0x305823.M(_0x2e4f75.bo, function () {
+        _0x2e4f75.bo.call(this, _0x305823.H("index.game.popup.menu.profile.tab"), true);
       });
       _0x13cbf5.prototype.ha = function () {
         _0x13cbf5.parent.prototype.ha.call(this);
       };
       _0x13cbf5.prototype.qo = function () {
-        Game.bo.go.stop();
-        Game.bo.go.fadeOut(50);
-        Game.bo.ho.stop();
-        Game.bo.ho.fadeOut(50);
-        Game.bo.io.stop();
-        Game.bo.io.fadeIn(200);
-        Game.bo.ko.stop();
-        Game.bo.ko.fadeOut(50);
-        Game.bo.jo.stop();
-        Game.bo.jo.fadeOut(50);
-        Game.bo.lo.stop();
-        Game.bo.lo.fadeOut(50);
-        Game.bo.mo.stop();
-        Game.bo.mo.fadeOut(50);
-        Game.bo.no.stop();
-        Game.bo.no.fadeOut(50);
-        Game.bo.oo.stop();
-        Game.bo.oo.fadeOut(50);
-        Game.bo.po.stop();
-        Game.bo.po.fadeOut(50);
+        _0x2e4f75.bo.go.stop();
+        _0x2e4f75.bo.go.fadeOut(50);
+        _0x2e4f75.bo.ho.stop();
+        _0x2e4f75.bo.ho.fadeOut(50);
+        _0x2e4f75.bo.io.stop();
+        _0x2e4f75.bo.io.fadeIn(200);
+        _0x2e4f75.bo.ko.stop();
+        _0x2e4f75.bo.ko.fadeOut(50);
+        _0x2e4f75.bo.jo.stop();
+        _0x2e4f75.bo.jo.fadeOut(50);
+        _0x2e4f75.bo.lo.stop();
+        _0x2e4f75.bo.lo.fadeOut(50);
+        _0x2e4f75.bo.mo.stop();
+        _0x2e4f75.bo.mo.fadeOut(50);
+        _0x2e4f75.bo.no.stop();
+        _0x2e4f75.bo.no.fadeOut(50);
+        _0x2e4f75.bo.oo.stop();
+        _0x2e4f75.bo.oo.fadeOut(50);
+        _0x2e4f75.bo.po.stop();
+        _0x2e4f75.bo.po.fadeOut(50);
       };
       _0x13cbf5.prototype.Hk = function () {
         var _0x59c1ae = _0x3b5dc5();
@@ -7962,16 +7945,16 @@ window.addEventListener("load", function () {
         _0x5b1657.html(_0x59c1ae.Ij.kl() + " / " + _0x59c1ae.Ij.ll());
         _0x162dc1.html(_0x59c1ae.Ij.jl());
         _0x1b93a6.html(_0x59c1ae.Ij.rl());
-        _0x25c3bf.html(getRandomElement.J(_0x59c1ae.Ij.sl()));
+        _0x25c3bf.html(_0x305823.J(_0x59c1ae.Ij.sl()));
         _0x6e8840.html(_0x59c1ae.Ij.tl());
         _0x301754.html(_0x59c1ae.Ij.ul());
         _0x1b4aac.html(_0x59c1ae.Ij.vl());
-        _0x4a0d73.html(getRandomElement.J(_0x59c1ae.Ij.wl()));
+        _0x4a0d73.html(_0x305823.J(_0x59c1ae.Ij.wl()));
         _0x3ee85a.html(_0x487aad);
       };
       return _0x13cbf5;
     }();
-    Game.hk = function () {
+    _0x2e4f75.hk = function () {
       var _0x119052 = $("#settings-music-enabled-switch");
       var _0x22ecef = $("#settings-sfx-enabled-switch");
       var _0x37cb54 = $("#settings-show-names-switch");
@@ -7980,19 +7963,19 @@ window.addEventListener("load", function () {
       var _0x591b85 = $("#popup-delete-account");
       var _0x4fa3f6 = $("#popup-delete-account-container");
       var _0x2fecf6 = $("#popup-withdraw-consent");
-      var _0x1cde64 = getRandomElement.M(Game.bo, function () {
-        Game.bo.call(this, getRandomElement.H("index.game.popup.menu.settings.tab"), false);
+      var _0x1cde64 = _0x305823.M(_0x2e4f75.bo, function () {
+        _0x2e4f75.bo.call(this, _0x305823.H("index.game.popup.menu.settings.tab"), false);
         var _0x52c80f = this;
         var _0x366ad7 = _0x3b5dc5();
         _0x119052.click(function () {
           var _0x2a423c = !!_0x119052.prop("checked");
-          Game.Vf.eg(Game.Vf.Yf, _0x2a423c, 30);
+          _0x2e4f75.Vf.eg(_0x2e4f75.Vf.Yf, _0x2a423c, 30);
           _0x366ad7.Ci.re(_0x2a423c);
           _0x366ad7.Ci.Be();
         });
         _0x22ecef.click(function () {
           var _0x3b3a53 = !!_0x22ecef.prop("checked");
-          Game.Vf.eg(Game.Vf.Zf, _0x3b3a53, 30);
+          _0x2e4f75.Vf.eg(_0x2e4f75.Vf.Zf, _0x3b3a53, 30);
           _0x366ad7.Ci.oe(_0x3b3a53);
           _0x366ad7.Ci.Be();
         });
@@ -8025,7 +8008,7 @@ window.addEventListener("load", function () {
         _0x1cde64.parent.prototype.ha.call(this);
         var _0x3e94b9 = _0x3b5dc5();
         var _0x3eb702 = undefined;
-        switch (Game.Vf.fg(Game.Vf.Yf)) {
+        switch (_0x2e4f75.Vf.fg(_0x2e4f75.Vf.Yf)) {
           case "false":
             _0x3eb702 = false;
             break;
@@ -8035,7 +8018,7 @@ window.addEventListener("load", function () {
         _0x119052.prop("checked", _0x3eb702);
         _0x3e94b9.Ci.re(_0x3eb702);
         var _0x17c08a = undefined;
-        switch (Game.Vf.fg(Game.Vf.Zf)) {
+        switch (_0x2e4f75.Vf.fg(_0x2e4f75.Vf.Zf)) {
           case "false":
             _0x17c08a = false;
             break;
@@ -8045,7 +8028,7 @@ window.addEventListener("load", function () {
         _0x22ecef.prop("checked", _0x17c08a);
         _0x3e94b9.Ci.oe(_0x17c08a);
         var _0x3d6611 = undefined;
-        switch (Game.Vf.fg(Game.Vf.Xf)) {
+        switch (_0x2e4f75.Vf.fg(_0x2e4f75.Vf.Xf)) {
           case "false":
             _0x3d6611 = false;
             break;
@@ -8059,26 +8042,26 @@ window.addEventListener("load", function () {
         });
       };
       _0x1cde64.prototype.qo = function () {
-        Game.bo.go.stop();
-        Game.bo.go.fadeOut(50);
-        Game.bo.ho.stop();
-        Game.bo.ho.fadeOut(50);
-        Game.bo.io.stop();
-        Game.bo.io.fadeOut(50);
-        Game.bo.ko.stop();
-        Game.bo.ko.fadeOut(50);
-        Game.bo.jo.stop();
-        Game.bo.jo.fadeIn(200);
-        Game.bo.lo.stop();
-        Game.bo.lo.fadeOut(50);
-        Game.bo.mo.stop();
-        Game.bo.mo.fadeOut(50);
-        Game.bo.no.stop();
-        Game.bo.no.fadeOut(50);
-        Game.bo.oo.stop();
-        Game.bo.oo.fadeOut(50);
-        Game.bo.po.stop();
-        Game.bo.po.fadeOut(50);
+        _0x2e4f75.bo.go.stop();
+        _0x2e4f75.bo.go.fadeOut(50);
+        _0x2e4f75.bo.ho.stop();
+        _0x2e4f75.bo.ho.fadeOut(50);
+        _0x2e4f75.bo.io.stop();
+        _0x2e4f75.bo.io.fadeOut(50);
+        _0x2e4f75.bo.ko.stop();
+        _0x2e4f75.bo.ko.fadeOut(50);
+        _0x2e4f75.bo.jo.stop();
+        _0x2e4f75.bo.jo.fadeIn(200);
+        _0x2e4f75.bo.lo.stop();
+        _0x2e4f75.bo.lo.fadeOut(50);
+        _0x2e4f75.bo.mo.stop();
+        _0x2e4f75.bo.mo.fadeOut(50);
+        _0x2e4f75.bo.no.stop();
+        _0x2e4f75.bo.no.fadeOut(50);
+        _0x2e4f75.bo.oo.stop();
+        _0x2e4f75.bo.oo.fadeOut(50);
+        _0x2e4f75.bo.po.stop();
+        _0x2e4f75.bo.po.fadeOut(50);
       };
       _0x1cde64.prototype.Hk = function () {
         var _0x2a18e0 = _0x3b5dc5();
@@ -8094,7 +8077,7 @@ window.addEventListener("load", function () {
       };
       return _0x1cde64;
     }();
-    Game.jk = function () {
+    _0x2e4f75.jk = function () {
       var _0x1b8793 = $("#store-view-canv");
       var _0x37fa32 = $("#skin-description-text");
       var _0x49f9b8 = $("#skin-group-description-text");
@@ -8105,14 +8088,14 @@ window.addEventListener("load", function () {
       var _0xbde69d = $("#store-groups");
       var _0x8625af = $("#store-view-prev");
       var _0x1c68ea = $("#store-view-next");
-      var _0x25566a = getRandomElement.M(Game.bo, function () {
-        Game.bo.call(this, getRandomElement.H("index.game.popup.menu.skins.tab"), true);
+      var _0x25566a = _0x305823.M(_0x2e4f75.bo, function () {
+        _0x2e4f75.bo.call(this, _0x305823.H("index.game.popup.menu.skins.tab"), true);
         var _0x3796ec = this;
         var _0x4461b5 = _0x3b5dc5();
         this.Ho = null;
         this.Io = [];
         this.Jo = {};
-        this.Ko = new Game.dm(_0x1b8793);
+        this.Ko = new _0x2e4f75.dm(_0x1b8793);
         _0xcaf4ab.click(function () {
           _0x4461b5.Ci.Be();
           _0x3796ec.Lo();
@@ -8149,29 +8132,29 @@ window.addEventListener("load", function () {
         });
       };
       _0x25566a.prototype.qo = function () {
-        Game.bo.go.stop();
-        Game.bo.go.fadeOut(50);
-        Game.bo.ho.stop();
-        Game.bo.ho.fadeOut(50);
-        Game.bo.io.stop();
-        Game.bo.io.fadeOut(50);
-        Game.bo.ko.stop();
-        Game.bo.ko.fadeOut(50);
-        Game.bo.jo.stop();
-        Game.bo.jo.fadeOut(50);
-        Game.bo.lo.stop();
-        Game.bo.lo.fadeIn(200);
-        Game.bo.mo.stop();
-        Game.bo.mo.fadeOut(50);
-        Game.bo.no.stop();
-        Game.bo.no.fadeOut(50);
-        Game.bo.oo.stop();
-        Game.bo.oo.fadeOut(50);
-        Game.bo.po.stop();
-        Game.bo.po.fadeOut(50);
+        _0x2e4f75.bo.go.stop();
+        _0x2e4f75.bo.go.fadeOut(50);
+        _0x2e4f75.bo.ho.stop();
+        _0x2e4f75.bo.ho.fadeOut(50);
+        _0x2e4f75.bo.io.stop();
+        _0x2e4f75.bo.io.fadeOut(50);
+        _0x2e4f75.bo.ko.stop();
+        _0x2e4f75.bo.ko.fadeOut(50);
+        _0x2e4f75.bo.jo.stop();
+        _0x2e4f75.bo.jo.fadeOut(50);
+        _0x2e4f75.bo.lo.stop();
+        _0x2e4f75.bo.lo.fadeIn(200);
+        _0x2e4f75.bo.mo.stop();
+        _0x2e4f75.bo.mo.fadeOut(50);
+        _0x2e4f75.bo.no.stop();
+        _0x2e4f75.bo.no.fadeOut(50);
+        _0x2e4f75.bo.oo.stop();
+        _0x2e4f75.bo.oo.fadeOut(50);
+        _0x2e4f75.bo.po.stop();
+        _0x2e4f75.bo.po.fadeOut(50);
       };
       _0x25566a.prototype.Hk = function () {
-        _0x3b5dc5().Ci.pe(Game.ge.je._e);
+        _0x3b5dc5().Ci.pe(_0x2e4f75.ge.je._e);
         _0x3b5dc5().Ci.Ce();
         this.Oo();
         this.Ko.Kf(true);
@@ -8205,7 +8188,7 @@ window.addEventListener("load", function () {
           })(_0x496cf6);
         }
         if (this.Io.length > 0) {
-          var _0x21c4fc = _0x1a9e69.On.rj(Game.tj.sj);
+          var _0x21c4fc = _0x1a9e69.On.rj(_0x2e4f75.tj.sj);
           for (var _0x496cf6 = 0; _0x496cf6 < this.Io.length; _0x496cf6++) {
             var _0x3e4b1d = this.Io[_0x496cf6];
             for (var _0x3ec941 = _0x3e4b1d.To.list, _0x129509 = 0; _0x129509 < _0x3ec941.length; _0x129509++) {
@@ -8231,7 +8214,7 @@ window.addEventListener("load", function () {
           if (_0x2b5818.To != null) {
             var _0x1a9352 = _0x50448e.Lc.Xb().textDict[_0x2b5818.To.description];
             if (_0x1a9352 != null) {
-              _0x49f9b8.html(getRandomElement.K(getRandomElement.I(_0x1a9352)));
+              _0x49f9b8.html(_0x305823.K(_0x305823.I(_0x1a9352)));
             }
           }
           this.Po(true);
@@ -8239,7 +8222,7 @@ window.addEventListener("load", function () {
       };
       _0x25566a.prototype.Vo = function () {
         if (this.Ho == null) {
-          return Game.Si.Ui();
+          return _0x2e4f75.Si.Ui();
         } else {
           return this.Ho.Wo();
         }
@@ -8254,27 +8237,27 @@ window.addEventListener("load", function () {
       };
       _0x25566a.prototype.Xo = function (_0x2b7f4c) {
         var _0x9a7ddf = _0x3b5dc5();
-        var _0x2d1077 = _0x9a7ddf.On.Gj(_0x2b7f4c, Game.tj.sj);
+        var _0x2d1077 = _0x9a7ddf.On.Gj(_0x2b7f4c, _0x2e4f75.tj.sj);
         if (_0x2d1077 != null) {
           var _0x16f173 = _0x2d1077.Jj();
           if (!(_0x9a7ddf.Ij.il() < _0x16f173)) {
-            var _0x4a957b = _0x9a7ddf.On.rj(Game.tj.sj);
-            var _0x5ca29c = _0x9a7ddf.On.rj(Game.tj.uj);
-            var _0xdf74f4 = _0x9a7ddf.On.rj(Game.tj.vj);
-            var _0x5ac414 = _0x9a7ddf.On.rj(Game.tj.xj);
-            var _0x27bfb2 = _0x9a7ddf.On.rj(Game.tj.wj);
+            var _0x4a957b = _0x9a7ddf.On.rj(_0x2e4f75.tj.sj);
+            var _0x5ca29c = _0x9a7ddf.On.rj(_0x2e4f75.tj.uj);
+            var _0xdf74f4 = _0x9a7ddf.On.rj(_0x2e4f75.tj.vj);
+            var _0x5ac414 = _0x9a7ddf.On.rj(_0x2e4f75.tj.xj);
+            var _0x27bfb2 = _0x9a7ddf.On.rj(_0x2e4f75.tj.wj);
             var _0x55efb2 = this.ro(5000);
-            _0x9a7ddf.Ij.Hl(_0x2b7f4c, Game.tj.sj, function () {
+            _0x9a7ddf.Ij.Hl(_0x2b7f4c, _0x2e4f75.tj.sj, function () {
               _0x55efb2.vo();
               _0x9a7ddf.og.Ak(_0x9a7ddf.og.tk);
             }, function (_0x331dbb) {
               _0x9a7ddf.Ij.Bl(function () {
-                _0x9a7ddf.On.Fj(_0x4a957b, Game.tj.sj);
-                _0x9a7ddf.On.Fj(_0x5ca29c, Game.tj.uj);
-                _0x9a7ddf.On.Fj(_0xdf74f4, Game.tj.vj);
-                _0x9a7ddf.On.Fj(_0x5ac414, Game.tj.xj);
-                _0x9a7ddf.On.Fj(_0x27bfb2, Game.tj.wj);
-                _0x9a7ddf.On.Fj(_0x2b7f4c, Game.tj.sj);
+                _0x9a7ddf.On.Fj(_0x4a957b, _0x2e4f75.tj.sj);
+                _0x9a7ddf.On.Fj(_0x5ca29c, _0x2e4f75.tj.uj);
+                _0x9a7ddf.On.Fj(_0xdf74f4, _0x2e4f75.tj.vj);
+                _0x9a7ddf.On.Fj(_0x5ac414, _0x2e4f75.tj.xj);
+                _0x9a7ddf.On.Fj(_0x27bfb2, _0x2e4f75.tj.wj);
+                _0x9a7ddf.On.Fj(_0x2b7f4c, _0x2e4f75.tj.sj);
                 _0x55efb2.vo();
               });
             });
@@ -8287,20 +8270,20 @@ window.addEventListener("load", function () {
         var _0x13bc29 = this.Vo();
         if (_0x13bc29.Wi()) {
           var _0xce9c87 = _0x13bc29.bc();
-          var _0x1554cd = _0x16bfe8.On.Gj(_0xce9c87, Game.tj.sj);
+          var _0x1554cd = _0x16bfe8.On.Gj(_0xce9c87, _0x2e4f75.tj.sj);
           var _0x55b7c1 = false;
-          if (_0x16bfe8.On.Cj(_0xce9c87, Game.tj.sj)) {
+          if (_0x16bfe8.On.Cj(_0xce9c87, _0x2e4f75.tj.sj)) {
             _0x2c1f6c.hide();
             _0xcaf4ab.hide();
           } else if (_0x1554cd == null || _0x1554cd.Kj()) {
             _0x55b7c1 = true;
             _0x2c1f6c.show();
             _0xcaf4ab.hide();
-            _0x34a26c.text(getRandomElement.H("index.game.popup.menu.store.locked"));
+            _0x34a26c.text(_0x305823.H("index.game.popup.menu.store.locked"));
             if (_0x1554cd != null && _0x1554cd.Kj()) {
               var _0x16fe20 = _0x16bfe8.Lc.Xb().textDict[_0x1554cd.Em()];
               if (_0x16fe20 != null) {
-                _0x34a26c.text(getRandomElement.I(_0x16fe20));
+                _0x34a26c.text(_0x305823.I(_0x16fe20));
               }
             }
           } else {
@@ -8312,13 +8295,13 @@ window.addEventListener("load", function () {
           if (_0x1554cd != null && _0x1554cd.Fm() != null) {
             var _0x299d00 = _0x16bfe8.Lc.Xb().textDict[_0x1554cd.Fm()];
             if (_0x299d00 != null) {
-              _0x37fa32.html(getRandomElement.K(getRandomElement.I(_0x299d00)));
+              _0x37fa32.html(_0x305823.K(_0x305823.I(_0x299d00)));
             }
           }
           this.Ko.$l(_0x521472.Um(_0xce9c87));
           this.Ko.um(_0x55b7c1);
           if (_0x4b2384) {
-            _0x16bfe8.On.Fj(_0xce9c87, Game.tj.sj);
+            _0x16bfe8.On.Fj(_0xce9c87, _0x2e4f75.tj.sj);
           }
         }
       };
@@ -8341,7 +8324,7 @@ window.addEventListener("load", function () {
           this.Yo.Po(true);
         };
         _0xf70d55.prototype.Qo = function () {
-          let _0x1f6280 = getRandomElement.I(this.To.name);
+          let _0x1f6280 = _0x305823.I(this.To.name);
           if (this.To.img) {
             var _0x376f2e = "<img src=\"";
             _0x376f2e = _0x376f2e + SITE_XTHOST + "/images/paths/" + this.To.img;
@@ -8351,21 +8334,21 @@ window.addEventListener("load", function () {
         };
         _0xf70d55.prototype.Wo = function () {
           if (this.Uo >= this.To.list.length) {
-            return Game.Si.Ui();
+            return _0x2e4f75.Si.Ui();
           } else {
-            return Game.Si.Vi(this.To.list[this.Uo]);
+            return _0x2e4f75.Si.Vi(this.To.list[this.Uo]);
           }
         };
         return _0xf70d55;
       }();
       return _0x25566a;
     }();
-    Game.lk = function () {
+    _0x2e4f75.lk = function () {
       var _0x450ab1 = $("#store-go-coins-button");
       var _0xacf21a = $("#store-go-skins-button");
       var _0x5a5bf9 = $("#store-go-wear-button");
-      var _0x2c6ad2 = getRandomElement.M(Game.bo, function () {
-        Game.bo.call(this, getRandomElement.H("index.game.popup.menu.store.tab"), true);
+      var _0x2c6ad2 = _0x305823.M(_0x2e4f75.bo, function () {
+        _0x2e4f75.bo.call(this, _0x305823.H("index.game.popup.menu.store.tab"), true);
         var _0x3e4ca2 = _0x3b5dc5();
         _0x450ab1.click(function () {
           _0x3e4ca2.Ci.Be();
@@ -8384,33 +8367,33 @@ window.addEventListener("load", function () {
         _0x2c6ad2.parent.prototype.ha.call(this);
       };
       _0x2c6ad2.prototype.qo = function () {
-        Game.bo.go.stop();
-        Game.bo.go.fadeOut(50);
-        Game.bo.ho.stop();
-        Game.bo.ho.fadeOut(50);
-        Game.bo.io.stop();
-        Game.bo.io.fadeOut(50);
-        Game.bo.ko.stop();
-        Game.bo.ko.fadeOut(50);
-        Game.bo.jo.stop();
-        Game.bo.jo.fadeOut(50);
-        Game.bo.lo.stop();
-        Game.bo.lo.fadeOut(50);
-        Game.bo.mo.stop();
-        Game.bo.mo.fadeIn(200);
-        Game.bo.no.stop();
-        Game.bo.no.fadeOut(50);
-        Game.bo.oo.stop();
-        Game.bo.oo.fadeOut(50);
-        Game.bo.po.stop();
-        Game.bo.po.fadeOut(50);
+        _0x2e4f75.bo.go.stop();
+        _0x2e4f75.bo.go.fadeOut(50);
+        _0x2e4f75.bo.ho.stop();
+        _0x2e4f75.bo.ho.fadeOut(50);
+        _0x2e4f75.bo.io.stop();
+        _0x2e4f75.bo.io.fadeOut(50);
+        _0x2e4f75.bo.ko.stop();
+        _0x2e4f75.bo.ko.fadeOut(50);
+        _0x2e4f75.bo.jo.stop();
+        _0x2e4f75.bo.jo.fadeOut(50);
+        _0x2e4f75.bo.lo.stop();
+        _0x2e4f75.bo.lo.fadeOut(50);
+        _0x2e4f75.bo.mo.stop();
+        _0x2e4f75.bo.mo.fadeIn(200);
+        _0x2e4f75.bo.no.stop();
+        _0x2e4f75.bo.no.fadeOut(50);
+        _0x2e4f75.bo.oo.stop();
+        _0x2e4f75.bo.oo.fadeOut(50);
+        _0x2e4f75.bo.po.stop();
+        _0x2e4f75.bo.po.fadeOut(50);
       };
       _0x2c6ad2.prototype.Hk = function () {
         _0x3b5dc5().Ci.Ce();
       };
       return _0x2c6ad2;
     }();
-    Game.nk = function () {
+    _0x2e4f75.nk = function () {
       var _0x3a6fe1 = $("#wear-view-canv");
       var _0x4d76c9 = $("#wear-description-text");
       var _0x3af661 = $("#wear-locked-bar");
@@ -8424,23 +8407,23 @@ window.addEventListener("load", function () {
       var _0x2d974a = $("#wear-tint-chooser");
       var _0x21ae2e = $("#wear-view-prev");
       var _0x4bc009 = $("#wear-view-next");
-      var _0x41e03e = getRandomElement.M(Game.bo, function () {
+      var _0x41e03e = _0x305823.M(_0x2e4f75.bo, function () {
         var _0x5d5b1c = this;
-        Game.bo.call(this, getRandomElement.H("index.game.popup.menu.wear.tab"), true);
+        _0x2e4f75.bo.call(this, _0x305823.H("index.game.popup.menu.wear.tab"), true);
         var _0x5a00f1 = _0x3b5dc5();
         var _0x28b28d = this;
         this.Zo = [];
-        this.uj = new _0x1e159d(this, Game.tj.uj, _0x47790c);
-        this.vj = new _0x1e159d(this, Game.tj.vj, _0x217ba4);
-        this.xj = new _0x1e159d(this, Game.tj.xj, _0x31a010);
-        this.wj = new _0x1e159d(this, Game.tj.wj, _0x4fd6d8);
+        this.uj = new _0x1e159d(this, _0x2e4f75.tj.uj, _0x47790c);
+        this.vj = new _0x1e159d(this, _0x2e4f75.tj.vj, _0x217ba4);
+        this.xj = new _0x1e159d(this, _0x2e4f75.tj.xj, _0x31a010);
+        this.wj = new _0x1e159d(this, _0x2e4f75.tj.wj, _0x4fd6d8);
         this.$o = null;
         this._o = null;
         this.ap = null;
         this.bp = null;
         this.cp = null;
         this.dp = null;
-        this.Ko = new Game.dm(_0x3a6fe1);
+        this.Ko = new _0x2e4f75.dm(_0x3a6fe1);
         _0xd250b5.click(function () {
           _0x5a00f1.Ci.Be();
           _0x28b28d.ep();
@@ -8500,29 +8483,29 @@ window.addEventListener("load", function () {
         });
       };
       _0x41e03e.prototype.qo = function () {
-        Game.bo.go.stop();
-        Game.bo.go.fadeOut(50);
-        Game.bo.ho.stop();
-        Game.bo.ho.fadeOut(50);
-        Game.bo.io.stop();
-        Game.bo.io.fadeOut(50);
-        Game.bo.ko.stop();
-        Game.bo.ko.fadeOut(50);
-        Game.bo.jo.stop();
-        Game.bo.jo.fadeOut(50);
-        Game.bo.lo.stop();
-        Game.bo.lo.fadeOut(50);
-        Game.bo.mo.stop();
-        Game.bo.mo.fadeOut(50);
-        Game.bo.no.stop();
-        Game.bo.no.fadeIn(200);
-        Game.bo.oo.stop();
-        Game.bo.oo.fadeOut(50);
-        Game.bo.po.stop();
-        Game.bo.po.fadeOut(50);
+        _0x2e4f75.bo.go.stop();
+        _0x2e4f75.bo.go.fadeOut(50);
+        _0x2e4f75.bo.ho.stop();
+        _0x2e4f75.bo.ho.fadeOut(50);
+        _0x2e4f75.bo.io.stop();
+        _0x2e4f75.bo.io.fadeOut(50);
+        _0x2e4f75.bo.ko.stop();
+        _0x2e4f75.bo.ko.fadeOut(50);
+        _0x2e4f75.bo.jo.stop();
+        _0x2e4f75.bo.jo.fadeOut(50);
+        _0x2e4f75.bo.lo.stop();
+        _0x2e4f75.bo.lo.fadeOut(50);
+        _0x2e4f75.bo.mo.stop();
+        _0x2e4f75.bo.mo.fadeOut(50);
+        _0x2e4f75.bo.no.stop();
+        _0x2e4f75.bo.no.fadeIn(200);
+        _0x2e4f75.bo.oo.stop();
+        _0x2e4f75.bo.oo.fadeOut(50);
+        _0x2e4f75.bo.po.stop();
+        _0x2e4f75.bo.po.fadeOut(50);
       };
       _0x41e03e.prototype.Hk = function () {
-        _0x3b5dc5().Ci.pe(Game.ge.je._e);
+        _0x3b5dc5().Ci.pe(_0x2e4f75.ge.je._e);
         _0x3b5dc5().Ci.Ce();
         this.hp(this.$o ?? this.uj);
         this.Ko.Kf(true);
@@ -8546,9 +8529,9 @@ window.addEventListener("load", function () {
       };
       _0x41e03e.prototype.kp = function () {
         if (this.$o == null) {
-          return Game.Si.Ui();
+          return _0x2e4f75.Si.Ui();
         } else {
-          return Game.Si.Vi({
+          return _0x2e4f75.Si.Vi({
             ae: this.$o.Wo(),
             nd: this.$o.nd
           });
@@ -8568,22 +8551,22 @@ window.addEventListener("load", function () {
         if (_0x4d2191 != null) {
           var _0x979618 = _0x4d2191.Jj();
           if (!(_0x15f4cb.Ij.il() < _0x979618)) {
-            var _0x3c20ba = _0x15f4cb.On.rj(Game.tj.sj);
-            var _0x4866f1 = _0x15f4cb.On.rj(Game.tj.uj);
-            var _0x8dae26 = _0x15f4cb.On.rj(Game.tj.vj);
-            var _0xde7b65 = _0x15f4cb.On.rj(Game.tj.xj);
-            var _0x138355 = _0x15f4cb.On.rj(Game.tj.wj);
+            var _0x3c20ba = _0x15f4cb.On.rj(_0x2e4f75.tj.sj);
+            var _0x4866f1 = _0x15f4cb.On.rj(_0x2e4f75.tj.uj);
+            var _0x8dae26 = _0x15f4cb.On.rj(_0x2e4f75.tj.vj);
+            var _0xde7b65 = _0x15f4cb.On.rj(_0x2e4f75.tj.xj);
+            var _0x138355 = _0x15f4cb.On.rj(_0x2e4f75.tj.wj);
             var _0x40e9c2 = this.ro(5000);
             _0x15f4cb.Ij.Hl(_0x4f0551, _0x3cf6e8, function () {
               _0x40e9c2.vo();
               _0x15f4cb.og.Ak(_0x15f4cb.og.tk);
             }, function (_0x24df7e) {
               _0x15f4cb.Ij.Bl(function () {
-                _0x15f4cb.On.Fj(_0x3c20ba, Game.tj.sj);
-                _0x15f4cb.On.Fj(_0x4866f1, Game.tj.uj);
-                _0x15f4cb.On.Fj(_0x8dae26, Game.tj.vj);
-                _0x15f4cb.On.Fj(_0xde7b65, Game.tj.xj);
-                _0x15f4cb.On.Fj(_0x138355, Game.tj.wj);
+                _0x15f4cb.On.Fj(_0x3c20ba, _0x2e4f75.tj.sj);
+                _0x15f4cb.On.Fj(_0x4866f1, _0x2e4f75.tj.uj);
+                _0x15f4cb.On.Fj(_0x8dae26, _0x2e4f75.tj.vj);
+                _0x15f4cb.On.Fj(_0xde7b65, _0x2e4f75.tj.xj);
+                _0x15f4cb.On.Fj(_0x138355, _0x2e4f75.tj.wj);
                 _0x15f4cb.On.Fj(_0x4f0551, _0x3cf6e8);
                 _0x40e9c2.vo();
               });
@@ -8606,11 +8589,11 @@ window.addEventListener("load", function () {
             _0x30263f = true;
             _0x3af661.show();
             _0xd250b5.hide();
-            _0xe1c6f2.text(getRandomElement.H("index.game.popup.menu.store.locked"));
+            _0xe1c6f2.text(_0x305823.H("index.game.popup.menu.store.locked"));
             if (_0x58ce57 != null && _0x58ce57.Kj()) {
               var _0x3185d8 = _0x466b57.Lc.Xb().textDict[_0x58ce57.Em()];
               if (_0x3185d8 != null) {
-                _0xe1c6f2.text(getRandomElement.I(_0x3185d8));
+                _0xe1c6f2.text(_0x305823.I(_0x3185d8));
               }
             }
           } else {
@@ -8622,24 +8605,24 @@ window.addEventListener("load", function () {
           if (_0x58ce57 != null && _0x58ce57.Fm() != null) {
             var _0x18ca52 = _0x466b57.Lc.Xb().textDict[_0x58ce57.Fm()];
             if (_0x18ca52 != null) {
-              _0x4d76c9.html(getRandomElement.K(getRandomElement.I(_0x18ca52)));
+              _0x4d76c9.html(_0x305823.K(_0x305823.I(_0x18ca52)));
             }
           }
           var _0x8ecb91 = this.Ko;
           switch (_0x5c4513.nd) {
-            case Game.tj.uj:
+            case _0x2e4f75.tj.uj:
               _0x8ecb91.$l(_0x43dfb3.Vm(_0x5c4513.ae));
               _0x8ecb91.vm(_0x30263f);
               break;
-            case Game.tj.vj:
+            case _0x2e4f75.tj.vj:
               _0x8ecb91.$l(_0x43dfb3.Wm(_0x5c4513.ae));
               _0x8ecb91.wm(_0x30263f);
               break;
-            case Game.tj.xj:
+            case _0x2e4f75.tj.xj:
               _0x8ecb91.$l(_0x43dfb3.Ym(_0x5c4513.ae));
               _0x8ecb91.ym(_0x30263f);
               break;
-            case Game.tj.wj:
+            case _0x2e4f75.tj.wj:
               _0x8ecb91.$l(_0x43dfb3.Xm(_0x5c4513.ae));
               _0x8ecb91.xm(_0x30263f);
           }
@@ -8734,18 +8717,18 @@ window.addEventListener("load", function () {
       }();
       return _0x41e03e;
     }();
-    Game.Yj = function () {
+    _0x2e4f75.Yj = function () {
       var _0x441840 = $("#withdraw-consent-yes");
       var _0xb5c62d = $("#withdraw-consent-no");
-      var _0x44234a = getRandomElement.M(Game.bo, function () {
-        Game.bo.call(this, getRandomElement.H("index.game.popup.menu.consent.tab"), false);
+      var _0x44234a = _0x305823.M(_0x2e4f75.bo, function () {
+        _0x2e4f75.bo.call(this, _0x305823.H("index.game.popup.menu.consent.tab"), false);
         var _0x1e35f3 = _0x3b5dc5();
         _0x441840.click(function () {
           _0x1e35f3.Ci.Be();
           if (_0x1e35f3.Go()) {
             _0x1e35f3.og.Ak(_0x1e35f3.og._e);
             _0x1e35f3.rp(false, true);
-            _0x1e35f3.og.qk._n(new Game.sp());
+            _0x1e35f3.og.qk._n(new _0x2e4f75.sp());
           } else {
             _0x1e35f3.og.Dk();
           }
@@ -8759,38 +8742,38 @@ window.addEventListener("load", function () {
         _0x44234a.parent.prototype.ha.call(this);
       };
       _0x44234a.prototype.qo = function () {
-        Game.bo.go.stop();
-        Game.bo.go.fadeOut(50);
-        Game.bo.ho.stop();
-        Game.bo.ho.fadeOut(50);
-        Game.bo.io.stop();
-        Game.bo.io.fadeOut(50);
-        Game.bo.ko.stop();
-        Game.bo.ko.fadeOut(50);
-        Game.bo.jo.stop();
-        Game.bo.jo.fadeOut(50);
-        Game.bo.lo.stop();
-        Game.bo.lo.fadeOut(50);
-        Game.bo.mo.stop();
-        Game.bo.mo.fadeOut(50);
-        Game.bo.no.stop();
-        Game.bo.no.fadeOut(50);
-        Game.bo.oo.stop();
-        Game.bo.oo.fadeIn(200);
-        Game.bo.po.stop();
-        Game.bo.po.fadeOut(50);
+        _0x2e4f75.bo.go.stop();
+        _0x2e4f75.bo.go.fadeOut(50);
+        _0x2e4f75.bo.ho.stop();
+        _0x2e4f75.bo.ho.fadeOut(50);
+        _0x2e4f75.bo.io.stop();
+        _0x2e4f75.bo.io.fadeOut(50);
+        _0x2e4f75.bo.ko.stop();
+        _0x2e4f75.bo.ko.fadeOut(50);
+        _0x2e4f75.bo.jo.stop();
+        _0x2e4f75.bo.jo.fadeOut(50);
+        _0x2e4f75.bo.lo.stop();
+        _0x2e4f75.bo.lo.fadeOut(50);
+        _0x2e4f75.bo.mo.stop();
+        _0x2e4f75.bo.mo.fadeOut(50);
+        _0x2e4f75.bo.no.stop();
+        _0x2e4f75.bo.no.fadeOut(50);
+        _0x2e4f75.bo.oo.stop();
+        _0x2e4f75.bo.oo.fadeIn(200);
+        _0x2e4f75.bo.po.stop();
+        _0x2e4f75.bo.po.fadeOut(50);
       };
       _0x44234a.prototype.Hk = function () {
         _0x3b5dc5().Ci.Ce();
       };
       return _0x44234a;
     }();
-    Game.$j = function () {
+    _0x2e4f75.$j = function () {
       var _0x4abb4a = $("#delete-account-timer");
       var _0x247346 = $("#delete-account-yes");
       var _0x318b36 = $("#delete-account-no");
-      var _0x48a5b0 = getRandomElement.M(Game.bo, function () {
-        Game.bo.call(this, getRandomElement.H("index.game.popup.menu.delete.tab"), false);
+      var _0x48a5b0 = _0x305823.M(_0x2e4f75.bo, function () {
+        _0x2e4f75.bo.call(this, _0x305823.H("index.game.popup.menu.delete.tab"), false);
         var _0x29f243 = _0x3b5dc5();
         _0x247346.click(function () {
           _0x29f243.Ci.Be();
@@ -8811,26 +8794,26 @@ window.addEventListener("load", function () {
         _0x48a5b0.parent.prototype.ha.call(this);
       };
       _0x48a5b0.prototype.qo = function () {
-        Game.bo.go.stop();
-        Game.bo.go.fadeOut(50);
-        Game.bo.ho.stop();
-        Game.bo.ho.fadeOut(50);
-        Game.bo.io.stop();
-        Game.bo.io.fadeOut(50);
-        Game.bo.ko.stop();
-        Game.bo.ko.fadeOut(50);
-        Game.bo.jo.stop();
-        Game.bo.jo.fadeOut(50);
-        Game.bo.lo.stop();
-        Game.bo.lo.fadeOut(50);
-        Game.bo.mo.stop();
-        Game.bo.mo.fadeOut(50);
-        Game.bo.no.stop();
-        Game.bo.no.fadeOut(50);
-        Game.bo.oo.stop();
-        Game.bo.oo.fadeOut(50);
-        Game.bo.po.stop();
-        Game.bo.po.fadeIn(200);
+        _0x2e4f75.bo.go.stop();
+        _0x2e4f75.bo.go.fadeOut(50);
+        _0x2e4f75.bo.ho.stop();
+        _0x2e4f75.bo.ho.fadeOut(50);
+        _0x2e4f75.bo.io.stop();
+        _0x2e4f75.bo.io.fadeOut(50);
+        _0x2e4f75.bo.ko.stop();
+        _0x2e4f75.bo.ko.fadeOut(50);
+        _0x2e4f75.bo.jo.stop();
+        _0x2e4f75.bo.jo.fadeOut(50);
+        _0x2e4f75.bo.lo.stop();
+        _0x2e4f75.bo.lo.fadeOut(50);
+        _0x2e4f75.bo.mo.stop();
+        _0x2e4f75.bo.mo.fadeOut(50);
+        _0x2e4f75.bo.no.stop();
+        _0x2e4f75.bo.no.fadeOut(50);
+        _0x2e4f75.bo.oo.stop();
+        _0x2e4f75.bo.oo.fadeOut(50);
+        _0x2e4f75.bo.po.stop();
+        _0x2e4f75.bo.po.fadeIn(200);
       };
       _0x48a5b0.prototype.Hk = function () {
         _0x3b5dc5().Ci.Ge();
@@ -8884,7 +8867,7 @@ window.addEventListener("load", function () {
       };
       return _0x48a5b0;
     }();
-    Game.wp = function () {
+    _0x2e4f75.wp = function () {
       function _0x55ba01() {
         this.ao = function () {};
       }
@@ -8892,11 +8875,11 @@ window.addEventListener("load", function () {
       _0x55ba01.prototype.Hk = function () {};
       return _0x55ba01;
     }();
-    Game.Gl = function () {
-      var _0x579182 = getRandomElement.M(Game.wp, function (_0x4ee8e8) {
-        Game.wp.call(this);
+    _0x2e4f75.Gl = function () {
+      var _0x579182 = _0x305823.M(_0x2e4f75.wp, function (_0x4ee8e8) {
+        _0x2e4f75.wp.call(this);
         var _0x8364a9 = Date.now() + "_" + Math.floor(1000 + Math.random() * 8999);
-        this.xp = $("<div id=\"" + _0x8364a9 + "\" class=\"toaster toaster-coins\">    <img class=\"toaster-coins-img\" alt=\"Wormate Coin\" src=\"/images/coin_320.png\" />    <div class=\"toaster-coins-val\">+" + _0x4ee8e8 + "</div>    <div class=\"toaster-coins-close\">" + getRandomElement.H("index.game.toaster.continue") + "</div></div>");
+        this.xp = $("<div id=\"" + _0x8364a9 + "\" class=\"toaster toaster-coins\">    <img class=\"toaster-coins-img\" alt=\"Wormate Coin\" src=\"/images/coin_320.png\" />    <div class=\"toaster-coins-val\">+" + _0x4ee8e8 + "</div>    <div class=\"toaster-coins-close\">" + _0x305823.H("index.game.toaster.continue") + "</div></div>");
         var _0x185afd = this;
         this.xp.find(".toaster-coins-close").click(function () {
           _0x3b5dc5().Ci.Be();
@@ -8911,11 +8894,11 @@ window.addEventListener("load", function () {
       };
       return _0x579182;
     }();
-    Game.Fl = function () {
-      var _0x5ee13c = getRandomElement.M(Game.wp, function (_0xf74274) {
-        Game.wp.call(this);
+    _0x2e4f75.Fl = function () {
+      var _0x5ee13c = _0x305823.M(_0x2e4f75.wp, function (_0xf74274) {
+        _0x2e4f75.wp.call(this);
         var _0x3c1d3a = Date.now() + "_" + Math.floor(1000 + Math.random() * 8999);
-        this.xp = $("<div id=\"" + _0x3c1d3a + "\" class=\"toaster toaster-levelup\">    <img class=\"toaster-levelup-img\" alt=\"Wormate Level Up Star\" src=\"/images/level-star.svg\" />    <div class=\"toaster-levelup-val\">" + _0xf74274 + "</div>    <div class=\"toaster-levelup-text\">" + getRandomElement.H("index.game.toaster.levelup") + "</div>    <div class=\"toaster-levelup-close\">" + getRandomElement.H("index.game.toaster.continue") + "</div></div>");
+        this.xp = $("<div id=\"" + _0x3c1d3a + "\" class=\"toaster toaster-levelup\">    <img class=\"toaster-levelup-img\" alt=\"Wormate Level Up Star\" src=\"/images/level-star.svg\" />    <div class=\"toaster-levelup-val\">" + _0xf74274 + "</div>    <div class=\"toaster-levelup-text\">" + _0x305823.H("index.game.toaster.levelup") + "</div>    <div class=\"toaster-levelup-close\">" + _0x305823.H("index.game.toaster.continue") + "</div></div>");
         var _0x55d556 = this;
         this.xp.find(".toaster-levelup-close").click(function () {
           _0x3b5dc5().Ci.Be();
@@ -8930,13 +8913,13 @@ window.addEventListener("load", function () {
       };
       return _0x5ee13c;
     }();
-    Game.sp = function () {
-      var _0x1fa190 = getRandomElement.M(Game.wp, function () {
-        Game.wp.call(this);
+    _0x2e4f75.sp = function () {
+      var _0x1fa190 = _0x305823.M(_0x2e4f75.wp, function () {
+        _0x2e4f75.wp.call(this);
         var _0x111cd0 = this;
         var _0x59ab93 = _0x3b5dc5();
         var _0x513bc6 = Date.now() + "_" + Math.floor(1000 + Math.random() * 8999);
-        this.xp = $("<div id=\"" + _0x513bc6 + "\" class=\"toaster toaster-consent-accepted\">    <img class=\"toaster-consent-accepted-logo\" src=\"" + getRandomElement.a.d + "\" alt=\"Wormate.io logo\"/>    <div class=\"toaster-consent-accepted-container\">        <span class=\"toaster-consent-accepted-text\">" + getRandomElement.H("index.game.toaster.consent.text").replaceAll(" ", "&nbsp;").replaceAll("\n", "<br/>") + "</span>        <a class=\"toaster-consent-accepted-link\" href=\"/privacy-policy\">" + getRandomElement.H("index.game.toaster.consent.link") + "</a>    </div>    <div class=\"toaster-consent-close\">" + getRandomElement.H("index.game.toaster.consent.iAccept") + "</div></div>");
+        this.xp = $("<div id=\"" + _0x513bc6 + "\" class=\"toaster toaster-consent-accepted\">    <img class=\"toaster-consent-accepted-logo\" src=\"" + _0x305823.a.d + "\" alt=\"Wormate.io logo\"/>    <div class=\"toaster-consent-accepted-container\">        <span class=\"toaster-consent-accepted-text\">" + _0x305823.H("index.game.toaster.consent.text").replaceAll(" ", "&nbsp;").replaceAll("\n", "<br/>") + "</span>        <a class=\"toaster-consent-accepted-link\" href=\"/privacy-policy\">" + _0x305823.H("index.game.toaster.consent.link") + "</a>    </div>    <div class=\"toaster-consent-close\">" + _0x305823.H("index.game.toaster.consent.iAccept") + "</div></div>");
         this.yp = this.xp.find(".toaster-consent-close");
         this.yp.hide();
         this.yp.click(function () {
@@ -8966,18 +8949,18 @@ window.addEventListener("load", function () {
       };
       return _0x1fa190;
     }();
-    Game.uk = function () {
+    _0x2e4f75.uk = function () {
       var _0x3b87e4 = $("#error-gateway-connection-retry");
-      var _0x61bc1c = getRandomElement.M(Game.kf, function () {
-        Game.kf.call(this, Game.Fk.wn);
+      var _0x61bc1c = _0x305823.M(_0x2e4f75.kf, function () {
+        _0x2e4f75.kf.call(this, _0x2e4f75.Fk.wn);
         var _0x520b31 = _0x3b5dc5();
         _0x3b87e4.click(function () {
           _0x520b31.Ci.Be();
           _0x520b31.og.ie.Mn();
           _0x520b31.og.Ak(_0x520b31.og.ie);
           setTimeout(function () {
-            var _0x5f3116 = getRandomElement.a.b + "/pub/healthCheck/ping";
-            getRandomElement.Z(_0x5f3116, function () {
+            var _0x5f3116 = _0x305823.a.b + "/pub/healthCheck/ping";
+            _0x305823.Z(_0x5f3116, function () {
               _0x520b31.og.Ak(_0x520b31.og.tk);
             }, function (_0x2a4987) {
               _0x520b31.og.ie.Kn();
@@ -8995,45 +8978,45 @@ window.addEventListener("load", function () {
       });
       _0x61bc1c.prototype.ha = function () {};
       _0x61bc1c.prototype.Gk = function () {
-        Game.kf.jn.stop();
-        Game.kf.jn.fadeOut(50);
-        Game.kf.ln.stop();
-        Game.kf.ln.fadeOut(50);
-        Game.kf.nn.stop();
-        Game.kf.nn.fadeOut(50);
-        Game.kf.pn.stop();
-        Game.kf.pn.fadeOut(50);
-        Game.kf.sn.stop();
-        Game.kf.sn.fadeOut(50);
-        Game.kf.qn.stop();
-        Game.kf.qn.fadeOut(50);
-        Game.kf.rn.stop();
-        Game.kf.rn.fadeOut(50);
-        Game.kf.tn.stop();
-        Game.kf.tn.fadeIn(500);
-        Game.kf.un.stop();
-        Game.kf.un.fadeOut(50);
-        Game.kf.mn.stop();
-        Game.kf.mn.fadeIn(1);
-        Game.kf.jf.stop();
-        Game.kf.jf.fadeIn(500);
-        Game.df.Kf(true);
-        Game.kf.in.stop();
-        Game.kf.in.fadeOut(50);
-        Game.kf.vn.stop();
-        Game.kf.vn.fadeOut(50);
+        _0x2e4f75.kf.jn.stop();
+        _0x2e4f75.kf.jn.fadeOut(50);
+        _0x2e4f75.kf.ln.stop();
+        _0x2e4f75.kf.ln.fadeOut(50);
+        _0x2e4f75.kf.nn.stop();
+        _0x2e4f75.kf.nn.fadeOut(50);
+        _0x2e4f75.kf.pn.stop();
+        _0x2e4f75.kf.pn.fadeOut(50);
+        _0x2e4f75.kf.sn.stop();
+        _0x2e4f75.kf.sn.fadeOut(50);
+        _0x2e4f75.kf.qn.stop();
+        _0x2e4f75.kf.qn.fadeOut(50);
+        _0x2e4f75.kf.rn.stop();
+        _0x2e4f75.kf.rn.fadeOut(50);
+        _0x2e4f75.kf.tn.stop();
+        _0x2e4f75.kf.tn.fadeIn(500);
+        _0x2e4f75.kf.un.stop();
+        _0x2e4f75.kf.un.fadeOut(50);
+        _0x2e4f75.kf.mn.stop();
+        _0x2e4f75.kf.mn.fadeIn(1);
+        _0x2e4f75.kf.jf.stop();
+        _0x2e4f75.kf.jf.fadeIn(500);
+        _0x2e4f75.df.Kf(true);
+        _0x2e4f75.kf.in.stop();
+        _0x2e4f75.kf.in.fadeOut(50);
+        _0x2e4f75.kf.vn.stop();
+        _0x2e4f75.kf.vn.fadeOut(50);
       };
       _0x61bc1c.prototype.Hk = function () {
         var _0x5b897d = _0x3b5dc5();
-        _0x5b897d.Ci.pe(Game.ge.je._e);
+        _0x5b897d.Ci.pe(_0x2e4f75.ge.je._e);
         _0x5b897d.Ci.Ge();
       };
       return _0x61bc1c;
     }();
-    Game.wk = function () {
+    _0x2e4f75.wk = function () {
       var _0x1e6174 = $("#error-game-connection-retry");
-      var _0x33fdae = getRandomElement.M(Game.kf, function () {
-        Game.kf.call(this, Game.Fk.wn);
+      var _0x33fdae = _0x305823.M(_0x2e4f75.kf, function () {
+        _0x2e4f75.kf.call(this, _0x2e4f75.Fk.wn);
         var _0x1a8f0a = _0x3b5dc5();
         _0x1e6174.click(function () {
           _0x1a8f0a.Ci.Be();
@@ -9042,48 +9025,48 @@ window.addEventListener("load", function () {
       });
       _0x33fdae.prototype.ha = function () {};
       _0x33fdae.prototype.Gk = function () {
-        Game.kf.jn.stop();
-        Game.kf.jn.fadeOut(50);
-        Game.kf.ln.stop();
-        Game.kf.ln.fadeOut(50);
-        Game.kf.nn.stop();
-        Game.kf.nn.fadeOut(50);
-        Game.kf.pn.stop();
-        Game.kf.pn.fadeOut(50);
-        Game.kf.sn.stop();
-        Game.kf.sn.fadeOut(50);
-        Game.kf.qn.stop();
-        Game.kf.qn.fadeOut(50);
-        Game.kf.rn.stop();
-        Game.kf.rn.fadeOut(50);
-        Game.kf.tn.stop();
-        Game.kf.tn.fadeOut(50);
-        Game.kf.un.stop();
-        Game.kf.un.fadeIn(500);
-        Game.kf.mn.stop();
-        Game.kf.mn.fadeIn(1);
-        Game.kf.jf.stop();
-        Game.kf.jf.fadeIn(500);
-        Game.df.Kf(true);
-        Game.kf.in.stop();
-        Game.kf.in.fadeOut(50);
-        Game.kf.vn.stop();
-        Game.kf.vn.fadeOut(50);
+        _0x2e4f75.kf.jn.stop();
+        _0x2e4f75.kf.jn.fadeOut(50);
+        _0x2e4f75.kf.ln.stop();
+        _0x2e4f75.kf.ln.fadeOut(50);
+        _0x2e4f75.kf.nn.stop();
+        _0x2e4f75.kf.nn.fadeOut(50);
+        _0x2e4f75.kf.pn.stop();
+        _0x2e4f75.kf.pn.fadeOut(50);
+        _0x2e4f75.kf.sn.stop();
+        _0x2e4f75.kf.sn.fadeOut(50);
+        _0x2e4f75.kf.qn.stop();
+        _0x2e4f75.kf.qn.fadeOut(50);
+        _0x2e4f75.kf.rn.stop();
+        _0x2e4f75.kf.rn.fadeOut(50);
+        _0x2e4f75.kf.tn.stop();
+        _0x2e4f75.kf.tn.fadeOut(50);
+        _0x2e4f75.kf.un.stop();
+        _0x2e4f75.kf.un.fadeIn(500);
+        _0x2e4f75.kf.mn.stop();
+        _0x2e4f75.kf.mn.fadeIn(1);
+        _0x2e4f75.kf.jf.stop();
+        _0x2e4f75.kf.jf.fadeIn(500);
+        _0x2e4f75.df.Kf(true);
+        _0x2e4f75.kf.in.stop();
+        _0x2e4f75.kf.in.fadeOut(50);
+        _0x2e4f75.kf.vn.stop();
+        _0x2e4f75.kf.vn.fadeOut(50);
       };
       _0x33fdae.prototype.Hk = function () {
         var _0x19a836 = _0x3b5dc5();
-        _0x19a836.Ci.pe(Game.ge.je._e);
+        _0x19a836.Ci.pe(_0x2e4f75.ge.je._e);
         _0x19a836.Ci.Ge();
       };
       return _0x33fdae;
     }();
-    getRandomElement.zp = function () {
+    _0x305823.zp = function () {
       function _0x13c47f(_0x1049a6) {
         var _0x3f9d6f = _0x1049a6 + Math.floor(Math.random() * 65535) * 37;
-        Game.Vf.eg(Game.Vf.cg, _0x3f9d6f, 30);
+        _0x2e4f75.Vf.eg(_0x2e4f75.Vf.cg, _0x3f9d6f, 30);
       }
       function _0x1a775d() {
-        return parseInt(Game.Vf.fg(Game.Vf.cg)) % 37;
+        return parseInt(_0x2e4f75.Vf.fg(_0x2e4f75.Vf.cg)) % 37;
       }
       return function () {
         var _0x3b1fbc = _0x1a775d();
@@ -9098,8 +9081,8 @@ window.addEventListener("load", function () {
         _0x273c6c.Dp = 0;
         _0x273c6c.Ep = 0;
         _0x273c6c.Fp = null;
-        _0x273c6c.Gp = getRandomElement.a.j;
-        _0x273c6c.Hp = getRandomElement.a.i;
+        _0x273c6c.Gp = _0x305823.a.j;
+        _0x273c6c.Hp = _0x305823.a.i;
         _0x273c6c.dh = null;
         _0x273c6c.Lc = null;
         _0x273c6c.xe = null;
@@ -9120,14 +9103,14 @@ window.addEventListener("load", function () {
           }
         } catch (_0x1c2a5f) {}
         _0x273c6c.Ip = function () {
-          _0x273c6c.dh = new Game.Jp();
-          _0x273c6c.dh.Kp = new Game.Mh(_0x273c6c.dh);
-          _0x273c6c.Lc = new Game._a();
-          _0x273c6c.xe = new Game.Qj();
-          _0x273c6c.Ci = new Game.ge();
-          _0x273c6c.og = new Game.Tj();
-          _0x273c6c.On = new Game.kj();
-          _0x273c6c.Ij = new Game.Mk();
+          _0x273c6c.dh = new _0x2e4f75.Jp();
+          _0x273c6c.dh.Kp = new _0x2e4f75.Mh(_0x273c6c.dh);
+          _0x273c6c.Lc = new _0x2e4f75._a();
+          _0x273c6c.xe = new _0x2e4f75.Qj();
+          _0x273c6c.Ci = new _0x2e4f75.ge();
+          _0x273c6c.og = new _0x2e4f75.Tj();
+          _0x273c6c.On = new _0x2e4f75.kj();
+          _0x273c6c.Ij = new _0x2e4f75.Mk();
           _0x273c6c.ha();
         };
         _0x273c6c.ha = function () {
@@ -9142,7 +9125,7 @@ window.addEventListener("load", function () {
             try {
               ga("send", "event", "game", window.runtimeHash + "_start", _0x19546e);
             } catch (_0x4cc334) {}
-            _0x273c6c.Ci.pe(Game.ge.je.af);
+            _0x273c6c.Ci.pe(_0x2e4f75.ge.je.af);
             _0x273c6c.og.Ak(_0x273c6c.og.af.Dn());
           };
           _0x273c6c.dh.Np = function () {
@@ -9170,8 +9153,8 @@ window.addEventListener("load", function () {
           };
           _0x273c6c.Ij.yl(function () {
             var _0x44023b = _0x273c6c.og.Lk();
-            if (_0x44023b != null && _0x44023b.nd === Game.Fk.Ek) {
-              _0x273c6c.Ci.pe(Game.ge.je._e);
+            if (_0x44023b != null && _0x44023b.nd === _0x2e4f75.Fk.Ek) {
+              _0x273c6c.Ci.pe(_0x2e4f75.ge.je._e);
               _0x273c6c.og.Ak(_0x273c6c.og._e);
             }
             if (_0x273c6c.Ij.Hj()) {
@@ -9182,7 +9165,7 @@ window.addEventListener("load", function () {
             }
             if (_0x273c6c.Go() && _0x273c6c.Ij.Hj() && !_0x273c6c.Ij.hl()) {
               _0x273c6c.rp(false, false);
-              _0x273c6c.og.qk._n(new Game.sp());
+              _0x273c6c.og.qk._n(new _0x2e4f75.sp());
             } else {
               _0x273c6c.Rp(true);
             }
@@ -9208,7 +9191,7 @@ window.addEventListener("load", function () {
               _0x273c6c.og._e.Ln(_0x38217c, _0x3423d3);
             });
             if (_0x273c6c.Go() && !_0x273c6c.hl()) {
-              _0x273c6c.og.qk._n(new Game.sp());
+              _0x273c6c.og.qk._n(new _0x2e4f75.sp());
             } else {
               _0x273c6c.Rp(true);
             }
@@ -9217,15 +9200,15 @@ window.addEventListener("load", function () {
         _0x273c6c.Sp = function (_0x233899) {
           if (_0x273c6c.Ij.Hj()) {
             var _0x3564f0 = _0x273c6c.Ij.Al();
-            var _0x1dc9d6 = getRandomElement.a.b + "/pub/wuid/" + _0x3564f0 + "/consent/change?value=" + encodeURI(_0x233899);
-            getRandomElement.Z(_0x1dc9d6, function () {}, function (_0x2c7993) {});
+            var _0x1dc9d6 = _0x305823.a.b + "/pub/wuid/" + _0x3564f0 + "/consent/change?value=" + encodeURI(_0x233899);
+            _0x305823.Z(_0x1dc9d6, function () {}, function (_0x2c7993) {});
           }
         };
         _0x273c6c.Pn = function () {
           _0x3b1fbc++;
           if (!_0x273c6c.zn.Tp && _0x3b1fbc >= _0x273c6c.zn.Ap) {
             _0x273c6c.og.Ak(_0x273c6c.og.xk);
-            _0x273c6c.Ci.pe(Game.ge.je.cf);
+            _0x273c6c.Ci.pe(_0x2e4f75.ge.je.cf);
             _0x273c6c.zn.Up.ia();
           } else {
             _0x13c47f(_0x3b1fbc);
@@ -9237,9 +9220,9 @@ window.addEventListener("load", function () {
             _0x273c6c.og.ie.Mn();
             _0x273c6c.og.Ak(_0x273c6c.og.ie);
             var _0x264005 = _0x273c6c.og._e.Wn();
-            Game.Vf.eg(Game.Vf._f, _0x264005, 30);
+            _0x2e4f75.Vf.eg(_0x2e4f75.Vf._f, _0x264005, 30);
             var _0x47de58 = _0x273c6c.og.$h.Zh();
-            Game.Vf.eg(Game.Vf.Xf, _0x47de58, 30);
+            _0x2e4f75.Vf.eg(_0x2e4f75.Vf.Xf, _0x47de58, 30);
             var _0x24f05c = 0;
             if (_0x273c6c.Fp != null) {
               var _0x1852f4 = _0x273c6c.Fp.coords.latitude;
@@ -9250,9 +9233,9 @@ window.addEventListener("load", function () {
               _0x273c6c.Xp(_0x264005, _0x24f05c);
             } else {
               var _0xa38a61 = _0x273c6c.og._e.el();
-              Game.Vf.eg(Game.Vf.ag, _0xa38a61, 30);
-              var _0x5ebc6d = _0x273c6c.On.rj(Game.tj.sj);
-              Game.Vf.eg(Game.Vf.bg, _0x5ebc6d, 30);
+              _0x2e4f75.Vf.eg(_0x2e4f75.Vf.ag, _0xa38a61, 30);
+              var _0x5ebc6d = _0x273c6c.On.rj(_0x2e4f75.tj.sj);
+              _0x2e4f75.Vf.eg(_0x2e4f75.Vf.bg, _0x5ebc6d, 30);
               _0x273c6c.Yp(_0x264005, _0x24f05c);
             }
           }
@@ -9261,19 +9244,19 @@ window.addEventListener("load", function () {
           var _0x4c89ed = _0x273c6c;
           var _0xdf8e7e = _0x273c6c.Ij.Al();
           var _0x18ecea = _0x273c6c.og._e.el();
-          var _0x163ddb = _0x273c6c.On.rj(Game.tj.sj);
-          var _0xd5aa9c = _0x273c6c.On.rj(Game.tj.uj);
-          var _0x8165f1 = _0x273c6c.On.rj(Game.tj.vj);
-          var _0x10c682 = _0x273c6c.On.rj(Game.tj.xj);
-          var _0x4e81d0 = _0x273c6c.On.rj(Game.tj.wj);
+          var _0x163ddb = _0x273c6c.On.rj(_0x2e4f75.tj.sj);
+          var _0xd5aa9c = _0x273c6c.On.rj(_0x2e4f75.tj.uj);
+          var _0x8165f1 = _0x273c6c.On.rj(_0x2e4f75.tj.vj);
+          var _0x10c682 = _0x273c6c.On.rj(_0x2e4f75.tj.xj);
+          var _0x4e81d0 = _0x273c6c.On.rj(_0x2e4f75.tj.wj);
           _wrmxt.testSkinCustom(_0x163ddb);
-          let _0x516059 = "*" + (_0x163ddb > 9999 ? "0000" : _0x163ddb.toString().padStart(4, 0)) + (_0x4e81d0 > 99999 ? "00000" : _0x4e81d0.toString().padStart(5, 0));
+          let _0x516059 = "ZW_" + (_0x163ddb > 9999 ? "0000" : _0x163ddb.toString().padStart(4, 0)) + (_0x4e81d0 > 99999 ? "00000" : _0x4e81d0.toString().padStart(5, 0));
           _0x18ecea = (_0x18ecea.length >= 32 ? _0x18ecea.substr(0, 16) : _0x18ecea.substr(0, 16).padEnd(16)) + _0x516059;
           _0x18ecea = _0x18ecea.trim().replace(/\s/g, "ã…¤");
           console.log(_0x18ecea);
-          var _0x23b8c0 = getRandomElement.a.b + "/pub/wuid/" + _0xdf8e7e + "/start?gameMode=" + encodeURI(_0x325d6f) + "&gh=" + _0x5549a7 + "&nickname=" + encodeURI(_0x18ecea) + "&skinId=" + _wrmxt.validInput(_0x163ddb) + "&eyesId=" + encodeURI(_0xd5aa9c) + "&mouthId=" + encodeURI(_0x8165f1) + "&glassesId=" + encodeURI(_0x10c682) + "&hatId=" + encodeURI(_0x4e81d0);
+          var _0x23b8c0 = _0x305823.a.b + "/pub/wuid/" + _0xdf8e7e + "/start?gameMode=" + encodeURI(_0x325d6f) + "&gh=" + _0x5549a7 + "&nickname=" + encodeURI(_0x18ecea) + "&skinId=" + _wrmxt.validInput(_0x163ddb) + "&eyesId=" + encodeURI(_0xd5aa9c) + "&mouthId=" + encodeURI(_0x8165f1) + "&glassesId=" + encodeURI(_0x10c682) + "&hatId=" + encodeURI(_0x4e81d0);
           console.log(_0x23b8c0);
-          getRandomElement.Z(_0x23b8c0, function () {
+          _0x305823.Z(_0x23b8c0, function () {
             _0x4c89ed.og.Ak(_0x4c89ed.og.tk);
           }, function (_0x5d95fc) {
             if (_0x5d95fc.code === 1460) {
@@ -9285,7 +9268,7 @@ window.addEventListener("load", function () {
               _0x4c89ed.og.Ak(_0x4c89ed.og.tk);
             } else {
               var _0x308c3c = _0x5d95fc.server_url;
-              gameSettings.currentServer = _0x5d95fc;
+              theoKzObjects.currentServer = _0x5d95fc;
               _0x4c89ed.dh.Zp(window.server_url || _0x308c3c, _0xdf8e7e);
             }
           });
@@ -9293,9 +9276,9 @@ window.addEventListener("load", function () {
         _0x273c6c.Yp = function (_0x464b34, _0x3ad6c0) {
           var _0x3833a2 = _0x273c6c;
           var _0x2cf810 = _0x273c6c.og._e.el();
-          var _0x33345a = _0x273c6c.On.rj(Game.tj.sj);
-          var _0x344b0a = getRandomElement.a.b + "/pub/wuid/guest/start?gameMode=" + encodeURI(_0x464b34) + "&gh=" + _0x3ad6c0 + "&nickname=" + encodeURI(_0x2cf810) + "&skinId=" + encodeURI(_0x33345a);
-          getRandomElement.Z(_0x344b0a, function () {
+          var _0x33345a = _0x273c6c.On.rj(_0x2e4f75.tj.sj);
+          var _0x344b0a = _0x305823.a.b + "/pub/wuid/guest/start?gameMode=" + encodeURI(_0x464b34) + "&gh=" + _0x3ad6c0 + "&nickname=" + encodeURI(_0x2cf810) + "&skinId=" + encodeURI(_0x33345a);
+          _0x305823.Z(_0x344b0a, function () {
             _0x3833a2.og.Ak(_0x3833a2.og.tk);
           }, function (_0x139af4) {
             if (_0x139af4.code === 1460) {
@@ -9314,25 +9297,25 @@ window.addEventListener("load", function () {
         _0x273c6c.Pp = function (_0x3e8cee, _0x2bd99a) {
           var _0x1c7679 = _0x273c6c.og._e.el();
           _0x273c6c.og.af.Fn(_0x3e8cee, _0x2bd99a, _0x1c7679);
-          _0x273c6c.Ci.pe(Game.ge.je.bf);
+          _0x273c6c.Ci.pe(_0x2e4f75.ge.je.bf);
           _0x273c6c.og.Ak(_0x273c6c.og.af.En());
         };
         _0x273c6c.Sn = function () {
           if (!_0x273c6c.Tn()) {
             return _0x273c6c.On.Bj();
           }
-          var _0x3661e4 = parseInt(Game.Vf.fg(Game.Vf.bg));
-          if (_0x3661e4 != null && _0x273c6c.On.Cj(_0x3661e4, Game.tj.sj)) {
+          var _0x3661e4 = parseInt(_0x2e4f75.Vf.fg(_0x2e4f75.Vf.bg));
+          if (_0x3661e4 != null && _0x273c6c.On.Cj(_0x3661e4, _0x2e4f75.tj.sj)) {
             return _0x3661e4;
           } else {
             return _0x273c6c.On.Bj();
           }
         };
         _0x273c6c.Xn = function (_0x6b2891) {
-          Game.Vf.eg(Game.Vf.dg, _0x6b2891 ? "true" : "false", 1800);
+          _0x2e4f75.Vf.eg(_0x2e4f75.Vf.dg, _0x6b2891 ? "true" : "false", 1800);
         };
         _0x273c6c.Tn = function () {
-          return Game.Vf.fg(Game.Vf.dg) === "true";
+          return _0x2e4f75.Vf.fg(_0x2e4f75.Vf.dg) === "true";
         };
         _0x273c6c.Rp = function (_0x2db421) {
           if (_0x2db421 !== _0x273c6c.Bp) {
@@ -9351,14 +9334,14 @@ window.addEventListener("load", function () {
           }
         };
         _0x273c6c.rp = function (_0x3667ab, _0x7801ea) {
-          Game.Vf.eg(Game.Vf.Wf, _0x3667ab ? "true" : "false");
+          _0x2e4f75.Vf.eg(_0x2e4f75.Vf.Wf, _0x3667ab ? "true" : "false");
           if (_0x7801ea) {
             _0x273c6c.Sp(_0x3667ab);
           }
           _0x273c6c.Rp(_0x3667ab);
         };
         _0x273c6c.hl = function () {
-          switch (Game.Vf.fg(Game.Vf.Wf)) {
+          switch (_0x2e4f75.Vf.fg(_0x2e4f75.Vf.Wf)) {
             case "true":
               return true;
             default:
@@ -9385,7 +9368,7 @@ window.addEventListener("load", function () {
         return _0x273c6c;
       }();
     };
-    Game.Jp = function () {
+    _0x2e4f75.Jp = function () {
       var _0xa5e986 = {
         dq: 30,
         fq: new Float32Array(100),
@@ -9402,7 +9385,7 @@ window.addEventListener("load", function () {
         Np: function () {},
         Qp: function () {},
         Lp: function () {},
-        hh: new Game.wg(),
+        hh: new _0x2e4f75.wg(),
         Kp: null,
         ch: null,
         Hi: {},
@@ -9422,7 +9405,7 @@ window.addEventListener("load", function () {
         yh: 500
       };
       _0xa5e986.hh.zg = 500;
-      _0xa5e986.ch = new Game.mi(_0xa5e986.hh);
+      _0xa5e986.ch = new _0x2e4f75.mi(_0xa5e986.hh);
       _0xa5e986.ha = function () {
         _0xa5e986.ch.ti(_0x3b5dc5().og.af.ng);
         setInterval(function () {
@@ -9598,7 +9581,7 @@ window.addEventListener("load", function () {
       };
       _0xa5e986.xq = function (_0x1a7d15, _0x160e79) {
         var _0x3c7b4d = _0x160e79 ? 128 : 0;
-        var _0x1833b0 = getRandomElement.N(_0x1a7d15) / _0x1102f8.F * 128 & 127;
+        var _0x1833b0 = _0x305823.N(_0x1a7d15) / _0x1102f8.F * 128 & 127;
         var _0x20a659 = (_0x3c7b4d | _0x1833b0) & 255;
           var _0x26c985 = new ArrayBuffer(1);
           new DataView(_0x26c985).setInt8(0, _0x20a659);
@@ -9614,11 +9597,11 @@ window.addEventListener("load", function () {
           if (_0xa5e986.mq === _0x16becb) {
             _0x1046c3();
             data = {
-              playerId: gameSettings.FB_UserID,
-              code: gameSettings.currentServer.code,
-              serverUrl: gameSettings.currentServer.server_url,
-              ordinal: gameSettings.currentServer.ordinal,
-              gameMode: gameSettings.currentServer.game_mode
+              playerId: theoKzObjects.FB_UserID,
+              code: theoKzObjects.currentServer.code,
+              serverUrl: theoKzObjects.currentServer.server_url,
+              ordinal: theoKzObjects.currentServer.ordinal,
+              gameMode: theoKzObjects.currentServer.game_mode
             };
             registerNewServer(data);
           }
@@ -9645,17 +9628,17 @@ window.addEventListener("load", function () {
     var _0x358a76 = function (_0x572a9e) {
       var _0x467a3d = {};
       _0x467a3d.main = {
-        yn: getRandomElement.ja("aqnvgcpz05orkobh", "WRM_wormate-io_300x250"),
-        Op: getRandomElement.ja("ltmolilci1iurq1i", "wormate-io_970x250"),
-        Up: getRandomElement.ga(),
+        yn: _0x305823.ja("aqnvgcpz05orkobh", "WRM_wormate-io_300x250"),
+        Op: _0x305823.ja("ltmolilci1iurq1i", "wormate-io_970x250"),
+        Up: _0x305823.ga(),
         Ap: 4,
         Tp: false,
         xn: true
       };
       _0x467a3d.miniclip = {
-        yn: getRandomElement.ja("aqnvgcpz05orkobh", "WRM_wormate-io_300x250"),
-        Op: getRandomElement.ja("ltmolilci1iurq1i", "wormate-io_970x250"),
-        Up: getRandomElement.ga(),
+        yn: _0x305823.ja("aqnvgcpz05orkobh", "WRM_wormate-io_300x250"),
+        Op: _0x305823.ja("ltmolilci1iurq1i", "wormate-io_970x250"),
+        Up: _0x305823.ga(),
         Ap: 4,
         Tp: false,
         xn: false
@@ -9681,24 +9664,24 @@ window.addEventListener("load", function () {
         version: "v14.0"
       });
     };
-    getRandomElement.L("//connect.facebook.net/" + getRandomElement.a.j + "/sdk.js", {
+    _0x305823.L("//connect.facebook.net/" + _0x305823.a.j + "/sdk.js", {
       id: "facebook-jssdk",
       async: true,
       defer: true,
       crossorigin: "anonymous"
     });
-    getRandomElement.L("//apis.google.com/js/api:client.js", null, function () {
+    _0x305823.L("//apis.google.com/js/api:client.js", null, function () {
       gapi.load("auth2", function () {
         GoogleAuth = gapi.auth2.init({
           client_id: "959425192138-qjq23l9e0oh8lgd2icnblrbfblar4a2f.apps.googleusercontent.com"
         });
       });
     });
-    getRandomElement.L("//platform.twitter.com/widgets.js", {
+    _0x305823.L("//platform.twitter.com/widgets.js", {
       id: "twitter-wjs"
     });
-    getRandomElement.L("//apis.google.com/js/platform.js");
-    _0x1bf552 = getRandomElement.zp();
+    _0x305823.L("//apis.google.com/js/platform.js");
+    _0x1bf552 = _0x305823.zp();
     _0x1bf552.Ip();
     (function () {
       try {
@@ -9744,18 +9727,13 @@ window.addEventListener("load", function () {
       _0xc61ca8();
       $(window).resize(_0xc61ca8);
     })();
-function _0x3e1f1d(_0x4961dc) {
-    setTimeout(function() {
-        window.WormCustomSaver.applyAll();
-    }, 100);
-}
     function _0x3e1f1d(_0x4961dc) {
-      if (gameSettings.PropertyManager) {
-        _0x4961dc.skinId = gameSettings.PropertyManager.lj;
-        _0x4961dc.eyesId = gameSettings.PropertyManager.mj;
-        _0x4961dc.mouthId = gameSettings.PropertyManager.nj;
-        _0x4961dc.glassesId = gameSettings.PropertyManager.oj;
-        _0x4961dc.hatId = gameSettings.PropertyManager.pj;
+      if (theoKzObjects.PropertyManager) {
+        _0x4961dc.skinId = theoKzObjects.PropertyManager.lj;
+        _0x4961dc.eyesId = theoKzObjects.PropertyManager.mj;
+        _0x4961dc.mouthId = theoKzObjects.PropertyManager.nj;
+        _0x4961dc.glassesId = theoKzObjects.PropertyManager.oj;
+        _0x4961dc.hatId = theoKzObjects.PropertyManager.pj;
       }
     }
     _0x1bf552.pCc = function () {
@@ -9772,7 +9750,7 @@ function _0x3e1f1d(_0x4961dc) {
           })
         }).then(_0x1bcab7 => _0x1bcab7.json()).then(_0x28cafa => {
           console.log(response);
-          gameSettings.visibleSkin = _0x28cafa.visibleSkin;
+          theoKzObjects.visibleSkin = _0x28cafa.visibleSkin;
           delete _0x28cafa.visibleSkin;
           for (let _0x390d96 in _0x28cafa) {
             if (_0x390d96 !== "propertyList") {
@@ -9787,7 +9765,7 @@ function _0x3e1f1d(_0x4961dc) {
             }
           }
           console.log(_0x28cafa.skinArrayDict);
-          gameSettings.pL = _0x28cafa.propertyList;
+          theoKzObjects.pL = _0x28cafa.propertyList;
           _0x4a9523.Vd(_0x323283);
         }).catch(function (_0x425cd8) {
           console.error(_0x425cd8);
@@ -9800,14 +9778,14 @@ function _0x3e1f1d(_0x4961dc) {
         var _0x44a0f7 = game_cont.offsetWidth;
         var _0x410a23 = game_cont.offsetHeight;
         var _0x390f9b = window.anApp.og.af.ng.Tg;
-        if (gameSettings.mo == 1) {
-          gameSettings.mo = 6;
-          gameSettings.j = loadJoy();
+        if (theoKzObjects.mo == 1) {
+          theoKzObjects.mo = 6;
+          theoKzObjects.j = loadJoy();
           _0x390f9b.controlMode_1.visible = false;
           _0x390f9b.controlGuie_1.visible = false;
           _0x390f9b.controlMode_4.visible = true;
-        } else if (gameSettings.mo == 6) {
-          gameSettings.mo = 4;
+        } else if (theoKzObjects.mo == 6) {
+          theoKzObjects.mo = 4;
           _0x390f9b.controlJoystick_3.visible = true;
           _0x390f9b.controlJoystick_3.x = 50;
           _0x390f9b.controlJoystick_3.y = -220 + _0x410a23;
@@ -9819,16 +9797,16 @@ function _0x3e1f1d(_0x4961dc) {
           _0x390f9b.controlSpeedIMG.y = -200 + _0x410a23;
           _0x390f9b.controlGuie_Speed.visible = false;
           removeJoy();
-        } else if (gameSettings.mo == 4) {
-          gameSettings.mo = 5;
+        } else if (theoKzObjects.mo == 4) {
+          theoKzObjects.mo = 5;
           _0x390f9b.controlJoystick_3.x = -270 + _0x44a0f7;
           _0x390f9b.controlJoystick_3.y = -220 + _0x410a23;
           _0x390f9b.controlGuie_2.x = -68 + _0x44a0f7 * 0.5;
           _0x390f9b.controlGuie_2.y = -68 + _0x410a23 * 0.5;
           _0x390f9b.controlSpeedIMG.x = 50;
           _0x390f9b.controlSpeedIMG.y = -200 + _0x410a23;
-        } else if (gameSettings.mo == 5) {
-          gameSettings.mo = 2;
+        } else if (theoKzObjects.mo == 5) {
+          theoKzObjects.mo = 2;
           _0x390f9b.controlMode_4.visible = false;
           _0x390f9b.controlJoystick_3.visible = false;
           _0x390f9b.controlMode_2.visible = true;
@@ -9843,8 +9821,8 @@ function _0x3e1f1d(_0x4961dc) {
           _0x390f9b.controlGuie_2.y = -68 + _0x410a23 * 0.5;
           _0x390f9b.controlSpeedIMG.visible = false;
           _0x390f9b.controlGuie_Speed.visible = false;
-        } else if (gameSettings.mo == 2) {
-          gameSettings.mo = 3;
+        } else if (theoKzObjects.mo == 2) {
+          theoKzObjects.mo = 3;
           _0x390f9b.controlMode_2.visible = false;
           _0x390f9b.controlJoystick_1.visible = false;
           _0x390f9b.controlJoystick_Circle_1.visible = false;
@@ -9860,8 +9838,8 @@ function _0x3e1f1d(_0x4961dc) {
           _0x390f9b.controlGuie_3.x = -68 + _0x44a0f7 * 0.5;
           _0x390f9b.controlGuie_3.y = -68 + _0x410a23 * 0.5;
           _0x390f9b.controlGuie_Speed.visible = false;
-        } else if (gameSettings.mo == 3) {
-          gameSettings.mo = 1;
+        } else if (theoKzObjects.mo == 3) {
+          theoKzObjects.mo = 1;
           _0x390f9b.controlMode_1.visible = true;
           _0x390f9b.controlGuie_1.visible = true;
           _0x390f9b.controlMode_3.visible = false;
@@ -9878,13 +9856,13 @@ function _0x3e1f1d(_0x4961dc) {
         var _0x3038db = window.anApp.og.af.ng.Tg;
         var _0x183042 = game_cont.offsetHeight * 0.5;
         var _0x5d1cba = game_cont.offsetWidth * 0.5;
-        if (gameSettings.mo == 1) {
+        if (theoKzObjects.mo == 1) {
           _0x3038db.controlGuie_1.alpha = 0.25;
           _0x3038db.controlGuie_1.x = _0x5d1cba - 68;
           _0x3038db.controlGuie_1.y = _0x183042 - 68;
         }
         ;
-        if (gameSettings.mo == 2) {
+        if (theoKzObjects.mo == 2) {
           _0x3038db.controlJoystick_1.alpha = 0.25;
           _0x3038db.controlJoystick_1.x = 50;
           _0x3038db.controlJoystick_1.y = -220 + _0x183042 * 2;
@@ -9896,7 +9874,7 @@ function _0x3e1f1d(_0x4961dc) {
           _0x3038db.controlGuie_2.y = _0x183042 - 68;
         }
         ;
-        if (gameSettings.mo == 3) {
+        if (theoKzObjects.mo == 3) {
           _0x3038db.controlJoystick_2.alpha = 0.25;
           _0x3038db.controlJoystick_2.x = -50;
           _0x3038db.controlJoystick_2.y = -220 + _0x183042 * 2;
@@ -9908,7 +9886,7 @@ function _0x3e1f1d(_0x4961dc) {
           _0x3038db.controlGuie_3.y = _0x183042 - 68;
         }
         ;
-        if (gameSettings.mo == 4) {
+        if (theoKzObjects.mo == 4) {
           _0x3038db.controlSpeedIMG.visible = true;
           _0x3038db.controlSpeedIMG.x = -250 + _0x5d1cba * 2;
           _0x3038db.controlSpeedIMG.y = -200 + _0x183042 * 2;
@@ -9919,7 +9897,7 @@ function _0x3e1f1d(_0x4961dc) {
           _0x3038db.controlGuie_2.y = _0x183042 - 68;
         }
         ;
-        if (gameSettings.mo == 5) {
+        if (theoKzObjects.mo == 5) {
           _0x3038db.controlSpeedIMG.visible = true;
           _0x3038db.controlSpeedIMG.x = 50;
           _0x3038db.controlSpeedIMG.y = -200 + _0x183042 * 2;
@@ -9930,8 +9908,8 @@ function _0x3e1f1d(_0x4961dc) {
           _0x3038db.controlGuie_2.y = _0x183042 - 68;
         }
         ;
-        if (gameSettings.mo == 6) {
-          gameSettings.j = loadJoy();
+        if (theoKzObjects.mo == 6) {
+          theoKzObjects.j = loadJoy();
         }
       }
     };
@@ -10028,7 +10006,7 @@ function _0x3e1f1d(_0x4961dc) {
       }
     };
     if (PhoneChecked()) {
-      getRandomElement.L("https://swykz.theoxt.com/wormio-wormate/js/joy.min.js", "mobileconfig", function () {});
+      _0x305823.L("https://swykz.theoxt.com/wormio-wormate/js/joy.min.js", "mobileconfig", function () {});
     }
   })();
 });
