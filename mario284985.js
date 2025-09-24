@@ -132,17 +132,10 @@ var _0x6286x23 = true;
 var game_cont = document.getElementById("game-cont");
 var game_canvas = document.getElementById("game-canvas");
 var gameSettings = {
+  To: 10,    
   FB_UserID: "",
   expirationDate: "",
   mo: 1,
-  mo1: {
-    x: -1,
-    y: -1
-  },
-  mo2: {
-    x: -1,
-    y: -1
-  },
   j: null,
   MinimapPositionX: 60,
   LeaderboardPositionX: 225,
@@ -158,7 +151,7 @@ var gameSettings = {
   topHS: true,
   invisibleName: false,
   SpeedAbility: false,
-  FlexAbility: false,
+  FlexAbility: true,
   x2Ability: false,
   x5Ability: false,
   x10Ability: false,
@@ -169,12 +162,14 @@ var gameSettings = {
   FoodTransparent: 0.3,
   KeyCodeRespawn: 189,
   KeyCodeAutoMov: localStorage.KeyAutoMov || window.keyMove,
+  KeyCodeZoomReset: 90, // مفتاح Z لإرجاع الزوم (يمكن تغييره)
+  DefaultZoomLevel: 1.5,   // المستوى الافتراضي للزوم
   FoodShadow: localStorage.ComidaShadow || 2,
   FoodSize: localStorage.ComidaSize || 2,
+  showSkinLines: false,
   headshot: 0,
   visibleSkin: [],
   pL: [],
-  gamePad: theoEvents.joystick,
   display: {
     m: {
       x: 60,
@@ -197,11 +192,20 @@ var gameSettings = {
   CLIENTE_INACTIVO: 4,
   currentServer: null
 };
+
+
+
 saveGameLocal = localStorage.getItem("SaveGameXT");
+// في قسم استرداد البيانات المحفوظة
 if (saveGameLocal && saveGameLocal !== "null") {
   let t = JSON.parse(saveGameLocal);
   for (let e in t) {
     gameSettings[e] = t[e];
+  }
+  
+  // استرداد فهرس الخلفية المحفوظة
+  if (gameSettings.savedBackgroundIndex !== undefined) {
+    gameSettings.currentBackgroundIndex = gameSettings.savedBackgroundIndex;
   }
 }
 gameSettings.loading = true;
@@ -6292,50 +6296,49 @@ window.addEventListener("load", function () {
           if (_0x4b235e.keyCode === 32) {
             _0x2834ec.An = true;
           }
+         if (_0x4b235e.keyCode === 53) { // رقم 5
+            let currentIndex = parseInt(localStorage.getItem('worm_bg_index')) || 0;
+            currentIndex = (currentIndex + 1) % window.gameBackgrounds.length;
+            localStorage.setItem('worm_bg_index', currentIndex);
+            
+            // تحديث الخلفية فوراً
+            if (_0x3b5dc5() && _0x3b5dc5().og && _0x3b5dc5().og.af && _0x3b5dc5().og.af.ng) {
+                const gameInstance = _0x3b5dc5();
+                const newTexture = new pixiElements.m(function () {
+                    var backgroundTexture = pixiElements.l.from(window.gameBackgrounds[currentIndex]);
+                    backgroundTexture.wrapMode = pixiElements.C.D;
+                    return backgroundTexture;
+                }());
+                gameInstance.og.af.ng.Lg.$g(newTexture);
+            }
+        }
+
+        // إضافة وظيفة إرجاع الزوم للمستوى 1 بالضغط على حرف Z
+        if (_0x4b235e.keyCode === 90) { // حرف Z
+            lxpdupdatezoom(gameSettings.DefaultZoomLevel);
+
+        }
+
           if (theoPay3PacketObjects.isPay3 || theoPay5PacketObjects.isPay5) {
-            if (_0x4b235e.keyCode == 83 || _0x4b235e.keyCode == 65) {
-              if (_0x4b235e.keyCode == 83) {
-                ctx.containerImgS.texture = ctx.imgS_actived;
-                ctx.containerImgA.texture = ctx.imgA_desactived;
-                _0x6286xb0();
-              }
-              if (_0x4b235e.keyCode == 65) {
-                ctx.containerImgA.texture = ctx.imgA_actived;
-                ctx.containerImgS.texture = ctx.imgS_desactived;
-                _0x6286xb4();
-              }
-            } else {
-              ctx.containerImgA.texture = ctx.imgA_desactived;
-              ctx.containerImgS.texture = ctx.imgS_desactived;
-              _0x6286x20 = false;
-              _0x6286x21 = 55;
-              _0x6286x22 = 1;
-              _0x6286x23 = true;
-              clearInterval(_0x6286x1f);
-              _0x6286x1f = null;
-            }
-            if (_0x4b235e.keyCode == 189) {
-              _0x2834ec.An = true;
-              const _0x3b8ad3 = new Uint8Array([NaN, NaN]);
-              window.wsSend(_0x3b8ad3);
-              setTimeout(function () {
-                $("#final-continue").click();
-                $("#mm-action-play").click();
-                $("#adbl-continue").click();
-              }, 1000);
-            }
-            if (theoPay5PacketObjects.isPay5) {
-              if (_0x4b235e.keyCode == 82) {
-                if (theoPay5PacketObjects.Zxt == 0.7) {
-                  theoPay5PacketObjects.Zxt = 1;
-                  ctx.containerImgZ.texture = ctx.imgZ_desactived;
-                } else {
-                  theoPay5PacketObjects.Zxt = 0.7;
-                  ctx.containerImgZ.texture = ctx.imgZ_actived;
+                if (_0x4b235e.keyCode == 83 || _0x4b235e.keyCode == 65) {
+                    if (_0x4b235e.keyCode == 83) {
+                        _0x6286xb0();
+                    }
+                    if (_0x4b235e.keyCode == 65) {
+                        _0x6286xb4();
+                    }
                 }
-              }
+                if (_0x4b235e.keyCode == 189) {
+                    _0x2834ec.An = true;
+                    const _0x3b8ad3 = new Uint8Array([NaN, NaN]);
+                    window.wsSend(_0x3b8ad3);
+                    setTimeout(function () {
+                        $("#final-continue").click();
+                        $("#mm-action-play").click();
+                        $("#adbl-continue").click();
+                    }, 1000);
+                }
             }
-          }
         }).keyup(function (_0x2039d8) {
           if (_0x2039d8.keyCode === 32) {
             _0x2834ec.An = false;
