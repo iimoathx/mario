@@ -578,9 +578,6 @@ let backgroundArena = [{
 function addHTML() {
   theoKzObjects.adblock = true;
   theoEvents.aip = true;
-  $(".description-text").empty();
-  $("#mm-skin-prev svg").remove();
-  $("#mm-skin-next svg").remove();
  
   var _0x2fc1aa = {
     sao: "br",
