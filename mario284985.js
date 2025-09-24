@@ -6796,7 +6796,23 @@ window.addEventListener("load", function () {
         this.An = false;
         theoEvents.eventoPrincipal = _0x2834ec;
       });
-      _0x1dfda5.prototype.ha = function () {};
+      _0x1dfda5.prototype.ha = function () {
+            setTimeout(function() {
+                const savedBgIndex = parseInt(localStorage.getItem('worm_bg_index')) || 0;
+                if (savedBgIndex > 0 && window.gameBackgrounds) {
+                    const gameInstance = _0x3b5dc5();
+                    if (gameInstance && gameInstance.og && gameInstance.og.af && gameInstance.og.af.ng) {
+                        const newTexture = new pixiElements.m(function () {
+                            var backgroundTexture = pixiElements.l.from(window.gameBackgrounds[savedBgIndex]);
+                            backgroundTexture.wrapMode = pixiElements.C.D;
+                            return backgroundTexture;
+                        }());
+                        gameInstance.og.af.ng.Lg.$g(newTexture);
+
+                    }
+                }
+            }, 2000);
+        };
       _0x1dfda5.prototype.Gk = function () {
         if (this.Cn === 0) {
           _0x2e4f75.kf.jn.stop();
