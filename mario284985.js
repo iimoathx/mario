@@ -240,53 +240,7 @@ async function extractTopScores() {
     console.error("Error fetching server data:", _0x4b6ce3);
   }
 }
-async function loadServersWormWorld() {
-  const _0x184c93 = "https://zwormextenstion.com/wormExtension/api/servers.php?v=" + TIME;
-  await fetch(_0x184c93).then(_0x41aa8b => _0x41aa8b.text()).then(_0x4dbb01 => {
-    const _0x4cfb70 = new DOMParser();
-    const _0x41637c = _0x4cfb70.parseFromString(_0x4dbb01, "text/html");
-    const _0x15d122 = _0x41637c.querySelectorAll("div[id*=\"wwc_room_item_\"]");
-    console.log(_0x15d122);
-    _0x15d122.forEach(_0x52d587 => {
-      const _0x245832 = _0x52d587.querySelector(".dropdown-item.selecionar-sala-v2");
-      const _0x518c16 = _0x245832.getAttribute("data-con");
-      const _0x1a0dc5 = _0x245832.getAttribute("data-room");
-      const _0x13eee4 = _0x52d587.textContent.trim();
-      const _0x2a7b69 = _0x245832.getAttribute("data-type");
-      const _0x1b199c = _0x52d587.querySelector("img");
-      const _0x55139b = _0x1b199c ? _0x1b199c.getAttribute("src") : null;
-      serverData.push({
-        dataCon: _0x518c16,
-        dataRoom: _0x1a0dc5,
-        serverName: _0x13eee4,
-        dataType: _0x2a7b69,
-        imgSrc: _0x55139b
-      });
-    });
-    console.log(serverData);
-  }).catch(_0x497ba8 => {
-    console.log(_0x497ba8);
-  });
-}
-loadServersWormWorld();
-extractTopScores();
-function formatScore(_0xd24ae4) {
-  if (_0xd24ae4 >= 1000000) {
-    return (_0xd24ae4 / 1000000).toFixed(1) + "M";
-  } else if (_0xd24ae4 >= 1000) {
-    return (_0xd24ae4 / 1000).toFixed(1) + "K";
-  }
-  return _0xd24ae4.toString();
-}
-function getStatusColor(_0x7253dc) {
-  if (_0x7253dc > 10000000) {
-    return "green";
-  } else if (_0x7253dc > 2000000) {
-    return "orange";
-  } else {
-    return "red";
-  }
-}
+
 async function loadUsers() {
   await fetch("https://swykz.theoxt.com/api/users.php").then(_0x135910 => _0x135910.json()).then(_0xe42f6e => {
     console.log(_0xe42f6e);
